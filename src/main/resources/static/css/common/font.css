@@ -1,0 +1,10 @@
+@charset "UTF-8";
+@import url("https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css");
+
+body {
+  /* font-family: 'NanumBarunGothicExtraLight'; */
+  /* font-family: 'NanumBarunGothicLight'; */
+  /* font-family: 'NanumBarunGothicBold'; */
+  font-family: 'NanumBarunGothic';
+  letter-spacing: 0.8px;
+}

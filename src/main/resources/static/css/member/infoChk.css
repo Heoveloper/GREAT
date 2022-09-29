@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/* 메인 구조 */
+.main {display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+       width: 700px; height: 625px;}
+
+
+/* 타이틀 */
+h2 {margin: 30px 0px 20px;}
+
+/* 비밀번호 */
+.pwc {display: flex; justify-content: space-evenly; align-items: center; margin: 30px 0px; outline: 1px solid #979797;
+      width: 300px; height: 45px; border-radius: 8px;}
+.pwc i {display: flex; justify-content: center;}
+.pwc .bar {display: flex; width: 1px; height: 30px; background-color: #979797;}
+.pwc input {display: flex; vertical-align: 2px; border: none; width: 200px; height: 20px; margin: 0; font-size: 18px;}
+.pwc input:focus {outline: none;}
+.pwc input::placeholder {font-size: 13px;}
+
+/* 확인 버튼 */
+.wrap-confirm-btn {padding-bottom: 50px;}
+.confirm-btn {width: 300px; height: 40px; border: none; border-radius: 5px; font-size: 15px; font-weight: bold; letter-spacing: 3px; background-color: var(--main-color-yel); color: #fff;}

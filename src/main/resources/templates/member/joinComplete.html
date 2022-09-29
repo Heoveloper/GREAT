@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head layout:fragment="head">
+    <!-- common head -->
+    <th:block th:replace="fragments/layout :: commonHead"></th:block>
+    <!-- head -->
+    <link rel="stylesheet" th:href="@{/css/member/joinComplete.css}">
+    <title>회원가입 완료</title>
+</head>
+
+<body layout:fragment="body">
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="fragments/layout :: fragNonHeader"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container">
+            <div class="title content">
+                <h2>회원가입 완료</h2>
+            </div>
+            <div class="welcome content">
+                <h3>환영합니다!</h3>
+            </div>
+            <div class="msg--1">
+                <p><label for=""><span name="memNickname" th:text="${joinComplete.memNickname}">어피치</span>님 GREAT 고객 회원가입을 축하드립니다.</label></p>
+                <p><label for="">GREAT에 가입하신 아이디는 <span name="memId" th:text="${joinComplete.memId}">abc1234</span>입니다.</label></p>
+            </div>
+            <div class="msg--2">
+                <p><label for="">GREAT에서는 항상 회원님들 입장에서</label></p>
+                <p><label for="">보다 좋은 서비스를 받으실 수 있도록 노력하겠습니다.</label></p>
+            </div>
+            <div class="wrap-login-btn content">
+                <button type="button" class="btn login-btn" th:onclick="|location.href='@{/login}'|">로그인</button>
+            </div>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="fragments/layout :: fragFooter" class="footer container"></footer>
+        <!-- //footer -->
+    </div>
+</body>
+</html>

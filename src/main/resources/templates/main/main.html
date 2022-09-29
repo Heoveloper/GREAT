@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <title>GREAT</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <link rel="stylesheet" th:href="@{/css/product/음식 카테고리.css}">
+    <script type="text/javascript" defer th:src="@{/js/main/main.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+    <header th:replace="~{layout/common_ui::choose_header}"></header>
+
+    <!-- figure -->
+    <figure class="figure container">
+        <div class="slideshow-container">
+            <div class="banner fade">
+                <img th:src="@{/img/main/bnr_1.png}" />
+            </div>
+            <div class="banner fade">
+                <img th:src="@{/img/main/bnr_2.png}" />
+            </div>
+            <div class="banner fade">
+                <img th:src="@{/img/main/bnr_3.png}" />
+            </div>
+            <div class="banner fade">
+                <img th:src="@{/img/main/bnr_4.png}" />
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <br>
+            <div style="text-align: center;">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+            </div>
+        </div>
+    </figure>
+    <!-- //figure -->
+
+    <!-- main -->
+    <main class="main container">
+        <section class="title content">오늘의 마감 할인!</section>
+        <section th:replace="~{layout/product_ui::each_product}"></section>
+        <section class="view-all content"><a th:href="@{/todayDealine}">전체보기</a></section>
+    </main>
+    <!-- //main -->
+
+    <!-- footer -->
+    <footer th:replace="~{layout/common_ui::footer}"></footer>
+    <!-- //footer -->
+</div>
+
+</body>
+</html>

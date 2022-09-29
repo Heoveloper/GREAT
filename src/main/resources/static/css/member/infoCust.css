@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+/* 메인 구조 */
+.main {display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+       width: 700px;}
+
+/* 전체 버튼 */
+button {border: none; border-radius: 5px; background-color: var(--main-color-gre);}
+
+
+/* 타이틀 */
+h2 {letter-spacing: 3px; margin: 20px; padding: 0px;}
+
+/* 입력폼 */
+.wrap-info {width: 700px;}
+.wrap-info input {width: 250px; height: 30px;
+				  border: none; border-bottom: 1px solid rgb(173, 173, 173);}
+
+.info {padding: 20px}
+.info input:focus {outline: none;}
+
+.info-ele {display: inline-flex; width: 600px;}
+.info-ele button {width: 100px; height: 30px;}
+.info-ele--1 {display: flex; justify-content: flex-start; align-items: center;
+		 	   width: 120px; text-align: left; margin-left: 30px;}
+.info-ele--1 span {color: var(--color-red)}
+.info-ele--2 {flex: 1 1 0%;}
+.info-ele--3 {display: flex; justify-content: flex-start; align-items: center;
+               width: 150px; align-items: right;}
+
+/* 유효성검사 표시 */
+.vali-ele {display: inline-flex; width: 600px; margin-top: 5px; margin-bottom: 15px;}
+.vali-ele--1 {display: flex; justify-content: flex-start; align-items: center;
+               width: 120px; margin-left: 30px; font-size: 12px;}
+.vali-ele--2 {flex: 1 1 0%; font-size: 12px; color: var(--color-red);
+			   text-align: left; margin-left: 30px;}
+.vali-ele--3 {display: flex; justify-content: flex-start; align-items: center;
+               width: 150px; align-items: right;}
+
+/* 메인 및 수정 버튼 */
+.main-btn, .modify-btn {padding: 10px 70px; margin: 10px; background-color: var(--main-color-yel);}
+.wrap-btn label {font-weight: bold; margin-left: 5px;}
+
+/* 탈퇴 */
+.withdraw {display: flex; justify-content: right; font-size: 0.9em;}
+.withdraw i {margin-right: 5px;}
+
+
+/* 우편번호, 참고주소 감추기 */
+.hidden-address {display: none;}
+
+
+/* 모달 팝업 */
+.background {position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.2); z-index: -1; opacity: 0;}
+.wrap-pop-up {position: relative; width: 100%; height: 100%;}
+.pop-up {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+         width: 500px; height: 380px; text-align: center; background: #fff;}
+
+/* 버튼 클릭 시 팝업 등장 */
+.show {z-index: 1000; opacity: 1; transition: all 0.5s;}
+.show .pop-up {transform: translate(-50%, -50%); transition: all 0.5s;}
+
+/* 모달 팝업 레이아웃 */
+.pop-up {display: flex; flex-direction: column; align-items: center;}
+.close a {display: flex; position: absolute; top: 15px; right: 10px}
+.alert {padding: 30px 0px;}
+.alert h2 {margin: 30px 0px;}
+.pwc {display: flex; justify-content: space-evenly; align-items: center; margin-top: 10px; margin-bottom: 57px;
+	  outline: 1px solid #979797; width: 300px; height: 45px; border-radius: 8px;}
+.pwc i {display: flex; justify-content: center;}
+.pwc .bar {display: flex; width: 1px; height: 30px; background-color: #979797;}
+.pwc input {display: flex; vertical-align: 2px; border: none; width: 200px; height: 20px; margin: 0; font-size: 18px;}
+.pwc input:focus {outline: none;}
+.pwc input::placeholder {font-size: 13px;}
+.location-choice {display: table; table-layout: fixed; width: 100%; height: 64px; color: white;}
+.location-choice :nth-child(1) {background: #979797;}
+.location-choice :nth-child(2) {background: var(--color-red);}
+.location-choice a {display: table-cell; position: relative; vertical-align: middle; text-align: center;
+                    border: none; letter-spacing: 3px;}

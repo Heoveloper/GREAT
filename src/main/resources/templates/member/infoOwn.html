@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head layout:fragment="head">
+    <!-- common head -->
+    <th:block th:replace="fragments/layout :: commonHead"></th:block>
+    <!-- head -->
+    <link rel="stylesheet" th:href="@{/css/member/infoOwn.css}">
+    <script th:src="@{/js/member/info.js}"></script>
+    <title>점주회원 개인정보</title>
+</head>
+
+<body layout:fragment="body">
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="fragments/layout :: fragMemHeader"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container">
+            <div class="title content">
+                <h2>회원정보</h2>
+            </div>
+            <div class="wrap-info content">
+                <form method="POST" action="/member/owner/${session.loginMember.memNumber}" class="info" th:object="${info}">
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">아이디<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요." readonly></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">비밀번호<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memPassword}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">비밀번호 확인<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memPasswordCheck}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">이름<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memName}" placeholder="이름을 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memName}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">닉네임<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memNickname}" placeholder="닉네임을 입력하세요."></div>
+                        <div class="info-ele--3"><button>중복확인</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memNickname}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">이메일<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="email" th:field="*{memEmail}" placeholder="이메일을 입력하세요."></div>
+                        <div class="info-ele--3"><button>인증번호 발송</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memEmail}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">인증번호<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" placeholder="인증번호를 입력하세요."></div>
+                        <div class="info-ele--3"><button>인증번호 확인</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">사업자번호<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memBusinessnumber}" placeholder="사업자번호를 입력하세요. (- 제외)"></div>
+                        <div class="info-ele--3"><button>인증</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memBusinessnumber}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">가게명<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStoreName}" placeholder="가게명을 입력하세요."></div>
+                        <div class="info-ele--3"><button>가게 찾기</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStoreName}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">가게 연락처<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStorePhonenumber}" placeholder="가게 연락처를 입력하세요. (- 제외)"></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStorePhonenumber}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">가게 주소<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStoreLocation}" class="address" placeholder="가게 주소를 입력하세요."
+                                                        readonly></div>
+                        <div class="info-ele--3"><button type="button" class="btn addr-search-btn">주소 검색</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStoreLocation}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"></div>
+                        <div class="info-ele--2"><input type="text" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="hidden-address">
+                        <div class="join-ele">
+                            <div class="join-ele--1"></div>
+                            <div class="join-ele--2"><input type="text" class="postcode" placeholder="우편 번호를 입력하세요." readonly></div>
+                            <div class="join-ele--3"></div>
+                        </div>
+                        <div class="vali-ele">
+                            <div class="vali-ele--1"></div>
+                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--3"></div>
+                        </div>
+                        <div class="join-ele">
+                            <div class="join-ele--1"></div>
+                            <div class="join-ele--2"><input type="text" class="extra-address" placeholder="참고 항목을 입력하세요." readonly></div>
+                            <div class="join-ele--3"></div>
+                        </div>
+                        <div class="vali-ele">
+                            <div class="vali-ele--1"></div>
+                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--3"></div>
+                        </div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">가게 소개</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStoreIntroduce}" placeholder="가게 소개를 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStoreIntroduce}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">SNS</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStoreSns}" placeholder="인증번호를 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStoreSns}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="wrap-btn content">
+                        <button class="btn main-btn" th:onclick="|location.href='@{/}'|">
+                            <i class="fa-solid fa-house"></i>
+                            <label for="">메인 화면</label>
+                        </button>
+                        <button type="submit" class="btn modify-btn">
+                            <i class="fa-solid fa-pen"></i>
+                            <label for="">수정 완료</label>
+                        </button>
+                    </div>
+                    <div class="withdraw content">
+                        <a href="javascript:show();"><i class="fa-solid fa-arrow-right-from-bracket"></i>회원 탈퇴</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="fragments/layout :: fragFooter" class="footer container"></footer>
+        <!-- //footer -->
+
+        <!-- 모달 팝업 -->
+        <div class="background">
+            <div class="wrap-pop-up">
+                <div class="pop-up">
+                    <div class="close">
+                        <a href="javascript:close();"><i class="fa-solid fa-xmark fa-lg"></i></a>
+                    </div>
+                    <div class="alert">
+                        <div class="title">
+                            <h2>정말 탈퇴하시겠습니까?</h2>
+                        </div>
+                        <div class="withdraw-desc">
+                            <p>탈퇴 후 데이터는 복구할 수 없으며 30일 보관 후 삭제됩니다.</p>
+                            <p>탈퇴를 원하시면 비밀번호를 입력해주세요.</p>
+                        </div>
+                    </div>
+                    <div class="pwc">
+                        <i class="fa-solid fa-key"></i>
+                        <i class="bar"></i>
+                        <input type="password" placeholder="비밀번호를 입력하세요." />
+                    </div>
+                    <div class="location-choice">
+                        <a href="javascript:close();">
+                            돌아가기
+                        </a>
+                        <a class="exit-btn" href="#" onclick="return false;">
+                            탈퇴
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //모달 팝업 -->
+    </div>
+
+    <!-- script -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+		$addrSearchBtn = document.querySelector('.addr-search-btn');
+		$addrSearchBtn.addEventListener('click', e => {
+			console.log('클릭');
+			new daum.Postcode({
+				oncomplete: function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					let addr = ''; // 주소 변수
+					let extraAddr = ''; // 참고항목 변수
+
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+					if(data.userSelectedType === 'R'){
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+							extraAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if(data.buildingName !== '' && data.apartment === 'Y'){
+							extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+						}
+						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+						if(extraAddr !== ''){
+							extraAddr = ' (' + extraAddr + ')';
+						}
+						// 조합된 참고항목을 해당 필드에 넣는다.
+						document.querySelector(".extra-address").value = extraAddr;
+
+					} else {
+						document.querySelector(".extra-address").value = '';
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.querySelector('.postcode').value = data.zonecode;
+					document.querySelector(".address").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.querySelector(".detailedAddress").focus();
+				}
+        	}).open();
+		});
+	</script>
+    <script>
+        const $exitBtn = document.querySelector('.exit-btn');
+        const memNumber = [[${info.memNumber}]];
+
+        $exitBtn.addEventListener('click', e => {
+            //회원탈퇴 경고창 노출
+            if(!confirm('탈퇴하시겠습니까?')) return;
+
+            //회원탈퇴
+            exit(memNumber);
+
+            //회원탈퇴 완료창 노출
+            alert('탈퇴되었습니다.');
+
+            //회원탈퇴 완료 후 메인화면으로 이동
+            window.location.href = 'http://localhost:8080/';
+        });
+
+        //회원탈퇴 함수
+        function exit(memNumber){
+          const url = `/api/member/exit`;
+          const data = { "memNumber" : memNumber };
+          fetch(url, {
+            method:'DELETE',
+            headers:{
+              'Accept':'application/json',
+              'Content-type': 'application/json'
+            },
+            body:JSON.stringify(data)
+          }).then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        }
+    </script>
+    <!-- //script -->
+</body>
+</html>

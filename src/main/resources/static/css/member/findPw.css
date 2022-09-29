@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+/* 메인 구조 */
+.main {display: flex; flex-direction: column; align-items: center; text-align: center;
+       width: 700px; height: 625px;}
+.wrap-find-pw {display: flex; flex-direction: column; align-items: center; padding-top: 50px;}
+
+
+/* 타이틀 */
+h1 {margin: 50px 0px; padding: 0;}
+h2 {margin: 30px 0px 10px;}
+
+/* 비밀번호 찾기 항목 입력 */
+.input-data {display: flex; flex-direction: column; width: 400px; margin-left: 80px;}
+.wrap-id {display: flex; justify-content: left; align-items: center;}
+.id {display: flex; align-items: center; justify-content: center; width: 300px; outline: 1px solid #979797; border-radius: 8px; margin-top: 10px;}
+.wrap-email {display: flex; justify-content: left; align-items: center;}
+.email {display: flex; align-items: center; justify-content: center; width: 300px; outline: 1px solid #979797; border-radius: 8px; margin: 10px 10px 0px 0px;}
+.wrap-certify {display: flex; justify-content: left; align-items: center;}
+.certify {display: flex; align-items: center; justify-content: center; width: 300px; outline: 1px solid #979797; border-radius: 8px; margin: 10px 10px 0px 0px;}
+.input-data .icon__id {width: 20px; height: 20px; font-size: 20px; margin: 0px 20px; color: black}
+.input-data .icon__email {width: 20px; height: 20px; font-size: 20px; margin: 0px 19px; color: black;}
+.input-data .icon__certify {width: 20px; height: 20px; font-size: 20px; margin: 0px 20px; color: black;}
+.bar__id, .bar__email, .bar__certify {display: flex; width: 1px; height: 30px; background-color: #979797;}
+.input-data input {width: 250px; height: 25px; margin: 10px; border: none; font-size: 14px;}
+.input-data input:focus {outline: none;}
+
+/* 확인 버튼 */
+.confirm-btn {width: 200px; height: 45px; font-size: 15px; font-weight: bold;
+              margin-top: 30px; background-color: var(--main-color-yel); color: #fff;
+              border: none; border-radius: 5px; letter-spacing: 3px;}
+
+.send-btn, .certify-btn {width: 100px; height: 30px; font-size: 12px; font-weight: bold;
+                         border: none; border-radius: 5px; margin-top: 10px; background-color: var(--main-color-gre);
+                         color: gray;}

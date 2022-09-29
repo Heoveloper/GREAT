@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head layout:fragment="head">
+    <!-- common head -->
+    <th:block th:replace="fragments/layout :: commonHead"></th:block>
+    <!-- head -->
+    <link rel="stylesheet" th:href="@{/css/member/main.css}">
+    <title>메인</title>
+</head>
+
+<body layout:fragment="body">
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="fragments/layout :: fragNonHeader"></header>
+        <!-- //header -->
+
+        <!-- figure -->
+        <figure class="figure container">
+            <div class="slideshow-container">
+                <div class="banner fade">
+                    <img th:src="@{/img/main/bnr_1.png}" alt="">
+                </div>
+                <div class="banner fade">
+                    <img th:src="@{/img/main/bnr_2.png}" alt="">
+                </div>
+                <div class="banner fade">
+                    <img th:src="@{/img/main/bnr_3.png}" alt="">
+                </div>
+                <div class="banner fade">
+                    <img th:src="@{/img/main/bnr_4.png}" alt="">
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                <br>
+                <div style="text-align: center;">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
+            </div>
+        </figure>
+        <!-- //figure -->
+
+        <!-- main -->
+        <main class="main container">
+            <section class="title content">오늘의 마감 할인!</section>
+            <section class="items content">
+                <div class="item">
+                    <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                                                        alt=""></a>
+                    <a href="#" class="item__title">딸기 케이크 <i id="heart" class="fa-solid fa-heart"></i></a>
+
+                    <div class="item__price-box">
+                        <div class="item__discount-rate">33%</div>
+                        <div class="item__price">15,000원</div>
+                    </div>
+                    <div class="item__time-box">
+                        <div class="item__magam">마감시간</div>
+                        <div class="item__time">06:00 P.M.</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                                                        alt=""></a>
+                    <a href="#" class="item__title">딸기 케이크 <i id="heart" class="fa-solid fa-heart"></i></a>
+
+                    <div class="item__price-box">
+                        <div class="item__discount-rate">33%</div>
+                        <div class="item__price">15,000원</div>
+                    </div>
+                    <div class="item__time-box">
+                        <div class="item__magam">마감시간</div>
+                        <div class="item__time">06:00 P.M.</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                                                        alt=""></a>
+                    <a href="" class="item__title">딸기 케이크</a>
+                    <div class="item__price-box">
+                        <div class="item__discount-rate">33%</div>
+                        <div class="item__price">15,000원</div>
+                    </div>
+                    <div class="item__time-box">
+                        <div class="item__magam">마감시간</div>
+                        <div class="item__time">06:00 P.M.</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                                                        alt=""></a>
+                    <a href="" class="item__title">딸기 케이크</a>
+                    <div class="item__price-box">
+                        <div class="item__discount-rate">33%</div>
+                        <div class="item__price">15,000원</div>
+                    </div>
+                    <div class="item__time-box">
+                        <div class="item__magam">마감시간</div>
+                        <div class="item__time">06:00 P.M.</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                                                        alt=""></a>
+                    <a href="" class="item__title">딸기 케이크</a>
+                    <div class="item__price-box">
+                        <div class="item__discount-rate">33%</div>
+                        <div class="item__price">15,000원</div>
+                    </div>
+                    <div class="item__time-box">
+                        <div class="item__magam">마감시간</div>
+                        <div class="item__time">06:00 P.M.</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                                                        alt=""></a>
+                    <a href="" class="item__title">딸기 케이크</a>
+                    <div class="item__price-box">
+                        <div class="item__discount-rate">33%</div>
+                        <div class="item__price">15,000원</div>
+                    </div>
+                    <div class="item__time-box">
+                        <div class="item__magam">마감시간</div>
+                        <div class="item__time">06:00 P.M.</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                                                        alt=""></a>
+                    <a href="" class="item__title">딸기 케이크</a>
+                    <div class="item__price-box">
+                        <div class="item__discount-rate">33%</div>
+                        <div class="item__price">15,000원</div>
+                    </div>
+                    <div class="item__time-box">
+                        <div class="item__magam">마감시간</div>
+                        <div class="item__time">06:00 P.M.</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="" class="item__image"><img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"
+                                                        alt=""></a>
+                    <a href="" class="item__title">딸기 케이크</a>
+                    <div class="item__price-box">
+                        <div class="item__discount-rate">33%</div>
+                        <div class="item__price">15,000원</div>
+                    </div>
+                    <div class="item__time-box">
+                        <div class="item__magam">마감시간</div>
+                        <div class="item__time">06:00 P.M.</div>
+                    </div>
+                </div>
+            </section>
+            <section class="view-all content"><a href="">전체보기</a></section>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="fragments/layout :: fragFooter" class="footer container"></footer>
+        <!-- //footer -->
+    </div>
+
+    <!-- script -->
+    <script th:src="@{/js/member/main.js}"></script>
+    <!-- //script -->
+</body>
+</html>

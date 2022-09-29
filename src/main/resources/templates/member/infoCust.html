@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head layout:fragment="head">
+    <!-- common head -->
+    <th:block th:replace="fragments/layout :: commonHead"></th:block>
+    <!-- head -->
+    <link rel="stylesheet" th:href="@{/css/member/infoCust.css}">
+    <script th:src="@{/js/member/info.js}"></script>
+    <title>고객회원 개인정보</title>
+</head>
+
+<body layout:fragment="body">
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="fragments/layout :: fragMemHeader"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container">
+            <div class="title content">
+                <h2>회원정보</h2>
+            </div>
+            <div class="wrap-info content">
+                <form method="POST" action="/member/customer/${session.loginMember.memNumber}" class="info" th:object="${info}">
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">아이디<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요." readonly></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">비밀번호<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memPassword}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">비밀번호 확인<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memPasswordCheck}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">이름<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memName}" placeholder="이름을 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memName}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">닉네임<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memNickname}" placeholder="닉네임을 입력하세요."></div>
+                        <div class="info-ele--3"><button>중복확인</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memNickname}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">이메일<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="email" th:field="*{memEmail}" placeholder="이메일을 입력하세요."></div>
+                        <div class="info-ele--3"><button>인증번호 발송</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memEmail}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">인증번호<span> *</span></label></div>
+                        <div class="info-ele--2"><input type="text" placeholder="인증번호를 입력하세요."></div>
+                        <div class="info-ele--3"><button>인증번호 확인</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="wrap-btn content">
+                        <button class="btn main-btn" th:onclick="|location.href='@{/}'|">
+                            <i class="fa-solid fa-house"></i>
+                            <label for="">메인 화면</label>
+                        </button>
+                        <button type="submit" class="btn modify-btn">
+                            <i class="fa-solid fa-pen"></i>
+                            <label for="">수정 완료</label>
+                        </button>
+                    </div>
+                    <div class="withdraw content">
+                        <a href="javascript:show();"><i class="fa-solid fa-arrow-right-from-bracket"></i>회원 탈퇴</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="fragments/layout :: fragFooter" class="footer container"></footer>
+        <!-- //footer -->
+
+        <!-- 모달 팝업 -->
+        <div class="background">
+            <div class="wrap-pop-up">
+                <div class="pop-up">
+                    <div class="close">
+                        <a href="javascript:close();"><i class="fa-solid fa-xmark fa-lg"></i></a>
+                    </div>
+                    <div class="alert">
+                        <div class="title">
+                            <h2>정말 탈퇴하시겠습니까?</h2>
+                        </div>
+                        <div class="withdraw-desc">
+                            <p>탈퇴 후 데이터는 복구할 수 없으며 30일 보관 후 삭제됩니다.</p>
+                            <p>탈퇴를 원하시면 비밀번호를 입력해주세요.</p>
+                        </div>
+                    </div>
+                    <div class="pwc">
+                        <i class="fa-solid fa-key"></i>
+                        <i class="bar"></i>
+                        <input id="aa" type="password" placeholder="비밀번호를 입력하세요." />
+                    </div>
+                    <div class="location-choice">
+                        <a href="javascript:close();">
+                            돌아가기
+                        </a>
+                        <a class="exit-btn" href="#" onclick="return false;">
+                            탈퇴
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //모달 팝업 -->
+    </div>
+
+    <script>
+        const $exitBtn = document.querySelector('.exit-btn');
+        const memNumber = [[${info.memNumber}]];
+
+        $exitBtn.addEventListener('click', e => {
+            //회원탈퇴 경고창 노출
+            if(!confirm('탈퇴하시겠습니까?')) return;
+
+            //회원탈퇴
+            exit(memNumber);
+
+            //회원탈퇴 완료창 노출
+            alert('탈퇴되었습니다.');
+
+            //회원탈퇴 완료 후 메인화면으로 이동
+            window.location.href = 'http://localhost:8080/';
+        });
+
+        //회원탈퇴 함수
+        function exit(memNumber){
+          const url = `/api/member/exit`;
+          const data = { "memNumber" : memNumber };
+          fetch(url, {
+            method:'DELETE',
+            headers:{
+              'Accept':'application/json',
+              'Content-type': 'application/json'
+            },
+            body:JSON.stringify(data)
+          }).then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        }
+    </script>
+</body>
+</html>

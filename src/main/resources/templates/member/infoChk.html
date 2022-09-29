@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<head layout:fragment="head">
+    <!-- common head -->
+    <th:block th:replace="fragments/layout :: commonHead"></th:block>
+    <!-- head -->
+    <link rel="stylesheet" th:href="@{/css/member/infoChk.css}">
+    <title>개인정보 조회 및 수정 본인확인</title>
+</head>
+
+<body layout:fragment="body">
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="fragments/layout :: fragMemHeader"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container">
+            <div class="title content">
+                <h2>개인정보</h2>
+            </div>
+            <div class="msg content">
+                <p>개인정보 조회 및 수정을 원하시면 비밀번호를 입력해주세요.</p>
+            </div>
+            <form method="POST" action="/member/infoChk" th:object="${infoChk}">
+                <div class="pwc">
+                    <i class="fa-solid fa-key"></i>
+                    <i class="bar"></i>
+                    <input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요." />
+                </div>
+                <div class="wrap-confirm-btn content">
+                    <button type="submit" class="btn confirm-btn">확인</button>
+                </div>
+            </form>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="fragments/layout :: fragFooter" class="footer container"></footer>
+        <!-- //footer -->
+    </div>
+</body>
+</html>

@@ -43,15 +43,15 @@ $confirmCodeBtn = document.querySelector('.confirm-code-btn');
 //주소 검색 버튼
 $addrSearchBtn = document.querySelector('.addr-search-btn');
 
-//사업자번호 인증 버튼
-$bnConfirmBtn = document.querySelector('.bn-confirm-btn');
-
-//사업자번호 입력값
-const $memBusinessnumber = memBusinessnumber.value;
-
-//공공데이터 encoding 인증키
+////사업자번호 인증 버튼
+//$bnConfirmBtn = document.querySelector('.bn-confirm-btn');
+//
+////사업자번호 입력값
+//const $memBusinessnumber = memBusinessnumber.value;
+//
+////공공데이터 encoding 인증키
 //const enKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D;
-//공공데이터 decoding 인증키
+////공공데이터 decoding 인증키
 //const deKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z/Pg0ebD8OFZz2/vx5XFDgH7o+KaOoIG9IVDYNw==;
 
 //인증번호 발송 버튼 클릭시
@@ -133,27 +133,28 @@ $addrSearchBtn.addEventListener('click', e => {
     }).open();
 });
 
-//사업자번호 인증 버튼 클릭시
-$bnConfirmBtn.addEventListener('click', e => {
-    if(!confirm('조회?')) return;
-    //bnConfirm($memBusinessnumber);
-});
-
-//사업자번호 인증 함수
-function bnConfirm($memBusinessnumber) {
-    const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=` + deKey;
-    const data = { "b_no": [$memBusinessNumber] };
-    fetch(url, {
-        method: 'POST',
-        headers: {
-          'Accept':'application/json',
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(res => res.json())
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-}
+////사업자번호 인증 버튼 클릭시
+//$bnConfirmBtn.addEventListener('click', e => {
+//    if(!confirm('조회?')) return;
+//    bnConfirm($memBusinessnumber);
+//});
+//
+////사업자번호 인증 함수
+//function bnConfirm($memBusinessnumber) {
+//    const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D`;
+//    const data = { "b_no": [$memBusinessNumber] };
+//    fetch(url, {
+//        method: 'POST',
+//        headers: {
+//          'Accept':'application/json',
+//          'Content-type': 'application/json'
+//        },
+////        body: JSON.stringify(data)
+//        body: data
+//    }).then(res => res.json())
+//      .then(res => console.log(res))
+//      .catch(err => console.log(err));
+//}
 
 //회원탈퇴 함수
 //function exit(memNumber){

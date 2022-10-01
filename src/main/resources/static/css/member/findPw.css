@@ -30,6 +30,6 @@ h2 {margin: 30px 0px 10px;}
               margin-top: 30px; background-color: var(--main-color-yel); color: #fff;
               border: none; border-radius: 5px; letter-spacing: 3px;}
 
-.send-btn, .certify-btn {width: 100px; height: 30px; font-size: 12px; font-weight: bold;
+.send-code-btn, .confirm-code-btn {width: 100px; height: 30px; font-size: 12px; font-weight: bold;
                          border: none; border-radius: 5px; margin-top: 10px; background-color: var(--main-color-gre);
                          color: gray;}

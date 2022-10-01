@@ -2,10 +2,10 @@
 arrayType('recentList');
 
 function arrayType(requestUrl) {
-    const URL = requestUrl === 'recentList' ? `http://localhost:9089/api/zonning/recentList`
-                : requestUrl === 'discountListDesc' ? `http://localhost:9089/api/zonning/discountListDesc`
-                : requestUrl === 'priceList' ? `http://localhost:9089/api/zonning/priceList`
-                : requestUrl === 'priceListDesc' ? `http://localhost:9089/api/zonning/priceListDesc`
+    const URL = requestUrl === 'recentList' ? `/api/zonning/recentList`
+                : requestUrl === 'discountListDesc' ? `/api/zonning/discountListDesc`
+                : requestUrl === 'priceList' ? `/api/zonning/priceList`
+                : requestUrl === 'priceListDesc' ? `/api/zonning/priceListDesc`
                 : `doesn\'t exist`;
     if(URL === `doesn\'t exist`) {
         console.log("URL load error");

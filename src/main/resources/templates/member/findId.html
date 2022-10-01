@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/layout}">
-<head layout:fragment="head">
-    <!-- common head -->
-    <th:block th:replace="fragments/layout :: commonHead"></th:block>
-    <!-- head -->
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
     <link rel="stylesheet" th:href="@{/css/member/findId.css}">
+    <script type="text/javascript" defer th:src="@{/js/member/findId.js}"></script>
     <title>아이디 찾기</title>
 </head>
 
-<body layout:fragment="body">
+<body>
     <div class="wrapper">
-        <!-- header -->
-        <header th:replace="fragments/layout :: fragNonHeader"></header>
-        <!-- //header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
 
         <!-- main -->
         <main class="main container">
@@ -47,7 +41,7 @@
         <!-- //main -->
 
         <!-- footer -->
-        <footer th:replace="fragments/layout :: fragFooter" class="footer container"></footer>
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
         <!-- //footer -->
 
         <!-- 모달 팝업 -->
@@ -70,48 +64,5 @@
         </div>
         <!-- //모달 팝업 -->
     </div>
-
-    <script>
-        const $confirmBtn = document.querySelector('.confirm-btn');
-        const $spanId = document.querySelector('.span-id');
-        const $spanReg = document.querySelector('.span-reg');
-
-        $confirmBtn.addEventListener('click', e => {
-            $spanId.textContent = '찾은 아이디';
-            $spanReg.textContent = '찾은 등록일자';
-
-            const name = inputName.value;
-            const email = inputEmail.value;
-            findId(name, email);
-
-            console.log(name, email);
-
-            document.querySelector(".background").className = "background show";
-           
-        });
-
-        function findId(name, email) {
-            const url = `/api/member/findId`;
-            const data = { "memName" : name, "memEmail" : email };
-            fetch(url, {
-                method:'POST',
-                headers:{
-                  'Accept':'application/json',
-                  'Content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(res => res.json())
-              .then(res => {
-                console.log(res);
-                if (res.header.rtcd == '00') {
-                    res.data[1] = res.data[1].substr(0, 10);
-                    $spanId.textContent = res.data[0];
-                    $spanReg.textContent = res.data[1];
-                } else {
-                    console.log(res);
-                }
-              }).catch(err => console.log(err));
-        }
-    </script>
 </body>
 </html>

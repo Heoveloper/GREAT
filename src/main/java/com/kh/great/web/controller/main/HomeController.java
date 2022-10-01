@@ -6,10 +6,7 @@ import com.kh.great.domain.dao.product.Product;
 import com.kh.great.domain.svc.member.MemberSVC;
 import com.kh.great.domain.svc.product.ProductSVC;
 import com.kh.great.web.api.member.FindId;
-import com.kh.great.web.dto.member.Join;
-import com.kh.great.web.dto.member.JoinComplete;
-import com.kh.great.web.dto.member.Login;
-import com.kh.great.web.dto.member.ResetPw;
+import com.kh.great.web.dto.member.*;
 import com.kh.great.web.session.LoginMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,29 +36,11 @@ public class HomeController {
 
     @GetMapping
     public String home(HttpServletRequest request, Model model) {
-
         List<Product> list = productSVC.today_deadline();
 
         model.addAttribute("list", list);
 
-        System.out.println( model);
         return "main/main";
-
-//        List<Product> list = productSVC.today_deadline();
-//        model.addAttribute("list", list);
-
-//        String view = null;
-//        HttpSession session = request.getSession(false);
-//        view = (session == null) ? "main/main" : "main/main" ;
-
-//        return view;
-//        return "main/main";
-
-//        String view = null;
-//        HttpSession session = request.getSession(false);
-//        view = (session == null) ? "main/main_old" : "main/mainMember" ;
-//
-//        return view;
     }
 
     //회원가입 화면
@@ -76,7 +55,6 @@ public class HomeController {
     @PostMapping("/join")
     public String join(
             @Valid @ModelAttribute("join") Join join,
-            Model model,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes
     ) {
@@ -144,27 +122,21 @@ public class HomeController {
     //비밀번호 찾기 화면
     @GetMapping("/findPw")
     public String findPw(Model model) {
+        model.addAttribute("findPw", new FindPw());
 
         return "member/findPw";
     }
 
     //비밀번호 찾기 처리
-//    @PostMapping("/findPw")
-//    public String findPw(
-//            @Valid @ModelAttribute("findPw") FindPw findPw,
-//            BindingResult bindingResult
-//    ) {
-//        //기본 검증
-////        if (bindingResult.hasErrors()) {
-////            log.info("errors = {}", bindingResult);
-////            return "member/findPw";
-////        }
-//
-//        emailSVC.sendForgotPassword(findPw.getMemId(), findPw.getMemEmail());
-//
-//        return "redirect:/login";
-//
-//    }
+    @PostMapping("/findPw")
+    public String findPw(
+            @Valid @ModelAttribute("findPw") FindPw findPw,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes
+    ) {
+
+        return "redirect:/resetPw";
+    }
 
     //비밀번호 재설정 화면
     @GetMapping("/resetPw")
@@ -213,10 +185,6 @@ public class HomeController {
         session.setAttribute("memNumber", member.get().getMemNumber());
         session.setAttribute("memType", member.get().getMemType());
         session.setAttribute("memNickname", member.get().getMemNickname());
-
-//        if(requestURI.equals("/")){
-//            return "mainMember";
-//        }
 
         return "redirect:" + redirectUrl;
     }

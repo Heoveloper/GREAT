@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/layout}">
-<head layout:fragment="head">
-    <!-- common head -->
-    <th:block th:replace="fragments/layout :: commonHead"></th:block>
-    <!-- head -->
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
     <link rel="stylesheet" th:href="@{/css/member/findPw.css}">
+    <script type="text/javascript" defer th:src="@{/js/member/findPw.js}"></script>
     <title>비밀번호 찾기</title>
 </head>
-
-<body layout:fragment="body">
+<body>
     <div class="wrapper">
-        <!-- header -->
-        <header th:replace="fragments/layout :: fragNonHeader"></header>
-        <!-- //header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
 
         <!-- main -->
         <main class="main container">
@@ -27,7 +20,7 @@
                 <div class="find-pw-title">
                     <h2>비밀번호 찾기</h2>
                 </div>
-                <form action="" method="POST">
+                <form action="" method="POST" th:object="${findPw}">
                     <div class="input-data content">
                         <div class="wrap-id">
                             <div class="id">
@@ -40,17 +33,17 @@
                             <div class="email">
                                 <i class="icon__email fa-regular fa-envelope"></i>
                                 <i class="bar__email"></i>
-                                <input type="email" placeholder="이메일 주소를 입력하세요." />
+                                <input type="email" th:field="*{memEmail}" placeholder="이메일 주소를 입력하세요.">
                             </div>
-                            <button class="btn send-btn">인증번호 발송</button>
+                            <button type="button" class="btn send-code-btn">인증번호 발송</button>
                         </div>
                         <div class="wrap-certify">
                             <div class="certify">
                                 <i class="icon__certify fa-solid fa-check"></i>
                                 <i class="bar__certify"></i>
-                                <input type="text" placeholder="인증번호를 입력하세요." />
+                                <input type="text" id="memCode" name="memCode" value="memCode" placeholder="인증번호를 입력하세요.">
                             </div>
-                            <button class="btn certify-btn">인증번호 확인</button>
+                            <button type="button" class="btn confirm-code-btn">인증번호 확인</button>
                         </div>
                     </div>
                     <div class="wrap-confirm-btn content">
@@ -62,7 +55,7 @@
         <!-- //main -->
 
         <!-- footer -->
-        <footer th:replace="fragments/layout :: fragFooter" class="footer container"></footer>
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
         <!-- //footer -->
     </div>
 </body>

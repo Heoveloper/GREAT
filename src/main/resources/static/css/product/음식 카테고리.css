@@ -1,0 +1,219 @@
+@charset "UTF-8";
+
+/* * {outline: 1px solid black;} */
+
+  /* main */
+.main {
+  display:block;
+  margin: auto;
+  padding: 1rem 0px 10rem;
+}
+
+.main > .title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin : 20px 0px;
+  width: 100%;
+}
+
+/* main 업종 카테고리 */
+.main > .food-type{
+  display: flex;
+  flex-direction: column;
+}
+
+.food-type > ul{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 40px;
+  /* font-family: 'NanumBarunGothicLight'; */
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.food-type > ul > li{
+  width: 70px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  outline: 1px solid var(--mainBtn-color-gre);
+  margin-right: 20px;
+}
+
+.food-type > ul > #food-type_selected {
+  background-color: var(--main-color-yel);
+  outline: none;
+}
+
+.food-type> ul > li:hover {
+  background-color: rgba(226, 226, 183, 0.267);
+}
+/* //main 업종 카테고리 */
+
+/* 정렬 방법 */
+.view_array {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+
+.main > .view_array > .view_array-type > ul {
+  display: flex;
+}
+
+.main > .view_array > .view_array-type > ul >li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 24px;
+  margin-left: 8px;
+  color: var(--main-text-gre);
+}
+
+.main > .view_array > .view_array-type > ul >li:nth-child(1):before {
+  display: none;
+}
+
+.main > .view_array > .view_array-type > ul >li::before {
+  content: "";
+  display: flex;
+  width: 1px;
+  height: 10px;
+  margin-right: 10px;
+  background-color: var(--main-text-gre);
+}
+
+/* main 리스트들 */
+
+.main > .item_none {
+  display : flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.main > .item_none > .item > img {
+  width: 400px;
+}
+.main > .item_none > .item > .text_soldout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+u {
+  text-decoration: wavy rgb(210, 25, 25) underline;
+}
+
+.main > .items {
+  display : flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+}
+
+.main > .items > .item {
+  display : flex;
+  position: relative;
+  flex-direction: column;
+  width: 260px;
+  overflow: hidden;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.main > .items > .item:hover {
+  display : flex;
+  flex-direction: column;
+  width: 260px;
+  /* margin : 10px 15px; */
+  /* overflow: hidden; */
+  border-radius: 8px;            
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.664);
+}
+
+.main > .items > .item > .item__image > img {
+  width: 100%;
+  height:250px;
+}
+
+.main > .items > .item > .item__title {
+  text-align: center;
+}
+
+.main > .items > .item > .heart_Btn {
+  width: 35px;
+  height: 35px;  
+  position: absolute;
+  bottom: 90px;
+  right: 12px;
+  z-index: 3;
+  border: none;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 0.6);
+  /* background-color: rgba(255, 255, 255, 0); */
+  border-radius: 50%;
+  padding-top: 5px;
+  text-align: center;  
+}
+
+.main > .items > .item > .item__price-box {
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.main > .items > .item > .item__price-box > .item__discount-rate {
+  color:red;
+  margin-right: 10px;
+}
+
+.main > .items > .item > .item__price-box > .item__price--normal {
+  color: var(--main-text-gre);
+  margin-left: 8px;
+  text-decoration: line-through;
+  font-size: 12px;
+  font-weight: lighter;
+}
+
+.main > .items > .item > .item__time-box {
+  display : flex;
+  justify-content: center;
+}
+
+.main > .items > .item > .item__time-box > .item__magam {
+  margin-right: 10px;
+}
+
+.main > .items > .item > .item__time-box > .item__time {
+  color : rgb(241, 196, 15);
+}
+
+
+.main > .view-all {
+  display:flex;
+  justify-content: end;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+/* .main > .view-all a {
+  margin-right:35px;
+} */
+
+.main > .view-all a:hover {
+  /* margin-right:35px; */
+  background-color: #eee;
+  border-radius: 8px;
+  margin-left : 10px;
+  transition: all 0.5s;
+}

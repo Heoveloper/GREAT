@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+* {
+    /* outline: 1px solid plum; */
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0px 10rem;
+}
+
+h2 {
+    /* text-align: center; */
+    line-height: 3;
+}
+
+.main >.p-write-info {
+    outline: 0.5px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+th {
+    font-weight: bold;
+    vertical-align: middle;   
+}
+label {
+    display: inline-block;
+    width: 100px;
+}
+td {
+    padding: 6px;
+    
+}
+input, select {
+    display: inline-block;
+    width: 190px;
+    height: 32px;
+}
+.title {
+    width: 100%;
+}
+
+.photos {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    overscroll-behavior-x: hidden;
+}
+
+.photo li {
+    
+}
+
+textarea {
+    width:100%;
+    resize: none;
+}
+
+/* 버튼(취소, 임시저장, 저장) */
+.write-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+button {
+    width: 80px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 8px;
+
+    /* outline: 1px solid black; */
+    background-color: #f1c40f;
+    border: 0;
+    margin: 10px;
+}
+button:hover {
+    cursor: pointer;
+    outline: 1px solid black;
+    border: 1px;
+}
+
+.write-btn #tempSave, #cancelBtn {
+    background-color: #e0e0e0;
+}
+
+footer {
+    height: 150px;
+    background-color: grey;
+}

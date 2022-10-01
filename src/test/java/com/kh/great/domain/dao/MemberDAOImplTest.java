@@ -1,6 +1,7 @@
 package com.kh.great.domain.dao;
 
-import com.kh.great.domain.Member;
+import com.kh.great.domain.dao.member.Member;
+import com.kh.great.domain.dao.member.MemberDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

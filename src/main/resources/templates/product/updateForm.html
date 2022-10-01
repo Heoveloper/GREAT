@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <title>판매글 수정 | GREAT</title>
+    <link rel="stylesheet" th:href="@{/css/product/product_write.css}">
+    <script type="text/javascript" defer th:src="@{/js/product/limitDate.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+    <header th:replace="~{layout/common_ui::choose_header}"></header>
+    <form id="form" action="" method="post" th:object="${form}">
+        <main class="main container">
+            <h2>판매글 수정</h2>
+            <div class="p-write-info">
+                <table class="write_tb">
+                    <tr>
+                        <th ><label for="pTitle">글제목</label></th>
+                        <td colspan="3"><input class="title" type="text" th:field="*{pTitle}" placeholder="제목을 입력하세요(30자 이내)"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="pName">상품명</label></th>
+                        <td><input type="text" th:field="*{pName}" placeholder="20자 이내"></td>
+                        <th><label for="deadlineTime">마감시간</label></th>
+                        <td><input type="datetime-local" id="currentTime" th:field="*{deadlineTime}"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="category">업종 </label></th>
+                        <td><select name="" id="tob" th:field="*{category}">
+                            <option value="한식">한식</option>
+                            <option value="중식">중식</option>
+                            <option value="일식">일식</option>
+                            <option value="양식">양식</option>
+                            <option value="아시안식">아시안식</option>
+                            <option value="분식">분식</option>
+                            <option value="도시락">도시락</option>
+                            <option value="카페/디저트">카페/디저트</option>
+                        </select></td>
+                        <th><label for="remainCount">잔여 수량</label></th>
+                        <td><input type="number" th:field="*{remainCount}" min="0"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="normalPrice">정상가</label></th>
+                        <td><input type="text" th:field="*{normalPrice}" placeholder="숫자만 입력해주세요"></td>
+                        <th><label for="salePrice" >할인가</label></th>
+                        <td><input type="text" th:field="*{salePrice}" placeholder="숫자만 입력해주세요"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="paymentOption">결제 방식</label></th>
+                        <td><select name="" th:field="*{paymentOption}">
+                            <option value="온라인 결제 & 현장 결제">온라인 결제 & 현장 결제</option>
+                            <option value="온라인 결제">온라인 결제</option>
+                            <option value="현장 결제">현장 결제</option>
+                        </select></td>
+                        <th><label for="">첨부파일</label></th>
+                        <td><input type="file" accept="image/jpg, image/jpeg, image/png" th:multiple="multiple"><a href="#">삭제</a></td>
+                    </tr>
+                    <tr>
+                        <th><label for="detailInfo">상세설명</label></th>
+                        <td colspan="3"><textarea name="detailInfo" th:field="*{detailInfo}" rows="10" autofocusw></textarea></td>
+                    </tr>
+                </table>
+                <div class="write-btn">
+                    <button type="button" id="cancelBtn">취소</button>
+                    <button type="submit" id="saveBtn">수정</button>
+                </div>
+            </div>
+        </main>
+    </form>
+    <footer th:replace="~{layout/common_ui::footer}"></footer>
+</div>
+</form>
+<script th:inline="javascript">
+<!---->
+</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+@charset "UTF-8";
+
+/* a {
+    display: block;
+} */
+
+.main {
+    display: flex;
+}
+
+h3 {
+    cursor: pointer;
+}
+
+/* 메인-사이드(왼쪽) */
+.main-side-left {
+    flex: 1;
+    border-right: 1px solid  rgb(189, 189, 189);
+    margin: 0 20px 0 10px;
+    font-size: 15px;
+}
+.main-side-left > ul> li {
+    width: 155px;
+    height: 40px;
+    padding: 10px 15px;
+}
+.main-side-left > ul> li > h3>  a {
+    display: block;
+}
+.main-side-left > ul> li:hover {
+    border-radius: 8px;            
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.664);
+}
+
+.main-side-left > ul > .p-manage-choice {
+    display: flex;
+    width: 155px;
+    justify-content: space-between;
+    background-color: rgba(255, 234, 113, 0.445);
+    border-radius: 10px;
+    margin-right: 5px;
+    /* padding: 10px 15px; */
+}
+
+.main-side-left > ul > .p-manage-choice > i {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    /* margin-right: 10px; */
+}
+
+/* 메인-사이드(오른쪽) */
+.main-side-right {
+    flex: 6;
+}
+
+.main-head {
+    height: 120px;
+    /* border-bottom: 1px solid rgb(189, 189, 189); */
+    display: flex;    
+    justify-content: space-between;
+}
+
+.main-head img{
+    width: 150px;
+    height: 100px;
+    align-items: end;
+}
+.main-title {
+    display: flex;
+    height: 50px;
+    margin: 20px 10px;
+}
+
+.main-title span {
+    margin-left: 10px;
+    display: flex;
+    align-items: center ;
+    font-size: 14px;
+    color: #979797;
+}
+
+.bar {
+    display: flex;
+    width: 4px;
+    height: 36px;
+    background-color: var(--main-color-yel);
+    margin-right: 10px;
+}
+
+/* img {
+    display: flex;
+    width: 35px;
+    margin-right: 15px;
+} */
+
+/* 주문 기간, 주문 상태 드롭다운 선택 */
+.order-choice {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.order-choice .drop__period {
+    display: flex;
+    align-items: center;
+    width: 280px;
+    font-size: 20px;
+}
+
+/* 주문기간 조회 Btn */
+.order-choice .drop__period button {
+    width: 50px;
+    height: 28px;
+    border-radius: 4px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 0;
+    margin-left: 5px;
+    border: none;
+    background-color: rgba(255, 234, 113, 0.445);
+}
+
+.order-choice .drop__status {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    font-size: 20px;
+}
+
+.order-choice>.drop__period > input{
+    width: 150px;
+    height: 33px;
+}
+
+.order-choice>.drop__period > input:focus {
+    outline: none;
+}
+
+.order-choice select {
+    width: 100%;
+    height: 33px;
+    font-size: 15px;
+}
+
+/*  주문 리스트 */
+.ordered-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ordered-list table {
+    width: 100%;
+    border-top: 1px solid black;
+    table-layout: fixed;
+}
+
+th{    
+    height: 50px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    vertical-align: middle;    
+    letter-spacing: 3px;
+}
+
+.ordered-list .product_manage-tb .table_header th:nth-child(1),
+ .ordered-list .product_manage-tb .table_header th:nth-child(8) {
+    width: 70px;
+}
+
+.ordered-list .product_manage-tb .table_header th:nth-child(4) {
+    width: 140px;
+}
+/*
+th:nth-child(3), th:nth-child(6), th:nth-child(7) {
+    width: 80px;
+}
+
+th:nth-child(5) {
+    width: 50px;
+} */
+
+.ordered-list table td {
+    height: 45px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+    text-align: center;
+    vertical-align: middle;    
+    font-family: 'NanumBarunGothicExtraLight';
+    font-size: 14px;
+    /* 글자 안 넘치게 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ordered-list table img {
+    width: 100px;
+    height: 100px;
+}
+
+select {
+    width: 99px;
+    height: 30px;
+}
+
+.updateBtn {
+  padding: 5px 10px;
+  display:inline-block;
+  border-radius: 8px;
+  transition: all 0.1s;
+  background-color: rgba(255, 234, 113, 0.445);
+}

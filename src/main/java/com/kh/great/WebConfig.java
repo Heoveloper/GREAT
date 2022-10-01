@@ -1,7 +1,7 @@
 package com.kh.great;
 
-import com.kh.great.web.interceptor.LogInterceptor;
-import com.kh.great.web.interceptor.LoginInterceptor;
+import com.kh.great.web.interceptor.member.LogInterceptor;
+import com.kh.great.web.interceptor.member.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

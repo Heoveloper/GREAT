@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/layout}">
-<head layout:fragment="head">
-    <!-- common head -->
-    <th:block th:replace="fragments/layout :: commonHead"></th:block>
-    <!-- head -->
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
     <link rel="stylesheet" th:href="@{/css/member/infoCust.css}">
-    <script th:src="@{/js/member/info.js}"></script>
+    <script type="text/javascript" defer th:src="@{/js/member/info.js}"></script>
     <title>고객회원 개인정보</title>
 </head>
-
-<body layout:fragment="body">
+<body>
     <div class="wrapper">
-        <!-- header -->
-        <header th:replace="fragments/layout :: fragMemHeader"></header>
-        <!-- //header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
 
         <!-- main -->
         <main class="main container">
@@ -115,7 +107,7 @@
         <!-- //main -->
 
         <!-- footer -->
-        <footer th:replace="fragments/layout :: fragFooter" class="footer container"></footer>
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
         <!-- //footer -->
 
         <!-- 모달 팝업 -->
@@ -153,31 +145,17 @@
         <!-- //모달 팝업 -->
     </div>
 
-    <script>
-        const $exitBtn = document.querySelector('.exit-btn');
+    <script type="text/javascript">
+        //개인정보에 접근한 회원의 회원번호
         const memNumber = [[${info.memNumber}]];
 
-        $exitBtn.addEventListener('click', e => {
-            //회원탈퇴 경고창 노출
-            if(!confirm('탈퇴하시겠습니까?')) return;
-
-            //회원탈퇴
-            exit(memNumber);
-
-            //회원탈퇴 완료창 노출
-            alert('탈퇴되었습니다.');
-
-            //회원탈퇴 완료 후 메인화면으로 이동
-            window.location.href = 'http://localhost:8080/';
-        });
-
-        //회원탈퇴 함수
+        //회원탈퇴 AJAX
         function exit(memNumber){
           const url = `/api/member/exit`;
           const data = { "memNumber" : memNumber };
           fetch(url, {
             method:'DELETE',
-            headers:{
+            headers: {
               'Accept':'application/json',
               'Content-type': 'application/json'
             },

@@ -269,9 +269,12 @@
               .then(res => {
                 console.log(res)
                 console.log(res.data[0].b_stt_cd)
-                if (res.data[0].b_stt_cd == '01') {alert('인증되었습니다!')}
-                alert('사업자번호를 다시 확인해주세요.')
-                memBusinessnumber.value=''
+                if (res.data[0].b_stt_cd == '01') {
+                    alert('인증되었습니다!')
+                } else {
+                    alert('사업자번호를 다시 확인해주세요.')
+                    memBusinessnumber.value=''
+                }
               })
               .catch(err => console.log(err));
         }

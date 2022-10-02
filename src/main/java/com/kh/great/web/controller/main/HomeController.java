@@ -88,6 +88,8 @@ public class HomeController {
         member.setMemStoreName(join.getMemStoreName());
         member.setMemStorePhonenumber(join.getMemStorePhonenumber());
         member.setMemStoreLocation(join.getMemStoreLocation());
+        member.setMemStoreLatitude(join.getMemStoreLatitude());
+        member.setMemStoreLongitude(join.getMemStoreLongitude());
         member.setMemStoreIntroduce(join.getMemStoreIntroduce());
         member.setMemStoreSns(join.getMemStoreSns());
         Member joinedMember = memberSVC.join(member);

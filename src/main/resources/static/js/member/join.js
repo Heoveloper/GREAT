@@ -83,9 +83,11 @@ $confirmCodeBtn.addEventListener('click', e => {
     console.log('인증번호 확인 버튼 클릭');
 });
 
+//카카오 geocoder(주소-좌표간 변환 서비스 객체) 생성
+const geocoder = new kakao.maps.services.Geocoder();
+
 //주소 검색 버튼 클릭시
 $addrSearchBtn.addEventListener('click', e => {
-    console.log('클릭');
     new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -127,11 +129,25 @@ $addrSearchBtn.addEventListener('click', e => {
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.querySelector('.postcode').value = data.zonecode;
             document.querySelector(".address").value = addr;
+
+            // 주소로 좌표 검색(위도, 경도 찾기 콜백함수 사용)
+            geocoder.addressSearch(addr, callback);
+
             // 커서를 상세주소 필드로 이동한다.
             document.querySelector(".detailedAddress").focus();
         }
     }).open();
 });
+
+//위도, 경도 찾기 콜백함수
+const callback = function(result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+        document.querySelector('.lat').value = result[0].x;
+        document.querySelector('.lng').value = result[0].y;
+    }
+};
+
+
 
 ////사업자번호 인증 버튼 클릭시
 //$bnConfirmBtn.addEventListener('click', e => {

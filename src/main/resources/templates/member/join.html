@@ -5,6 +5,7 @@
     <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
     <link rel="stylesheet" th:href="@{/css/member/join.css}">
     <script type="text/javascript" defer th:src="@{/js/member/join.js}"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c10f54b4373e61d9f601e30e82d0cfa1&libraries=services"></script>
     <script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <title>회원가입</title>
 </head>
@@ -133,7 +134,7 @@
                             </div>
                             <div class="join-ele">
                                 <div class="join-ele--1"><label for="">가게 주소<span> *</span></label></div>
-                                <div class="join-ele--2"><input type="text" th:field="*{memStoreLocation}" class="address" placeholder="가게 주소를 입력하세요." readonly></div>
+                                <div class="join-ele--2"><input type="text" th:field="*{memStoreLocation}" class="address" placeholder="가게 주소를 검색하세요." readonly></div>
                                 <div class="join-ele--3"><button type="button" class="btn addr-search-btn">주소 검색</button></div>
                             </div>
                             <div class="vali-ele">
@@ -154,23 +155,23 @@
                             <div class="hidden-address">
                                 <div class="join-ele">
                                     <div class="join-ele--1"></div>
-                                    <div class="join-ele--2"><input type="text" class="postcode" placeholder="우편 번호를 입력하세요." readonly></div>
+                                    <div class="join-ele--2"><input type="text" class="postcode" placeholder="우편 번호" readonly></div>
                                     <div class="join-ele--3"></div>
-                                </div>
-                                <div class="vali-ele">
-                                    <div class="vali-ele--1"></div>
-                                    <div class="vali-ele--2"></div>
-                                    <div class="vali-ele--3"></div>
                                 </div>
                                 <div class="join-ele">
                                     <div class="join-ele--1"></div>
-                                    <div class="join-ele--2"><input type="text" class="extra-address" placeholder="참고 항목을 입력하세요." readonly></div>
+                                    <div class="join-ele--2"><input type="text" class="extra-address" placeholder="참고 항목" readonly></div>
                                     <div class="join-ele--3"></div>
                                 </div>
-                                <div class="vali-ele">
-                                    <div class="vali-ele--1"></div>
-                                    <div class="vali-ele--2"></div>
-                                    <div class="vali-ele--3"></div>
+                                <div class="join-ele">
+                                    <div class="join-ele--1"></div>
+                                    <div class="join-ele--2"><input type="text" th:field="*{memStoreLatitude}" class="lat" placeholder="위도" readonly></div>
+                                    <div class="join-ele--3"></div>
+                                </div>
+                                <div class="join-ele">
+                                    <div class="join-ele--1"></div>
+                                    <div class="join-ele--2"><input type="text" th:field="*{memStoreLongitude}" class="lng" placeholder="경도" readonly></div>
+                                    <div class="join-ele--3"></div>
                                 </div>
                             </div>
                             <div class="join-ele">

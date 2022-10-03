@@ -142,8 +142,9 @@ $addrSearchBtn.addEventListener('click', e => {
 //위도, 경도 찾기 콜백함수
 const callback = function(result, status) {
     if (status === kakao.maps.services.Status.OK) {
-        document.querySelector('.lat').value = result[0].x;
-        document.querySelector('.lng').value = result[0].y;
+        console.log(result);
+        document.querySelector('.lng').value = result[0].x;
+        document.querySelector('.lat').value = result[0].y;
     }
 };
 

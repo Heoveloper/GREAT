@@ -66,9 +66,16 @@ public interface MemberSVC {
     List<Member> all();
 
     /**
-     * 이메일 중복체크
-     * @param email 이메일
+     * 아이디 중복체크
+     * @param memId 아이디
      * @return 존재하면 true
      */
-    Boolean dupChkOfMemberEmail(String email);
+    Boolean dupChkOfMemId(String memId);
+
+    /**
+     * 닉네임 중복체크
+     * @param memNickname 닉네임
+     * @return 존재하면 true
+     */
+    Boolean dupChkOfMemNickname(String memNickname);
 }

@@ -3,6 +3,7 @@ package com.kh.great.web.controller.main;
 import com.kh.great.domain.common.file.UploadFileSVC;
 import com.kh.great.domain.dao.member.Member;
 import com.kh.great.domain.dao.product.Product;
+import com.kh.great.domain.svc.member.EmailSVCImpl;
 import com.kh.great.domain.svc.member.MemberSVC;
 import com.kh.great.domain.svc.product.ProductSVC;
 import com.kh.great.web.api.member.FindId;
@@ -33,6 +34,7 @@ public class HomeController {
     private final MemberSVC memberSVC;
     final ProductSVC productSVC;
     private final UploadFileSVC uploadFileSVC;
+    private final EmailSVCImpl emailSVCImpl;
 
     @GetMapping
     public String home(HttpServletRequest request, Model model) {
@@ -59,22 +61,23 @@ public class HomeController {
             RedirectAttributes redirectAttributes
     ) {
         //기본 검증
-        //if (bindingResult.hasErrors()) {
-        //    log.info("errors = {}", bindingResult);
-        //    return "join";
-        //}
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            return "member/join";
+        }
 
         //필드 검증(field error)
-        //if (join.getMemId().length() > 15) {
-        //    bindingResult.rejectValue("memId", null, "아이디 길이는 15자 이하까지 가능합니다.");
-        //    return "join";
-        //}
+        //아이디 길이 8~15자
+        if (join.getMemId().length() < 8 || join.getMemId().length() > 15) {
+            bindingResult.rejectValue("memId", null, "아이디 길이는 8~15자입니다.");
+            return "member/join";
+        }
 
         //오브젝트 검증(object error)
         //비밀번호-비밀번호 확인 일치
-        //if (join.getMemPassword() == join.getMemPasswordCheck()) {
-        //    bindingResult.reject(null, "비밀번호 일치합니다");
-        //    return "join";
+        //if (join.getMemPassword() != join.getMemPasswordCheck()) {
+        //    bindingResult.reject(null, "비밀번호가 일치하지 않습니다.");
+        //    return "member/join";
         //}
 
         Member member = new Member();

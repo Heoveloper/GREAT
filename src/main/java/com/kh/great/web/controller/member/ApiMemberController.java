@@ -7,6 +7,7 @@ import com.kh.great.web.api.ApiResponse;
 import com.kh.great.web.api.member.EmailDto;
 import com.kh.great.web.api.member.FindId;
 import com.kh.great.web.dto.member.Info;
+import com.kh.great.web.dto.member.Join;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,34 @@ public class ApiMemberController {
     private final MemberSVC memberSVC;
     private final EmailSVCImpl emailSVCimpl;
 
+    //아이디 중복확인
+    @PostMapping("/dupChkId")
+    public  ApiResponse<Object> dupChkId(@RequestBody Join join) {
+        ApiResponse<Object> response = null;
+
+        Boolean isDup = memberSVC.dupChkOfMemId(join.getMemId());
+        if (isDup == false) {
+            response =  ApiResponse.createApiResMsg("00", "사용가능한 아이디", isDup);
+        } else {
+            response =  ApiResponse.createApiResMsg("99", "중복되는 아이디 존재", isDup);
+        }
+        return response;
+    }
+
+    //닉네임 중복확인
+    @PostMapping("/dupChkNickname")
+    public  ApiResponse<Object> dupChkNn(@RequestBody Join join) {
+        ApiResponse<Object> response = null;
+
+        Boolean isDup = memberSVC.dupChkOfMemNickname(join.getMemNickname());
+        if (isDup == false) {
+            response =  ApiResponse.createApiResMsg("00", "사용가능한 닉네임", isDup);
+        } else {
+            response =  ApiResponse.createApiResMsg("99", "중복되는 닉네임 존재", isDup);
+        }
+        return response;
+    }
+
     //아이디 찾기
     @PostMapping("/findId")
     public ApiResponse<Object> findId(@RequestBody FindId findId) {
@@ -43,9 +72,9 @@ public class ApiMemberController {
         log.info("id={}", id);
 
         //응답메세지
-        if(!StringUtils.isEmpty(id)){
+        if (!StringUtils.isEmpty(id)) {
             response =  ApiResponse.createApiResMsg("00", "성공", IdAndRegtime);
-        }else{
+        } else {
             response =  ApiResponse.createApiResMsg("99", "부합하는 아이디가 없습니다.", null);
         }
         return response;
@@ -69,7 +98,7 @@ public class ApiMemberController {
 
         Long deletedRow = memberSVC.exit(info.getMemNumber());
 
-        return ApiResponse.createApiResMsg("00","성공", deletedRow);
+        return ApiResponse.createApiResMsg("00","탈퇴 성공", deletedRow);
     }
 
     //인증메일 발송

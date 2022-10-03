@@ -217,15 +217,28 @@ public class MemberDAOImpl implements MemberDAO {
     }
 
     /**
-     * 이메일 중복체크
+     * 아이디 중복체크
      *
-     * @param email 이메일
+     * @param memId 아이디
      * @return 존재하면 true
      */
     @Override
-    public Boolean dupChkOfMemberEmail(String email) {
-        String sql = "select count(email) from member where email = ? ";
-        Long rowCount = jt.queryForObject(sql, Long.class, email);
+    public Boolean dupChkOfMemId(String memId) {
+        String sql = "select count(mem_id) from member where mem_id = ? ";
+        Long rowCount = jt.queryForObject(sql, Long.class, memId);
+        return rowCount == 1 ? true : false;
+    }
+
+    /**
+     * 닉네임 중복체크
+     *
+     * @param memNickname 닉네임
+     * @return 존재하면 true
+     */
+    @Override
+    public Boolean dupChkOfMemNickname(String memNickname) {
+        String sql = "select count(mem_nickname) from member where mem_nickname = ? ";
+        Long rowCount = jt.queryForObject(sql, Long.class, memNickname);
         return rowCount == 1 ? true : false;
     }
 }

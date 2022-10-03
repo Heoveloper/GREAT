@@ -116,14 +116,24 @@ public class MemberSVCImpl implements MemberSVC {
     }
 
     /**
-     * 이메일 중복체크
+     * 아이디 중복체크
      *
-     * @param email 이메일
+     * @param memId 아이디
      * @return 존재하면 true
      */
     @Override
-    public Boolean dupChkOfMemberEmail(String email) {
+    public Boolean dupChkOfMemId(String memId) {
+        return memberDAO.dupChkOfMemId(memId);
+    }
 
-        return memberDAO.dupChkOfMemberEmail(email);
+    /**
+     * 닉네임 중복체크
+     *
+     * @param memNickname 닉네임
+     * @return 존재하면 true
+     */
+    @Override
+    public Boolean dupChkOfMemNickname(String memNickname) {
+        return memberDAO.dupChkOfMemNickname(memNickname);
     }
 }

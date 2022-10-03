@@ -34,11 +34,11 @@
                         <div class="join-ele">
                             <div class="join-ele--1"><label for="">아이디<span> *</span></label></div>
                             <div class="join-ele--2"><input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요."></div>
-                            <div class="join-ele--3"><button>중복확인</button></div>
+                            <div class="join-ele--3"><button type="button" class="btn dup-chk-id-btn">중복확인</button></div>
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memId')}" th:errors="*{memId}"></span></div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -48,7 +48,7 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></span></div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -58,7 +58,7 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2" th:if="${#fields.hasGlobalErrors()}"><span th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span></div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -68,17 +68,17 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memName')}" th:errors="*{memName}"></span></div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
                             <div class="join-ele--1"><label for="">닉네임<span> *</span></label></div>
                             <div class="join-ele--2"><input type="text" th:field="*{memNickname}" placeholder="닉네임을 입력하세요."></div>
-                            <div class="join-ele--3"><button>중복확인</button></div>
+                            <div class="join-ele--3"><button type="button" class="btn dup-chk-nn-btn">중복확인</button></div>
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memNickname')}" th:errors="*{memNickname}"></span></div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -88,12 +88,12 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"></span></div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
                             <div class="join-ele--1"><label for="">인증번호<span> *</span></label></div>
-                            <div class="join-ele--2"><input type="text" id="memCode" name="memCode" value="memCode" placeholder="인증번호를 입력하세요."></div>
+                            <div class="join-ele--2"><input type="text" id="memCode" name="memCode" value="" placeholder="인증번호를 입력하세요."></div>
                             <div class="join-ele--3"><button type="button" class="btn confirm-code-btn">인증번호 확인</button></div>
                         </div>
                         <div class="vali-ele">
@@ -115,7 +115,7 @@
                             <div class="join-ele">
                                 <div class="join-ele--1"><label for="">가게명<span> *</span></label></div>
                                 <div class="join-ele--2"><input type="text" th:field="*{memStoreName}" placeholder="가게명을 입력하세요."></div>
-                                <div class="join-ele--3"><button>가게 찾기</button></div>
+                                <div class="join-ele--3"><button type="button">가게 찾기</button></div>
                             </div>
                             <div class="vali-ele">
                                 <div class="vali-ele--1"></div>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="join-ele">
                                 <div class="join-ele--1"></div>
-                                <div class="join-ele--2"><input type="text" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
+                                <div class="join-ele--2"><input type="text" th:field="*{memStoreLocation}" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
                                 <div class="join-ele--3"></div>
                             </div>
                             <div class="vali-ele">
@@ -231,32 +231,25 @@
         <footer th:replace="~{layout/common_ui::footer}"></footer>
         <!-- //footer -->
     </div>
-
     <script type="text/javascript">
         //사업자번호 인증 버튼
         const $bnConfirmBtn = document.querySelector('.bn-confirm-btn');
-
-        //공공데이터 encoding 인증키
-        //const enKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D;
-        //공공데이터 decoding 인증키
-        //const deKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z/Pg0ebD8OFZz2/vx5XFDgH7o+KaOoIG9IVDYNw==;
 
         //사업자번호 인증 버튼 클릭시
         $bnConfirmBtn.addEventListener('click', e => {
             if(!confirm('조회하시겠습니까?')) return;
 
             //사업자번호 입력값
-            const xxx = memBusinessnumber.value;
+            const bNoVal = memBusinessnumber.value;
 
             //사업자번호 인증
-            bnConfirm(xxx);
-
+            bnConfirm(bNoVal);
         });
 
         //사업자번호 인증 함수
-        function bnConfirm(xxx) {
+        function bnConfirm(bNoVal) {
             const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D`;
-            const data = { "b_no": [xxx] };
+            const data = { "b_no": [bNoVal] };
 
             console.log(url, JSON.stringify(data));
             fetch(url, {
@@ -275,11 +268,11 @@
                 } else {
                     alert('사업자번호를 다시 확인해주세요.')
                     memBusinessnumber.value=''
+                    memBusinessnumber.focus();
                 }
               })
               .catch(err => console.log(err));
         }
-
     </script>
 </body>
 </html>

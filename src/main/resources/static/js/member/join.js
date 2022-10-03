@@ -10,81 +10,145 @@ $joinOwn.addEventListener('change', e => {
     $ownerInput.classList.add('reveal');
 });
 
+//아이디 중복확인 버튼
+const $dupChkId = document.querySelector('.dup-chk-id-btn');
 
-// 약관 전체선택
-//1) 전체 동의 클릭시
-function checkAllTerms(checkAllTerms) {
-    const $checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-    $checkboxes.forEach(e => {
-        e.checked = checkAllTerms.checked
-    });
-}
-
-//2) 약관 동의 클릭시
-function checkTerms() {
-    // 전체 동의 체크박스
-    const $termsAll = document.querySelector('input[name="agreeAllTerms"]');
-    // 약관 체크박스
-    const $terms = document.querySelectorAll('input[name="agreeTerms"]');
-    // 선택된 약관 체크박스
-    const $checkedTerms = document.querySelectorAll('input[name="agreeTerms"]:checked');
-
-    $termsAll.checked = ($terms.length === $checkedTerms.length);
-}
-
-/////
-
-//인증번호 발송 버튼
-$sendCodeBtn = document.querySelector('.send-code-btn');
-//인증번호 확인 버튼
-$confirmCodeBtn = document.querySelector('.confirm-code-btn');
-
-//주소 검색 버튼
-$addrSearchBtn = document.querySelector('.addr-search-btn');
-
-////사업자번호 인증 버튼
-//$bnConfirmBtn = document.querySelector('.bn-confirm-btn');
-//
-////사업자번호 입력값
-//const $memBusinessnumber = memBusinessnumber.value;
-//
-////공공데이터 encoding 인증키
-//const enKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D;
-////공공데이터 decoding 인증키
-//const deKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z/Pg0ebD8OFZz2/vx5XFDgH7o+KaOoIG9IVDYNw==;
-
-//인증번호 발송 버튼 클릭시
-$sendCodeBtn.addEventListener('click', e => {
-    console.log('인증번호 발송 버튼 클릭');
-    console.log(memEmail.value);
-    const sss=memEmail.value;
-    sendCode(sss);
+//아이디 중복확인 버튼 클릭시
+$dupChkId.addEventListener('click', e => {
+    console.log('아이디 중복확인 클릭!');
+    const idVal = memId.value;
+    if (idVal.length == 0) {
+        alert('아이디를 입력해주세요.');
+        idVal.focus();
+        return;
+    }
+    dupChkId(idVal);
 });
 
-//인증번호 발송 함수
-function sendCode(sss) {
+//아이디 중복확인 함수
+function dupChkId(idVal) {
+    const url = `/api/member/dupChkId`;
+    const data = { "memId" : idVal };
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json())
+      .then(res => {
+        console.log(res)
+        if (res.header.rtcd == '00') {
+            alert ('사용가능한 아이디입니다!')
+            $dupChkId.classList.remove('bad');
+            $dupChkId.classList.add('good');
+        } else {
+            alert ('중복된 아이디가 존재합니다.')
+            $dupChkId.classList.remove('good');
+            $dupChkId.classList.add('bad');
+        }
+      })
+      .catch(err => console.log(err));
+}
+
+//닉네임 중복확인 버튼
+const $dupChkNn = document.querySelector('.dup-chk-nn-btn');
+
+//닉네임 중복확인 버튼 클릭시
+$dupChkNn.addEventListener('click', e => {
+    console.log('닉네임 중복확인 클릭!');
+    const nnVal = memNickname.value;
+    if (nnVal.length == 0) {
+        alert('닉네임을 입력해주세요.');
+        nnVal.focus();
+        return;
+    }
+    dupChkNn(nnVal);
+});
+
+//닉네임 중복확인 함수
+function dupChkNn(nnVal) {
+    const url = `/api/member/dupChkNickname`;
+    const data = { "memNickname" : nnVal };
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json())
+      .then(res => {
+        console.log(res)
+        if (res.header.rtcd == '00') {
+            alert ('사용가능한 닉네임입니다!')
+            $dupChkNn.classList.remove('bad')
+            $dupChkNn.classList.add('good')
+        } else {
+            alert ('중복된 닉네임이 존재합니다.')
+            $dupChkNn.classList.remove('good')
+            $dupChkNn.classList.add('bad')
+        }
+      })
+      .catch(err => console.log(err));
+}
+
+//인증코드 발송 버튼
+$sendCodeBtn = document.querySelector('.send-code-btn');
+//인증코드 확인 버튼
+$confirmCodeBtn = document.querySelector('.confirm-code-btn');
+//인증코드 확인 인풋창
+$memCode = document.querySelector('#memCode');
+
+//인증코드 발송 버튼 클릭시
+$sendCodeBtn.addEventListener('click', e => {
+    const mailVal = memEmail.value;
+    if (mailVal == null) {alert('인증코드를 받을 이메일을 입력하세요.');}
+    sendCode(mailVal);
+
+    console.log(mailVal);
+});
+
+//인증코드 발송 함수
+function sendCode(mailVal) {
     const url = `/api/member/mailConfirm`;
-    const data = { "email" : sss };
-    console.log("--->"+sss);
+    const data = { "email" : mailVal };
       fetch(url, {
         method:'POST',
         headers: {
           'Content-type': 'application/json'
         },
-        body:JSON.stringify(data)
-      }).then(res => res.json())
-        .then(res => console.log(res))
+        body: JSON.stringify(data)
+      }).then(res => res)
+        .then(res => {
+            console.log(res)
+            console.log(res.body)
+            console.log(res.headers)
+            if (res.ok == true) {
+                alert ('발송되었습니다! 메일을 확인해주세요.')
+            } else {
+                alert ('메일주소를 다시 확인해주세요.')
+            }
+        })
         .catch(err => console.log(err));
 }
 
-//인증번호 확인 버튼 클릭시
+//인증코드 확인 버튼 클릭시
 $confirmCodeBtn.addEventListener('click', e => {
-    console.log('인증번호 확인 버튼 클릭');
+    console.log('인증코드 확인 버튼 클릭');
 });
+
+
+////공공데이터 encoding 인증키
+//const enKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D;
+////공공데이터 decoding 인증키
+//const deKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z/Pg0ebD8OFZz2/vx5XFDgH7o+KaOoIG9IVDYNw==;
+
 
 //카카오 geocoder(주소-좌표간 변환 서비스 객체) 생성
 const geocoder = new kakao.maps.services.Geocoder();
+
+//주소 검색 버튼
+$addrSearchBtn = document.querySelector('.addr-search-btn');
 
 //주소 검색 버튼 클릭시
 $addrSearchBtn.addEventListener('click', e => {
@@ -134,7 +198,7 @@ $addrSearchBtn.addEventListener('click', e => {
             geocoder.addressSearch(addr, callback);
 
             // 커서를 상세주소 필드로 이동한다.
-            document.querySelector(".detailedAddress").focus();
+            document.querySelector(".detailed-address").focus();
         }
     }).open();
 });
@@ -148,43 +212,24 @@ const callback = function(result, status) {
     }
 };
 
+// 약관 전체선택
+//1) 전체 동의 클릭시
+function checkAllTerms(checkAllTerms) {
+    const $checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
+    $checkboxes.forEach(e => {
+        e.checked = checkAllTerms.checked
+    });
+}
 
-////사업자번호 인증 버튼 클릭시
-//$bnConfirmBtn.addEventListener('click', e => {
-//    if(!confirm('조회?')) return;
-//    bnConfirm($memBusinessnumber);
-//});
-//
-////사업자번호 인증 함수
-//function bnConfirm($memBusinessnumber) {
-//    const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D`;
-//    const data = { "b_no": [$memBusinessNumber] };
-//    fetch(url, {
-//        method: 'POST',
-//        headers: {
-//          'Accept':'application/json',
-//          'Content-type': 'application/json'
-//        },
-////        body: JSON.stringify(data)
-//        body: data
-//    }).then(res => res.json())
-//      .then(res => console.log(res))
-//      .catch(err => console.log(err));
-//}
+//2) 약관 동의 클릭시
+function checkTerms() {
+    // 전체 동의 체크박스
+    const $termsAll = document.querySelector('input[name="agreeAllTerms"]');
+    // 약관 체크박스
+    const $terms = document.querySelectorAll('input[name="agreeTerms"]');
+    // 선택된 약관 체크박스
+    const $checkedTerms = document.querySelectorAll('input[name="agreeTerms"]:checked');
 
-//회원탈퇴 함수
-//function exit(memNumber){
-//  const url = `/api/member/exit`;
-//  const data = { "memNumber" : memNumber };
-//  fetch(url, {
-//    method:'DELETE',
-//    headers: {
-//      'Accept':'application/json',
-//      'Content-type': 'application/json'
-//    },
-//    body:JSON.stringify(data)
-//  }).then(res => res.json())
-//    .then(res => console.log(res))
-//    .catch(err => console.log(err));
-//}
+    $termsAll.checked = ($terms.length === $checkedTerms.length);
+}

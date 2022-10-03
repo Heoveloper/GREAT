@@ -12,28 +12,30 @@
         <header th:replace="~{layout/common_ui::choose_header}"></header>
 
         <!-- main -->
-        <main class="main container">
+        <main class="main container" th:object="${resetPw}">
             <div class="title content">
                 <h2>비밀번호 재설정</h2>
             </div>
-            <div class="id">
-                <i class="fa-solid fa-user"></i>
-                <i class="bar"></i>
-                <input type="text" readonly placeholder="wnsgur5508" />
-            </div>
-            <div class="pw">
-                <i class="fa-solid fa-key"></i>
-                <i class="bar"></i>
-                <input type="password" placeholder="비밀번호를 입력하세요." />
-            </div>
-            <div class="pwc">
-                <i class="fa-solid fa-key"></i>
-                <i class="bar"></i>
-                <input type="password" placeholder="비밀번호를 재입력하세요." />
-            </div>
-            <div class="wrap-confirm-btn content">
-                <button type="button" class="btn confirm-btn">재설정 완료</button>
-            </div>
+<!--            <form method="POST" action="" th:object="${resetPw}">-->
+                <div class="id">
+                    <i class="fa-solid fa-user"></i>
+                    <i class="bar"></i>
+                    <input type="text" th:field="*{memId}" readonly />
+                </div>
+                <div class="pw">
+                    <i class="fa-solid fa-key"></i>
+                    <i class="bar"></i>
+                    <input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요." />
+                </div>
+                <div class="pwc">
+                    <i class="fa-solid fa-key"></i>
+                    <i class="bar"></i>
+                    <input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요." />
+                </div>
+                <div class="wrap-confirm-btn content">
+                    <button type="submit" class="btn confirm-btn">재설정 완료</button>
+                </div>
+<!--            </form>-->
         </main>
         <!-- //main -->
 

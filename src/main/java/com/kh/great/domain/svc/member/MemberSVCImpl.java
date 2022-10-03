@@ -52,7 +52,7 @@ public class MemberSVCImpl implements MemberSVC {
      */
     @Override
     public Member findByMemIdAndMemEmail(String memId, String memEmail) {
-        return memberDAO.findByMemNameAndMemEmail(memId, memEmail);
+        return memberDAO.findByMemIdAndMemEmail(memId, memEmail);
     }
 
     /**

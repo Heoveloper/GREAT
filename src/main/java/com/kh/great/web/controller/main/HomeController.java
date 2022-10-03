@@ -139,14 +139,30 @@ public class HomeController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes
     ) {
+        //기본 검증
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            return "/findPw";
+        }
 
-        return "redirect:/resetPw";
+        Member findedMember = memberSVC.findByMemIdAndMemEmail(findPw.getMemId(), findPw.getMemEmail());
+        log.info("findedMember = {}", findedMember);
+        log.info("findedMember.getMemNumber = {}", findedMember.getMemNumber());
+
+        redirectAttributes.addAttribute("memNumber", findedMember.getMemNumber());
+        return "redirect:/resetPw/{memNumber}";
     }
 
     //비밀번호 재설정 화면
-    @GetMapping("/resetPw")
-    public String resetPw(Model model) {
-        model.addAttribute("resetPw", new ResetPw());
+    @GetMapping("/resetPw/{memNumber}")
+    public String resetPw(@PathVariable("memNumber") Long memNumber, Model model) {
+
+        Member findedMember = memberSVC.findByMemNumber(memNumber);
+
+        ResetPw resetPw = new ResetPw();
+        resetPw.setMemId(findedMember.getMemId());
+
+        model.addAttribute("resetPw", resetPw);
 
         return "member/resetPw";
     }

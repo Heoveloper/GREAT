@@ -32,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
         whiteList.add("/joinComplete/**");
         whiteList.add("/findId");
         whiteList.add("/findPw");
-        whiteList.add("/resetPw");
+        whiteList.add("/resetPw/**");
         whiteList.add("/api/member/**");
         whiteList.add("/error");
 

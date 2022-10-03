@@ -24,6 +24,9 @@
                     <i class="bar"></i>
                     <input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요." />
                 </div>
+                <div class="errmsg">
+                    <p th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></p>
+                </div>
                 <div class="wrap-confirm-btn content">
                     <button type="submit" class="btn confirm-btn">확인</button>
                 </div>

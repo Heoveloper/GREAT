@@ -26,7 +26,7 @@
                             <div class="id">
                                 <i class="icon__id fa-regular fa-user"></i>
                                 <i class="bar__id"></i>
-                                <input type="text" placeholder="아이디를 입력하세요." />
+                                <input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요." />
                             </div>
                         </div>
                         <div class="wrap-email">
@@ -41,7 +41,7 @@
                             <div class="certify">
                                 <i class="icon__certify fa-solid fa-check"></i>
                                 <i class="bar__certify"></i>
-                                <input type="text" id="memCode" name="memCode" value="memCode" placeholder="인증번호를 입력하세요.">
+                                <input type="text" id="memCode" name="memCode" placeholder="인증번호를 입력하세요.">
                             </div>
                             <button type="button" class="btn confirm-code-btn">인증번호 확인</button>
                         </div>

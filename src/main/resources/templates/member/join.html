@@ -58,7 +58,7 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2" th:if="${#fields.hasGlobalErrors()}"><span th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span></div>
+                            <div class="vali-ele--2"><span th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span></div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -93,7 +93,7 @@
                         </div>
                         <div class="join-ele">
                             <div class="join-ele--1"><label for="">인증번호<span> *</span></label></div>
-                            <div class="join-ele--2"><input type="text" id="memCode" name="memCode" value="" placeholder="인증번호를 입력하세요."></div>
+                            <div class="join-ele--2"><input type="text" id="memCode" name="memCode" placeholder="인증번호를 입력하세요."></div>
                             <div class="join-ele--3"><button type="button" class="btn confirm-code-btn">인증번호 확인</button></div>
                         </div>
                         <div class="vali-ele">

@@ -56,6 +56,18 @@ public class MemberSVCImpl implements MemberSVC {
     }
 
     /**
+     * 비밀번호 재설정
+     *
+     * @param memNumber 회원번호
+     * @param member    수정할 정보
+     * @return 재설정건수
+     */
+    @Override
+    public Long resetPw(Long memNumber, String newPassword) {
+        return memberDAO.resetPw(memNumber, newPassword);
+    }
+
+    /**
      * 로그인
      *
      * @param memId       아이디
@@ -68,7 +80,7 @@ public class MemberSVCImpl implements MemberSVC {
     }
 
     /**
-     * 조회 by 회원아이디
+     * 조회 by 회원번호
      *
      * @param memNumber 회원아이디
      * @return 회원정보
@@ -76,6 +88,17 @@ public class MemberSVCImpl implements MemberSVC {
     @Override
     public Member findByMemNumber(Long memNumber) {
         return memberDAO.findByMemNumber(memNumber);
+    }
+
+    /**
+     * 조회 by 회원아이디
+     *
+     * @param memId 아이디
+     * @return 회원정보
+     */
+    @Override
+    public Member findByMemId(String memId) {
+        return memberDAO.findByMemId(memId);
     }
 
     /**

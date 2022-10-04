@@ -26,7 +26,9 @@ function showSlides(n) {
     setTimeout(showSlides, 6000);
 }
 
-document.querySelector('.heart_Btn').addEventListener('click', heart);
+if(!document.querySelector('.items').innerHTML==''){
+    document.querySelector('.heart_Btn').addEventListener('click', heart);
+}
 
 // mouse click event
 function heart(e) {

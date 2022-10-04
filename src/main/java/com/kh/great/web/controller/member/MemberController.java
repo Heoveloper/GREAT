@@ -55,12 +55,9 @@ public class MemberController {
 
         Member findedMember = memberSVC.findByMemNumber((Long) memNum);
 
-        log.info("findedMember = {}", findedMember);
-        log.info("infoChk = {}", infoChk);
-
         //필드 검증(field error)
         //비밀번호 일치해야 개인정보 조회 가능
-        if (infoChk.getMemPassword() != findedMember.getMemPassword()) {
+        if (!(infoChk.getMemPassword().equals(findedMember.getMemPassword()))) {
             bindingResult.rejectValue("memPassword",null, "비밀번호가 일치하지 않습니다.");
             return "member/infoChk";
         }

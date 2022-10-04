@@ -34,6 +34,14 @@ public interface MemberDAO {
     Member findByMemIdAndMemEmail(String memId, String memEmail);
 
     /**
+     * 비밀번호 재설정
+     * @param memNumber 회원번호
+     * @param newPassword 수정할 비밀번호
+     * @return 재설정건수
+     */
+    Long resetPw(Long memNumber, String newPassword);
+
+    /**
      * 로그인
      * @param memId 아이디
      * @param memPassword 비밀번호
@@ -49,13 +57,19 @@ public interface MemberDAO {
     Member findByMemNumber(Long memNumber);
 
     /**
+     * 조회 by 아이디
+     * @param memId 아이디
+     * @return 회원정보
+     */
+    Member findByMemId(String memId);
+
+    /**
      * 수정
      * @param memNumber 회원번호
      * @param member  수정할 정보
      * @return 수정건수
      */
     Long update(Long memNumber, Member member);
-
 
     /**
      * 탈퇴

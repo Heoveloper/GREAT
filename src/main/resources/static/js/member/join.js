@@ -135,8 +135,33 @@ function sendCode(mailVal) {
 //인증코드 확인 버튼 클릭시
 $confirmCodeBtn.addEventListener('click', e => {
     console.log('인증코드 확인 버튼 클릭');
+    const mailVal = memEmail.value;
+    const codeVal = memCode.value;
+
+    confirmCode(mailVal, codeVal);
 });
 
+function confirmCode(mailVal, codeVal) {
+    const url = `/api/member/codeConfirm`;
+    const data = { "email" : mailVal,
+                   "code" : codeVal };
+    fetch(url, {
+            method:'POST',
+            headers: {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          }).then(res => res.json())
+            .then(res => {
+                console.log(res)
+                if (res.header.rtcd = '00') {
+                    alert ('인증번호 확인되었습니다!')
+                } else {
+                    alert ('인증번호를 다시 확인해주세요.')
+                }
+            })
+            .catch(err => console.log(err));
+}
 
 ////공공데이터 encoding 인증키
 //const enKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D;

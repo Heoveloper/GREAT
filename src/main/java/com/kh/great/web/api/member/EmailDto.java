@@ -9,4 +9,7 @@ public class EmailDto {
 
     @NotEmpty(message = "이메일을 입력해주세요")
     public String email;
+
+    @NotEmpty
+    public String code;
 }

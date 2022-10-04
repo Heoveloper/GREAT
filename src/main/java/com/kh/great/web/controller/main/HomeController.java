@@ -60,6 +60,8 @@ public class HomeController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes
     ) {
+        log.info("mempw {}", join.getMemPassword());
+        log.info("mempwc {}", join.getMemPasswordCheck());
         //기본 검증
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -75,10 +77,10 @@ public class HomeController {
 
         //오브젝트 검증(object error)
         //비밀번호-비밀번호 확인 일치
-        //if (join.getMemPassword() != join.getMemPasswordCheck()) {
-        //    bindingResult.reject(null, "비밀번호가 일치하지 않습니다.");
-        //    return "member/join";
-        //}
+        if (!(join.getMemPassword().equals(join.getMemPasswordCheck()))) {
+            bindingResult.reject(null, "비밀번호가 일치하지 않습니다.");
+            return "member/join";
+        }
 
         Member member = new Member();
         member.setMemType(join.getMemType());

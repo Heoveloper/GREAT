@@ -40,4 +40,7 @@ public class Info {
     private LocalDateTime memRegtime;           //date
     private LocalDateTime memLockExpiration;    //date
     private String memAdmin;                    //varchar2(3)
+
+    //입력한 탈퇴시 확인 비밀번호
+    private String exitPwc;
 }

@@ -18,9 +18,6 @@ $exitBtn.addEventListener('click', e => {
     //회원탈퇴
     exit(memNumber);
 
-    //회원탈퇴 완료창 노출
-    alert('탈퇴되었습니다.');
-
     //회원탈퇴 완료 후 메인화면으로 이동
     window.location.href = 'http://localhost:8080/';
 });

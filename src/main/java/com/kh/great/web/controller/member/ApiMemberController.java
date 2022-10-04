@@ -119,15 +119,16 @@ public class ApiMemberController {
     @DeleteMapping("/exit")
     public ApiResponse<Object> exit(@RequestBody Info info, HttpServletRequest request) {
 
-//        Member findedMember = memberSVC.findByMemNumber(info.getMemNumber());
-
-
-//        if(findedMember == null){
-//            return ApiResponse.createApiResMsg("99","탈퇴하고자 하는 회원이 존재하지 않습니다.", null);
-//        }
+        Member findedMember = memberSVC.findByMemNumber(info.getMemNumber());
 
         HttpSession session = request.getSession(false);
         if (session != null) {
+
+            //비밀번호 불일치시
+            if (!(findedMember.getMemPassword().equals(info.getExitPwc()))) {
+                return ApiResponse.createApiResMsg("99","탈퇴 실패(비밀번호 불일치)", info.getExitPwc());
+            }
+
             session.invalidate();
         }
 
@@ -149,7 +150,7 @@ public class ApiMemberController {
         ApiResponse<Object> response = null;
 
 
-        if (emailAuthStore.isExist(emailDto.getEmail(),emailDto.getCode())) {
+        if (emailAuthStore.isExist(emailDto.getEmail(), emailDto.getCode())) {
             response =  ApiResponse.createApiResMsg("00", "코드 인증 성공", null);
             //emailAuthStore.remove(emailDto.email);
         } else {

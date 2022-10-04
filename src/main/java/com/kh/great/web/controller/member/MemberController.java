@@ -106,9 +106,10 @@ public class MemberController {
         info.setMemStoreName(findedMember.getMemStoreName());
         info.setMemStorePhonenumber(findedMember.getMemStorePhonenumber());
         info.setMemStoreLocation(findedMember.getMemStoreLocation());
+        info.setMemStoreLatitude(findedMember.getMemStoreLatitude());
+        info.setMemStoreLongitude(findedMember.getMemStoreLongitude());
         info.setMemStoreIntroduce(findedMember.getMemStoreIntroduce());
         info.setMemStoreSns(findedMember.getMemStoreSns());
-
 
         model.addAttribute("info", info);
         return "member/infoOwn"; //회원 수정화면
@@ -177,6 +178,8 @@ public class MemberController {
         member.setMemStoreName(info.getMemStoreName());
         member.setMemStorePhonenumber(info.getMemStorePhonenumber());
         member.setMemStoreLocation(info.getMemStoreLocation());
+        member.setMemStoreLatitude(info.getMemStoreLatitude());
+        member.setMemStoreLongitude(info.getMemStoreLongitude());
         member.setMemStoreIntroduce(info.getMemStoreIntroduce());
         member.setMemStoreSns(info.getMemStoreSns());
 

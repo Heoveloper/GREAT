@@ -38,9 +38,9 @@ public class LoginInterceptor implements HandlerInterceptor {
             String queryString = URLEncoder.encode(request.getQueryString(), "UTF-8");
             StringBuffer str = new StringBuffer();
             redirectUrl = str.append(requestURI)
-                    .append("&")
-                    .append(queryString)
-                    .toString();
+                             .append("&")
+                             .append(queryString)
+                             .toString();
         } else {
             redirectUrl = requestURI;
         }

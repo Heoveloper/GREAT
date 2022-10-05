@@ -110,6 +110,7 @@ public class MemberController {
         info.setMemStoreLongitude(findedMember.getMemStoreLongitude());
         info.setMemStoreIntroduce(findedMember.getMemStoreIntroduce());
         info.setMemStoreSns(findedMember.getMemStoreSns());
+        log.info("확인 : {}",info);
 
         model.addAttribute("info", info);
         return "member/infoOwn"; //회원 수정화면
@@ -155,7 +156,7 @@ public class MemberController {
     }
 
     //점주회원정보 수정 처리
-    @PostMapping("/owner/{memNumber}")
+    @PostMapping("/owner/{memNum}")
     public String editOwn(
             @Valid @ModelAttribute("info") Info info,
             BindingResult bindingResult,

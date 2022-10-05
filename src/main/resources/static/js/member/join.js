@@ -94,10 +94,6 @@ function dupChkNn(nnVal) {
 
 //인증코드 발송 버튼
 $sendCodeBtn = document.querySelector('.send-code-btn');
-//인증코드 확인 버튼
-$confirmCodeBtn = document.querySelector('.confirm-code-btn');
-//인증코드 확인 인풋창
-$memCode = document.querySelector('#memCode');
 
 //인증코드 발송 버튼 클릭시
 $sendCodeBtn.addEventListener('click', e => {
@@ -132,6 +128,9 @@ function sendCode(mailVal) {
         .catch(err => console.log(err));
 }
 
+//인증코드 확인 버튼
+$confirmCodeBtn = document.querySelector('.confirm-code-btn');
+
 //인증코드 확인 버튼 클릭시
 $confirmCodeBtn.addEventListener('click', e => {
     console.log('인증코드 확인 버튼 클릭');
@@ -141,6 +140,7 @@ $confirmCodeBtn.addEventListener('click', e => {
     confirmCode(mailVal, codeVal);
 });
 
+//인증코드 확인 함수
 function confirmCode(mailVal, codeVal) {
     const url = `/api/member/codeConfirm`;
     const data = { "email" : mailVal,

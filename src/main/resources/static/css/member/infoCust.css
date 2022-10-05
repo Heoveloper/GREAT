@@ -77,3 +77,8 @@ h2 {letter-spacing: 3px; margin: 20px; padding: 0px;}
 .location-choice :nth-child(2) {background: var(--color-red);}
 .location-choice a {display: table-cell; position: relative; vertical-align: middle; text-align: center;
                     border: none; letter-spacing: 3px;}
+
+
+/* 중복확인시 버튼 색깔 바꾸기 */
+.good {background-color: green; color: white; font-weight: bold;}
+.bad {background-color: red; color: white; font-weight: bold;}

@@ -93,7 +93,7 @@
                     <div class="info-ele">
                         <div class="info-ele--1"><label for="">사업자번호<span> *</span></label></div>
                         <div class="info-ele--2"><input type="text" th:field="*{memBusinessnumber}" placeholder="사업자번호를 입력하세요. (- 제외)"></div>
-                        <div class="info-ele--3"><button type="button">인증</button></div>
+                        <div class="info-ele--3"><button type="button" class="bn-confirm-btn">인증</button></div>
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
@@ -124,22 +124,24 @@
                         <div class="info-ele--1"><label for="">가게 주소<span> *</span></label></div>
                         <div class="info-ele--2"><input type="text" th:field="*{memStoreLocation}" class="address" placeholder="가게 주소를 입력하세요."
                                                         readonly></div>
-                        <div class="info-ele--3"><button type="button" class="btn addr-search-btn">주소 검색</button></div>
+                        <div class="info-ele--3"><button type="button" class="btn addr-search-btn">주소 변경</button></div>
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
                         <div class="vali-ele--2"><span th:errors="*{memStoreLocation}"></span></div>
                         <div class="vali-ele--3"></div>
                     </div>
-                    <div class="info-ele">
-                        <div class="info-ele--1"></div>
-                        <div class="info-ele--2"><input type="text" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
-                        <div class="info-ele--3"></div>
-                    </div>
-                    <div class="vali-ele">
-                        <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"></div>
-                        <div class="vali-ele--3"></div>
+                    <div class="hidden-addr">
+                        <div class="info-ele">
+                            <div class="info-ele--1"></div>
+                            <div class="info-ele--2"><input type="text" th:field="*{memStoreLocation}" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
+                            <div class="info-ele--3"></div>
+                        </div>
+                        <div class="vali-ele">
+                            <div class="vali-ele--1"></div>
+                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--3"></div>
+                        </div>
                     </div>
                     <div class="hidden-address">
                         <div class="join-ele">
@@ -147,20 +149,20 @@
                             <div class="join-ele--2"><input type="text" class="postcode" placeholder="우편 번호를 입력하세요." readonly></div>
                             <div class="join-ele--3"></div>
                         </div>
-                        <div class="vali-ele">
-                            <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
-                            <div class="vali-ele--3"></div>
-                        </div>
                         <div class="join-ele">
                             <div class="join-ele--1"></div>
                             <div class="join-ele--2"><input type="text" class="extra-address" placeholder="참고 항목을 입력하세요." readonly></div>
                             <div class="join-ele--3"></div>
                         </div>
-                        <div class="vali-ele">
-                            <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
-                            <div class="vali-ele--3"></div>
+                        <div class="join-ele">
+                            <div class="join-ele--1"></div>
+                            <div class="join-ele--2"><input type="text" th:field="*{memStoreLatitude}" class="lat" placeholder="위도" readonly></div>
+                            <div class="join-ele--3"></div>
+                        </div>
+                        <div class="join-ele">
+                            <div class="join-ele--1"></div>
+                            <div class="join-ele--2"><input type="text" th:field="*{memStoreLongitude}" class="lng" placeholder="경도" readonly></div>
+                            <div class="join-ele--3"></div>
                         </div>
                     </div>
                     <div class="info-ele">
@@ -240,7 +242,7 @@
         <!-- //모달 팝업 -->
     </div>
 
-    <script>
+    <script type="text/javascript">
         //개인정보에 접근한 회원의 회원번호
         const memNumber = [[${info.memNumber}]];
 
@@ -258,6 +260,49 @@
           }).then(res => res.json())
             .then(res => console.log(res))
             .catch(err => console.log(err));
+        }
+
+
+        //사업자번호 인증 버튼
+        const $bnConfirmBtn = document.querySelector('.bn-confirm-btn');
+
+        //사업자번호 인증 버튼 클릭시
+        $bnConfirmBtn.addEventListener('click', e => {
+            if(!confirm('조회하시겠습니까?')) return;
+
+            //사업자번호 입력값
+            const bNoVal = memBusinessnumber.value;
+
+            //사업자번호 인증
+            bnConfirm(bNoVal);
+        });
+
+        //사업자번호 인증 함수
+        function bnConfirm(bNoVal) {
+            const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D`;
+            const data = { "b_no": [bNoVal] };
+
+            console.log(url, JSON.stringify(data));
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                  'Accept':'application/json',
+                  'Content-type': 'application/json'
+                },
+                  body: JSON.stringify(data)
+            }).then(res => res.json())
+              .then(res => {
+                console.log(res)
+                console.log(res.data[0].b_stt_cd)
+                if (res.data[0].b_stt_cd == '01') {
+                    alert('인증되었습니다!')
+                } else {
+                    alert('사업자번호를 다시 확인해주세요.')
+                    memBusinessnumber.value=''
+                    memBusinessnumber.focus();
+                }
+              })
+              .catch(err => console.log(err));
         }
     </script>
 </body>

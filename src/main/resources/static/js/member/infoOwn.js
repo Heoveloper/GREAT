@@ -126,6 +126,19 @@ const geocoder = new kakao.maps.services.Geocoder();
 
 //주소 검색 버튼
 $addrSearchBtn = document.querySelector('.addr-search-btn');
+//주소 입력창
+$address = document.querySelector('.address');
+//상세주소 입력창
+$detailedAddress = document.querySelector('.detailed-address');
+//감춰둔 상세주소
+const $detailAddr = document.querySelector('.hidden-addr');
+
+//주소 검색 버튼 클릭시 상세주소 입력창 보여주기
+$addrSearchBtn.addEventListener('click', e => {
+    $address.value='';
+    $detailedAddress.value='';
+    $detailAddr.classList.add('show-addr');
+});
 
 //주소 검색 버튼 클릭시
 $addrSearchBtn.addEventListener('click', e => {

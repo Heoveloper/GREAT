@@ -48,6 +48,9 @@ h2 {letter-spacing: 3px; margin: 20px; padding: 0px;}
 
 /* 우편번호, 참고주소 감추기 */
 .hidden-address {display: none;}
+/* 상세주소 감췄다가 주소 변경시 보이기 */
+.hidden-addr {display: none;}
+.hidden-addr.show-addr {display: block;}
 
 
 /* 모달 팝업 */
@@ -77,3 +80,8 @@ h2 {letter-spacing: 3px; margin: 20px; padding: 0px;}
 .location-choice :nth-child(2) {background: var(--color-red);}
 .location-choice a {display: table-cell; position: relative; vertical-align: middle; text-align: center;
                     border: none; letter-spacing: 3px;}
+
+
+/* 중복확인시 버튼 색깔 바꾸기 */
+.good {background-color: green; color: white; font-weight: bold;}
+.bad {background-color: red; color: white; font-weight: bold;}

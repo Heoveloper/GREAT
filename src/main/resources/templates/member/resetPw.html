@@ -70,8 +70,6 @@
         //비밀번호 인풋창
         $memPassword = document.querySelector('#memPassword');
 
-        $memPassword = document.querySelector('#memPassword');
-
 
         //재설정 완료 버튼 클릭시
         $confirmBtn.addEventListener('click', e => {
@@ -91,6 +89,7 @@
             }
 
             resetPw( member );
+            show();
         });
 
         //재설정 완료 함수

@@ -99,7 +99,6 @@ public class ApiMemberController {
             response = ApiResponse.createApiResMsg("01", "비밀번호가 일치하지 않습니다.", null);
             return response;
         }
-
         //2)회원아이디가 존재하는지 체크
         Member findedMember = memberSVC.findByMemId(resetPw.getMemId());
         log.info("findedMember={}",findedMember);

@@ -11,4 +11,4 @@ function close() {
 const $confirmBtn = document.querySelector('.confirm-btn');
 
 //재설정 완료 버튼 클릭시
-$confirmBtn.addEventListener('click', show);
+//$confirmBtn.addEventListener('click', show);

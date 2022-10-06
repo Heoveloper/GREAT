@@ -245,65 +245,6 @@
 <script type="text/javascript">
         //개인정보에 접근한 회원의 회원번호
         const memNumber = [[${info.memNumber}]];
-
-        //회원탈퇴 AJAX
-        function exit(memNumber){
-          const url = `/api/member/exit`;
-          const data = { "memNumber" : memNumber };
-          fetch(url, {
-            method:'DELETE',
-            headers: {
-              'Accept':'application/json',
-              'Content-type': 'application/json'
-            },
-            body:JSON.stringify(data)
-          }).then(res => res.json())
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-        }
-
-
-        //사업자번호 인증 버튼
-        const $bnConfirmBtn = document.querySelector('.bn-confirm-btn');
-
-        //사업자번호 인증 버튼 클릭시
-        $bnConfirmBtn.addEventListener('click', e => {
-            if(!confirm('조회하시겠습니까?')) return;
-
-            //사업자번호 입력값
-            const bNoVal = memBusinessnumber.value;
-
-            //사업자번호 인증
-            bnConfirm(bNoVal);
-        });
-
-        //사업자번호 인증 함수
-        function bnConfirm(bNoVal) {
-            const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D`;
-            const data = { "b_no": [bNoVal] };
-
-            console.log(url, JSON.stringify(data));
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                  'Accept':'application/json',
-                  'Content-type': 'application/json'
-                },
-                  body: JSON.stringify(data)
-            }).then(res => res.json())
-              .then(res => {
-                console.log(res)
-                console.log(res.data[0].b_stt_cd)
-                if (res.data[0].b_stt_cd == '01') {
-                    alert('인증되었습니다!')
-                } else {
-                    alert('사업자번호를 다시 확인해주세요.')
-                    memBusinessnumber.value=''
-                    memBusinessnumber.focus();
-                }
-              })
-              .catch(err => console.log(err));
-        }
     </script>
 </body>
 </html>

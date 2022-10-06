@@ -96,27 +96,27 @@ public class ApiMemberController {
         //비밀번호-비밀번호 확인 일치
         if (!(resetPw.getMemPassword().equals(resetPw.getMemPasswordCheck()))) {
             bindingResult.reject(null, "비밀번호가 일치하지 않습니다.");
-            response = ApiResponse.createApiResMsg("01", "비밀번호가 일치하지 않습니다.", null);
+            response = ApiResponse.createApiResMsg("01", "비밀번호가 일치하지 않습니다.", resetPw.getMemPasswordCheck());
             return response;
         }
         //2)회원아이디가 존재하는지 체크
         Member findedMember = memberSVC.findByMemId(resetPw.getMemId());
-        log.info("findedMember={}",findedMember);
+        log.info("findedMember={}", findedMember);
         if (findedMember == null) {
-            response = ApiResponse.createApiResMsg("99", "찾고자하는 아이디가 없습니다.", null);
+            response = ApiResponse.createApiResMsg("99", "아이디를 찾을 수 없습니다.", resetPw.getMemPasswordCheck());
             return response;
         }
         //3)비밀번호 변경
         Long updatedRow = memberSVC.resetPw(findedMember.getMemNumber(), resetPw.getMemPassword());
         if (updatedRow == 1) {
-            response = ApiResponse.createApiResMsg("00", "비밀번호 재설정 성공", null);
+            response = ApiResponse.createApiResMsg("00", "비밀번호 재설정 성공", resetPw.getMemPasswordCheck());
         }
         return response;
     }
 
     //회원탈퇴
     @DeleteMapping("/exit")
-    public ApiResponse<Object> exit(@RequestBody Info info, HttpServletRequest request) {
+    public ApiResponse<Object> exit(@RequestBody Info info, BindingResult bindingResult, HttpServletRequest request) {
 
         Member findedMember = memberSVC.findByMemNumber(info.getMemNumber());
 
@@ -125,7 +125,9 @@ public class ApiMemberController {
 
             //비밀번호 불일치시
             if (!(findedMember.getMemPassword().equals(info.getExitPwc()))) {
-                return ApiResponse.createApiResMsg("99","탈퇴 실패(비밀번호 불일치)", info.getExitPwc());
+                log.info("pwAndPwc = {} {}", findedMember.getMemPassword(), info.getExitPwc());
+                bindingResult.reject(null, "비밀번호가 일치하지 않습니다.");
+                return ApiResponse.createApiResMsg("01","비밀번호가 일치하지 않습니다.", info.getExitPwc());
             }
 
             session.invalidate();

@@ -143,9 +143,36 @@ const $exitBtn = document.querySelector('.exit-btn');
 
 //회원탈퇴 버튼 클릭시
 $exitBtn.addEventListener('click', e => {
-    //회원탈퇴
-    exit(memNumber);
+    //탈퇴 시도시 비밀번호 확인창에 입력한 값
+    const $exitPwc = exitPwc.value;
 
-    //회원탈퇴 완료 후 메인화면으로 이동
-    window.location.href = 'http://localhost:8080/';
+    //회원탈퇴
+    exit(memNumber, $exitPwc);
 });
+
+//회원탈퇴 AJAX
+function exit(memNumber, $exitPwc) {
+  const url = `/api/member/exit`;
+  const data = { "memNumber" : memNumber,
+                 "exitPwc" : $exitPwc };
+  fetch(url, {
+    method:'DELETE',
+    headers: {
+      'Accept':'application/json',
+      'Content-type': 'application/json'
+    },
+    body:JSON.stringify(data)
+  }).then(res => res.json())
+    .then(res => {
+        console.log(res);
+        if (res.header.rtcd == '00') {
+            alert ('탈퇴되었습니다!')
+            window.location.href = 'http://localhost:9080/';
+        } else {
+            alert ('비밀번호를 다시 확인해주세요.')
+            exitPwc.value = '';
+            exitPwc.focus();
+        }
+    })
+    .catch(err => console.log(err));
+}

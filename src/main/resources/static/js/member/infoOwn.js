@@ -138,6 +138,58 @@ function confirmCode(mailVal, codeVal) {
 }
 
 
+//사업자번호 인증 버튼
+const $bnConfirmBtn = document.querySelector('.bn-confirm-btn');
+
+//사업자번호 인증 버튼 클릭시
+$bnConfirmBtn.addEventListener('click', e => {
+    //사업자번호 입력값
+    const bNoVal = memBusinessnumber.value;
+
+    //사업자번호 미입력시 알림
+    if (bNoVal.length == 0) {
+        alert('사업자번호를 입력하세요.');
+        memBusinessnumber.focus();
+        return;
+    }
+
+    //사업자번호 인증
+    bnConfirm(bNoVal);
+});
+
+//사업자번호 인증 함수
+function bnConfirm(bNoVal) {
+    const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D`;
+    const data = { "b_no": [bNoVal] };
+
+    console.log(url, JSON.stringify(data));
+    fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept':'application/json',
+          'Content-type': 'application/json'
+        },
+          body: JSON.stringify(data)
+    }).then(res => res.json())
+      .then(res => {
+        console.log(res)
+        console.log(res.data[0].b_stt_cd)
+        if (res.data[0].b_stt_cd == '01') {
+            alert('인증되었습니다!')
+            $bnConfirmBtn.classList.remove('bad');
+            $bnConfirmBtn.classList.add('good');
+        } else {
+            alert('사업자번호를 다시 확인해주세요.')
+            memBusinessnumber.value=''
+            memBusinessnumber.focus();
+            $bnConfirmBtn.classList.remove('good');
+            $bnConfirmBtn.classList.add('bad');
+        }
+      })
+      .catch(err => console.log(err));
+}
+
+
 //카카오 geocoder(주소-좌표간 변환 서비스 객체) 생성
 const geocoder = new kakao.maps.services.Geocoder();
 
@@ -225,9 +277,36 @@ const $exitBtn = document.querySelector('.exit-btn');
 
 //회원탈퇴 버튼 클릭시
 $exitBtn.addEventListener('click', e => {
-    //회원탈퇴
-    exit(memNumber);
+    //탈퇴 시도시 비밀번호 확인창에 입력한 값
+    const $exitPwc = exitPwc.value;
 
-    //회원탈퇴 완료 후 메인화면으로 이동
-    window.location.href = 'http://localhost:8080/';
+    //회원탈퇴
+    exit(memNumber, $exitPwc);
 });
+
+//회원탈퇴 AJAX
+function exit(memNumber, $exitPwc) {
+  const url = `/api/member/exit`;
+  const data = { "memNumber" : memNumber,
+                 "exitPwc" : $exitPwc };
+  fetch(url, {
+    method:'DELETE',
+    headers: {
+      'Accept':'application/json',
+      'Content-type': 'application/json'
+    },
+    body:JSON.stringify(data)
+  }).then(res => res.json())
+    .then(res => {
+        console.log(res);
+        if (res.header.rtcd == '00') {
+            alert ('탈퇴되었습니다!')
+            window.location.href = 'http://localhost:9080/';
+        } else {
+            alert ('비밀번호를 다시 확인해주세요.')
+            exitPwc.value = '';
+            exitPwc.focus();
+        }
+    })
+    .catch(err => console.log(err));
+}

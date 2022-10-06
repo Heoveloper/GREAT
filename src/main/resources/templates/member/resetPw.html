@@ -5,119 +5,68 @@
     <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
     <link rel="stylesheet" th:href="@{/css/member/resetPw.css}">
     <script type="text/javascript" defer th:src="@{/js/member/resetPw.js}"></script>
-    <title>비밀번호 재설정</title>
+    <title>GREAT | 비밀번호 재설정</title>
 </head>
 <body>
-    <div class="wrapper">
-        <header th:replace="~{layout/common_ui::choose_header}"></header>
+<div class="wrapper">
+    <header th:replace="~{layout/common_ui::choose_header}"></header>
 
-        <!-- main -->
-        <main class="main container" th:object="${resetPw}">
-            <div class="title content">
-                <h2>비밀번호 재설정</h2>
-            </div>
-<!--            <form method="POST" action="" th:object="${resetPw}">-->
-                <div class="id">
-                    <i class="fa-solid fa-user"></i>
-                    <i class="bar"></i>
-                    <input type="text" th:field="*{memId}" readonly />
-                </div>
-                <div class="pw">
-                    <i class="fa-solid fa-key"></i>
-                    <i class="bar"></i>
-                    <input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요." />
-                </div>
-                <div class="pwc">
-                    <i class="fa-solid fa-key"></i>
-                    <i class="bar"></i>
-                    <input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요." />
-                </div>
-                <div class="wrap-confirm-btn content">
-                    <button class="btn confirm-btn">재설정 완료</button>
-                </div>
-<!--            </form>-->
-        </main>
-        <!-- //main -->
+    <!-- main -->
+    <main class="main container" th:object="${resetPw}">
+        <div class="title content">
+            <h2>비밀번호 재설정</h2>
+        </div>
+        <!--            <form method="POST" action="" th:object="${resetPw}">-->
+        <div class="id">
+            <i class="fa-solid fa-user"></i>
+            <i class="bar"></i>
+            <input type="text" th:field="*{memId}" readonly />
+        </div>
+        <div class="pw">
+            <i class="fa-solid fa-key"></i>
+            <i class="bar"></i>
+            <input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요." />
+        </div>
+        <div class="pwc">
+            <i class="fa-solid fa-key"></i>
+            <i class="bar"></i>
+            <input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요." />
+        </div>
+        <div class="wrap-confirm-btn content">
+            <button class="btn confirm-btn">재설정 완료</button>
+        </div>
+        <!--            </form>-->
+    </main>
+    <!-- //main -->
 
-        <!-- footer -->
-        <footer th:replace="~{layout/common_ui::footer}"></footer>
-        <!-- //footer -->
+    <!-- footer -->
+    <footer th:replace="~{layout/common_ui::footer}"></footer>
+    <!-- //footer -->
 
-        <!-- 모달 팝업 -->
-        <div class="background">
-            <div class="wrap-pop-up">
-                <div class="pop-up">
-                    <div class="title">
-                        <h2>비밀번호가 변경되었습니다.</h2>
-                    </div>
-                    <div class="location-choice">
-                        <a th:href="@{/}">
-                            메인화면
-                        </a>
-                        <a th:href="@{/login}">
-                            로그인
-                        </a>
-                    </div>
+    <!-- 모달 팝업 -->
+    <div class="background">
+        <div class="wrap-pop-up">
+            <div class="pop-up">
+                <div class="title">
+                    <h2>비밀번호가 변경되었습니다.</h2>
+                </div>
+                <div class="location-choice">
+                    <a th:href="@{/}">
+                        메인화면
+                    </a>
+                    <a th:href="@{/login}">
+                        로그인
+                    </a>
                 </div>
             </div>
         </div>
-        <!-- //모달 팝업 -->
     </div>
+    <!-- //모달 팝업 -->
+</div>
 
-    <script type="text/javascript" th:inline="javascript">
-        //재설정 완료 버튼
-        $confirmBtn = document.querySelector('.confirm-btn');
-        //비밀번호 인풋창
-        $memPassword = document.querySelector('#memPassword');
-
-
-        //재설정 완료 버튼 클릭시
-        $confirmBtn.addEventListener('click', e => {
-            console.log("재설정 완료 버튼 클릭!");
-
-            //비밀번호를 재설정 하려는 회원아이디
-            const ids = [[${resetPw.memId}]];
-            const pwVal = memPassword.value;
-            if (pwVal == null) {alert('재설정할 비밀번호를 입력하세요.');}
-            const pwValChk = memPasswordCheck.value;
-            if (pwValChk == null) {alert('비밀번호를 재입력하세요.'); pwValChk.focus()}
-
-            const member = {
-                "memId" : ids,
-                "memPassword" : pwVal,
-                "memPasswordCheck" : pwValChk
-            }
-
-            resetPw( member );
-            show();
-        });
-
-        //재설정 완료 함수
-        function resetPw(member) {
-            console.log(JSON.stringify(member));
-            const url = `/api/member/resetPw`;
-              fetch(url, {
-                method: 'PATCH',
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-type': 'application/json'
-                },
-                body: JSON.stringify(member)
-              }).then(res => res.json())
-                .then(res => {
-                    console.log(res);
-                    console.log(res.body);
-                    console.log(res.headers);
-                    if(res.header.rtcd === '00'){
-                        console.log('비밀번호가 수정되었습니다');
-                    }else if(res.header.rtcd === '01'){
-                        throw new Error('비밀번호가 일치하지 않습니다');
-                    }else if(res.header.rtcd === '99'){
-                        throw new Error('찾고자하는 아이디가 없습니다.');
-                    }
-                })
-                .catch(err => console.log(err));
-        }
+<script type="text/javascript" th:inline="javascript">
+        //비밀번호를 재설정 하려는 회원아이디
+        const ids = [[${resetPw.memId}]];
     </script>
 </body>
 </html>

@@ -131,6 +131,9 @@
                     <i class="bar"></i>
                     <input id="exitPwc" type="password" placeholder="비밀번호를 입력하세요." />
                 </div>
+                <!--                    <div class="errmsg" th:if="${#fields.hasGlobalErrors()}">-->
+                <!--                        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>-->
+                <!--                    </div>-->
                 <div class="location-choice">
                     <a href="javascript:close();">
                         돌아가기
@@ -148,22 +151,6 @@
 <script type="text/javascript">
         //개인정보에 접근한 회원의 회원번호
         const memNumber = [[${info.memNumber}]];
-
-        //회원탈퇴 AJAX
-        function exit(memNumber){
-          const url = `/api/member/exit`;
-          const data = { "memNumber" : memNumber };
-          fetch(url, {
-            method:'DELETE',
-            headers: {
-              'Accept':'application/json',
-              'Content-type': 'application/json'
-            },
-            body:JSON.stringify(data)
-          }).then(res => res.json())
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-        }
     </script>
 </body>
 </html>

@@ -19,7 +19,7 @@ $dupChkId.addEventListener('click', e => {
     const idVal = memId.value;
     if (idVal.length == 0) {
         alert('아이디를 입력해주세요.');
-        idVal.focus();
+        memId.focus();
         return;
     }
     dupChkId(idVal);
@@ -60,7 +60,7 @@ $dupChkNn.addEventListener('click', e => {
     const nnVal = memNickname.value;
     if (nnVal.length == 0) {
         alert('닉네임을 입력해주세요.');
-        nnVal.focus();
+        memNickname.focus();
         return;
     }
     dupChkNn(nnVal);
@@ -97,8 +97,13 @@ $sendCodeBtn = document.querySelector('.send-code-btn');
 
 //인증코드 발송 버튼 클릭시
 $sendCodeBtn.addEventListener('click', e => {
+    console.log('인증코드 발송 버튼 클릭!');
     const mailVal = memEmail.value;
-    if (mailVal == null) {alert('인증코드를 받을 이메일을 입력하세요.');}
+    if (mailVal.length == 0) {
+        alert('인증코드를 받을 이메일을 입력하세요.');
+        memEmail.focus();
+        return;
+    }
     sendCode(mailVal);
 
     console.log(mailVal);
@@ -117,12 +122,14 @@ function sendCode(mailVal) {
       }).then(res => res)
         .then(res => {
             console.log(res)
-            console.log(res.body)
-            console.log(res.headers)
             if (res.ok == true) {
                 alert ('발송되었습니다! 메일을 확인해주세요.')
+                $sendCodeBtn.classList.remove('bad');
+                $sendCodeBtn.classList.add('good');
             } else {
                 alert ('메일주소를 다시 확인해주세요.')
+                $sendCodeBtn.classList.remove('good');
+                $sendCodeBtn.classList.add('bad');
             }
         })
         .catch(err => console.log(err));
@@ -133,11 +140,17 @@ $confirmCodeBtn = document.querySelector('.confirm-code-btn');
 
 //인증코드 확인 버튼 클릭시
 $confirmCodeBtn.addEventListener('click', e => {
-    console.log('인증코드 확인 버튼 클릭');
+    console.log('인증코드 확인 버튼 클릭!');
     const mailVal = memEmail.value;
     const codeVal = memCode.value;
-
+    if (codeVal.length == 0) {
+        alert('인증코드를 입력하세요.');
+        memCode.focus();
+        return;
+    }
     confirmCode(mailVal, codeVal);
+
+    console.log(mailVal, codeVal);
 });
 
 //인증코드 확인 함수
@@ -154,10 +167,14 @@ function confirmCode(mailVal, codeVal) {
           }).then(res => res.json())
             .then(res => {
                 console.log(res)
-                if (res.header.rtcd = '00') {
+                if (res.header.rtcd == '00') {
                     alert ('인증번호 확인되었습니다!')
+                    $confirmCodeBtn.classList.remove('bad');
+                    $confirmCodeBtn.classList.add('good');
                 } else {
                     alert ('인증번호를 다시 확인해주세요.')
+                    $confirmCodeBtn.classList.remove('good');
+                    $confirmCodeBtn.classList.add('bad');
                 }
             })
             .catch(err => console.log(err));
@@ -257,4 +274,36 @@ function checkTerms() {
     const $checkedTerms = document.querySelectorAll('input[name="agreeTerms"]:checked');
 
     $termsAll.checked = ($terms.length === $checkedTerms.length);
+}
+
+//가입하기 버튼
+$joinBtn = document.querySelector('.join-btn');
+//회원가입 폼
+$signUpForm = document.querySelector('.sign-up');
+
+//가입하기 버튼 클릭시 호출되는 함수
+function btnClick() {
+    if (!isValidChk()) {
+        return;
+    }
+    $signUpForm.submit();
+}
+
+//유효성 검사 함수
+function isValidChk() {
+    if ($dupChkId.classList[2] == 'bad') {
+        alert('아이디 중복확인이 필요합니다.');
+        return false;
+    } else if ($dupChkNn.classList[2] == 'bad') {
+        alert('닉네임 중복확인이 필요합니다.');
+        return false;
+    } else if ($sendCodeBtn.classList[2] == 'bad') {
+        alert ('메일주소를 다시 확인해주세요.')
+        return false;
+    } else if ($confirmCodeBtn.classList[2] == 'bad') {
+        alert('인증번호 확인이 필요합니다.')
+        return false;
+    }
+
+    return true;
 }

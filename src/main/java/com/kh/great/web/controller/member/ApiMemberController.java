@@ -151,7 +151,7 @@ public class ApiMemberController {
 
         if (emailAuthStore.isExist(emailDto.getEmail(), emailDto.getCode())) {
             response =  ApiResponse.createApiResMsg("00", "코드 인증 성공", null);
-            //emailAuthStore.remove(emailDto.email);
+            emailAuthStore.remove(emailDto.email);
         } else {
             response =  ApiResponse.createApiResMsg("99", "코드 인증 실패", null);
         }

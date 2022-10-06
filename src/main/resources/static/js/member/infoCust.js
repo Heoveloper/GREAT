@@ -138,6 +138,42 @@ function confirmCode(mailVal, codeVal) {
 }
 
 
+//수정완료 버튼
+$modifyBtn = document.querySelector('.modify-btn');
+//고객회원정보 수정 폼
+$infoForm = document.querySelector('.info');
+
+//수정완료 버튼 클릭시 호출되는 함수
+function btnClick() {
+
+    //유효성 검사
+    if (!isValidChk()) {
+        return;
+    }
+
+    //수정완료
+    $infoForm.submit();
+}
+
+
+//유효성 검사 함수
+function isValidChk() {
+    console.log(memNumber);
+//    if ($dupChkNn.classList[2] != 'good') {
+//        alert('닉네임 중복확인이 필요합니다.');
+//        return false;
+//    } else if ($sendCodeBtn.classList[2] == 'bad') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+//        alert ('메일주소를 다시 확인해주세요.');
+//        return false;
+//    } else if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+//        alert('인증번호 확인이 필요합니다.');
+//        return false;
+//    }
+
+    return true;
+}
+
+
 //회원탈퇴 버튼
 const $exitBtn = document.querySelector('.exit-btn');
 

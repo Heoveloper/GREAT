@@ -1,7 +1,5 @@
 package com.kh.great.web.controller.main;
 
-import com.kh.great.domain.common.file.AttachCode;
-import com.kh.great.domain.common.file.UploadFileSVC;
 import com.kh.great.domain.dao.member.Member;
 import com.kh.great.domain.dao.product.Product;
 import com.kh.great.domain.svc.member.EmailSVCImpl;
@@ -34,17 +32,17 @@ public class HomeController {
 
     private final MemberSVC memberSVC;
     final ProductSVC productSVC;
-    private final UploadFileSVC uploadFileSVC;
+//    private final UploadFileSVC uploadFileSVC;
     private final EmailSVCImpl emailSVCImpl;
 
     @GetMapping
     public String home(Model model) {
-        List<Product> list = productSVC.today_deadline();
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).setImageFiles(uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(),
-                    list.get(i).getPNumber()));
-        }
-        model.addAttribute("list", list);
+//        List<Product> list = productSVC.today_deadline();
+//        for (int i = 0; i < list.size(); i++) {
+//            list.get(i).setImageFiles(uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(),
+//                    list.get(i).getPNumber()));
+//        }
+//        model.addAttribute("list", list);
 
         return "main/main";
     }
@@ -52,8 +50,8 @@ public class HomeController {
     //회원가입 화면
     @GetMapping("/join")
     public String join(Model model) {
-        model.addAttribute("join", new Join());
 
+        model.addAttribute("join", new Join());
         return "member/join";    //회원가입 화면
     }
 
@@ -62,10 +60,18 @@ public class HomeController {
     public String join(
             @Valid @ModelAttribute("join") Join join,
             BindingResult bindingResult,
-            RedirectAttributes redirectAttributes
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest request
     ) {
         log.info("mempw {}", join.getMemPassword());
         log.info("mempwc {}", join.getMemPasswordCheck());
+        log.info("cccheck = {}", join.getMemType());
+
+        //안됨//삭제예정//
+        if (request.getParameter("memType") == "owner") {
+            join.setMemType("owner");
+        }
+
         //기본 검증
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -76,6 +82,18 @@ public class HomeController {
         //아이디 길이 8~15자
         if (join.getMemId().length() < 8 || join.getMemId().length() > 15) {
             bindingResult.rejectValue("memId", null, "아이디 길이는 8~15자입니다.");
+            return "member/join";
+        }
+
+        //닉네임 길이 2~6자
+        if (join.getMemNickname().length() < 2 || join.getMemNickname().length() > 6) {
+            bindingResult.rejectValue("memNickname", null, "닉네임 길이는 2~6자입니다.");
+            return "member/join";
+        }
+
+        //사업자번호 길이 10자
+        if (request.getParameter("memBusinessnumber").length() != 10) {
+            bindingResult.rejectValue("memNickname", null, "사업자번호는 10자입니다.");
             return "member/join";
         }
 
@@ -204,7 +222,7 @@ public class HomeController {
 
         //세션에 회원정보 저장
         LoginMember loginMember = new LoginMember(member.get().getMemNumber(), member.get().getMemType(),
-                member.get().getMemId(), member.get().getMemNickname(), member.get().getMemStoreName());
+                member.get().getMemId(), member.get().getMemNickname(), member.get().getMemStoreName(), member.get().getMemAdmin());
 
         //세션 생성
         HttpSession session = request.getSession(true);
@@ -212,6 +230,7 @@ public class HomeController {
         session.setAttribute("memNumber", member.get().getMemNumber());
         session.setAttribute("memType", member.get().getMemType());
         session.setAttribute("memNickname", member.get().getMemNickname());
+        session.setAttribute("memAdmin", member.get().getMemAdmin());
 
         return "redirect:" + redirectUrl;
     }
@@ -227,6 +246,36 @@ public class HomeController {
 
         return "redirect:/"; //메인
     }
+
+    //상품 개별 조회
+//    @GetMapping("/product/{num}")
+//    public String findByProductNum(@PathVariable("num") Long num, Model model) {
+//        //1) 상품조회
+//        Product findedProduct = productSVC.findByProductNum(num);
+//        DetailForm detailForm = new DetailForm();
+//
+//        BeanUtils.copyProperties(findedProduct, detailForm);
+
+        //2) 첨부파일 조회
+//        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
+//        if(uploadFiles.size() > 0 ){
+//            List<UploadFile> imageFiles = new ArrayList<>();
+//            for (UploadFile file : uploadFiles) {
+//                imageFiles.add(file);
+//            }
+//            detailForm.setImageFiles(imageFiles);
+//        }
+
+//        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
+//        if(uploadFiles.size() > 0 ){
+//            detailForm.setImageFiles(uploadFiles);
+//        }
+//        log.info("detailForm={}",detailForm);
+//        model.addAttribute("form", detailForm);
+//
+//        return "product/detailForm";
+//    }
+
 
     // 검색 목록
     @GetMapping("/searchresult")

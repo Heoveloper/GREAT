@@ -1,4 +1,4 @@
-// 고객/점주 탭
+//고객/점주 탭
 const $joinCust = document.querySelector('#select--1[type=radio]');
 const $joinOwn = document.querySelector('#select--2[type=radio]');
 const $ownerInput = document.querySelector('.owner-input');
@@ -9,6 +9,18 @@ $joinCust.addEventListener('change', e => {
 $joinOwn.addEventListener('change', e => {
     $ownerInput.classList.add('reveal');
 });
+
+//라디오버튼값 배열로 다 읽어오기
+//const $memType = document.getElementsByName('memType');
+//const $memTypeChecked = "a"; //여기에 선택된 radio 버튼의 값이 담기게 된다.
+//for(let i = 0; i < $memType.length; i++) {
+//    if($memType[i].checked) {
+//        $memTypeChecked = $memType[i].value;
+//    }
+//}
+
+//그냥생각
+//정안되면 점주회원가입시만 ajax로 처리하자..
 
 //에러메세지 선택자
 $idErr = document.querySelector('.id_err');
@@ -48,6 +60,10 @@ function btnClick() {
 
     //회원가입
     $signUpForm.submit();
+
+    if(!($joinCust.checked)) {
+        $joinOwn.setAttribute('checked', true);
+    }
 }
 
 //유효성 검사 함수

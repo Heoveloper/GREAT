@@ -11,4 +11,5 @@ public class LoginMember {
     private String memId;
     private String memNickname;
     private String memStoreName;
+    private String memAdmin;
 }

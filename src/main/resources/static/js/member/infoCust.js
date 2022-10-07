@@ -179,12 +179,39 @@ const $exitBtn = document.querySelector('.exit-btn');
 
 //회원탈퇴 버튼 클릭시
 $exitBtn.addEventListener('click', e => {
+    if ($pwcEmpty.classList[1] == 'reveal') {
+        $pwcEmpty.classList.remove('reveal');
+        $pwc.classList.remove('err');
+    }
+    if ($exitFailed.classList[1] == 'reveal') {
+        $exitFailed.classList.remove('reveal');
+        $pwc.classList.remove('err');
+    }
+
     //탈퇴 시도시 비밀번호 확인창에 입력한 값
     const $exitPwc = exitPwc.value;
 
     //회원탈퇴
     exit(memNumber, $exitPwc);
 });
+
+//'탈퇴 시 비밀번호 확인' 에러메세지
+$pwcEmpty = document.querySelector('.pwcEmpty');
+//'탈퇴 시 비밀번호 불일치' 에러메세지
+$exitFailed = document.querySelector('.exitFailed');
+//에러 발생시 수정할 모달팝업 부분
+$pwc = document.querySelector('.pwc');
+
+//유효성 검사 함수
+function isExitValidChk() {
+    if (exitPwc.value == '') {
+        $pwcEmpty.classList.add('reveal');
+        $pwc.classList.add('err');
+        return false;
+    }
+
+    return true;
+}
 
 //회원탈퇴 AJAX
 function exit(memNumber, $exitPwc) {
@@ -205,7 +232,9 @@ function exit(memNumber, $exitPwc) {
             alert ('탈퇴되었습니다!')
             window.location.href = 'http://localhost:9080/';
         } else {
-            alert ('비밀번호를 다시 확인해주세요.')
+            if (!isExitValidChk()) {return;}
+            $exitFailed.classList.add('reveal');
+            $pwc.classList.add('err');
             exitPwc.value = '';
             exitPwc.focus();
         }

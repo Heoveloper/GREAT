@@ -26,3 +26,9 @@ h1 {letter-spacing: 3px; margin: 10px 0px; padding: 0px;}
 .login-btn {width: 300px; height: 45px; font-size: 15px; font-weight: bold;
             margin: 10px; background-color: var(--main-color-yel); color: #fff;
             border: none; border-radius: 5px;}
+
+/* 에러 발생시 에러메세지 */
+.loginEmpty {display: none;}
+.loginEmpty.reveal {display: block; margin-top: 10px; font-size: 13px; font-weight: bold; color: var(--color-red);}
+
+.loginFailed {margin-top: 10px; font-size: 13px; font-weight: bold; color: var(--color-red);}

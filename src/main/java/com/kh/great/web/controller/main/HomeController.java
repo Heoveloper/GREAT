@@ -1,5 +1,6 @@
 package com.kh.great.web.controller.main;
 
+import com.kh.great.domain.common.file.AttachCode;
 import com.kh.great.domain.common.file.UploadFileSVC;
 import com.kh.great.domain.dao.member.Member;
 import com.kh.great.domain.dao.product.Product;
@@ -37,9 +38,12 @@ public class HomeController {
     private final EmailSVCImpl emailSVCImpl;
 
     @GetMapping
-    public String home(HttpServletRequest request, Model model) {
+    public String home(Model model) {
         List<Product> list = productSVC.today_deadline();
-
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setImageFiles(uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(),
+                    list.get(i).getPNumber()));
+        }
         model.addAttribute("list", list);
 
         return "main/main";
@@ -194,7 +198,7 @@ public class HomeController {
         Optional<Member> member = memberSVC.login(login.getMemId(), login.getMemPassword());
         log.info("member = {}", member);
         if(member.isEmpty()){
-            bindingResult.reject(null,"회원정보가 없습니다.");
+            bindingResult.reject(null,"회원정보를 찾을 수 없습니다.");
             return "member/login";
         }
 
@@ -224,7 +228,16 @@ public class HomeController {
         return "redirect:/"; //메인
     }
 
-    //지역별 상품 목록(할인순.,,,,??)
+    // 검색 목록
+    @GetMapping("/searchresult")
+    public  String searchresult(Model model){
+        List<Product> list = productSVC.findAll();
+        model.addAttribute("list", list);
+
+        return "main/search_result";
+    }
+
+    //지역별 상품 목록
     @GetMapping("/zonning")
     @Nullable
     public String discountListDesc(Model model) {
@@ -234,7 +247,7 @@ public class HomeController {
         return "main/zonning_list_csr";
     }
 
-    //오늘 마감상품 전체보기
+    // 오늘 마감상품 전체보기
     @GetMapping("/todayDealine")
     @Nullable
     public String todayDealine(Model model) {
@@ -243,5 +256,4 @@ public class HomeController {
 
         return "main/all_list";
     }
-
 }

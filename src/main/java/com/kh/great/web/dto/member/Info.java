@@ -52,5 +52,6 @@ public class Info {
     private String memAdmin;                    //varchar2(3)
 
     //입력한 탈퇴시 확인 비밀번호
+    @NotBlank
     private String exitPwc;
 }

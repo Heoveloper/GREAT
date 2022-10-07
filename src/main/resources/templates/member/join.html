@@ -38,7 +38,10 @@
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memId')}" th:errors="*{memId}"></span></div>
+                        <div class="vali-ele--2">
+                            <span class="id_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memId')}" th:errors="*{memId}"></span>
+                        </div>
                         <div class="vali-ele--3"></div>
                     </div>
                     <div class="join-ele">
@@ -48,7 +51,10 @@
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></span></div>
+                        <div class="vali-ele--2">
+                            <span class="pw_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></span>
+                        </div>
                         <div class="vali-ele--3"></div>
                     </div>
                     <div class="join-ele">
@@ -58,7 +64,10 @@
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"><span th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span></div>
+                        <div class="vali-ele--2">
+                            <span class="pwc_err errmsg"></span>
+                            <span th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
+                        </div>
                         <div class="vali-ele--3"></div>
                     </div>
                     <div class="join-ele">
@@ -68,7 +77,10 @@
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memName')}" th:errors="*{memName}"></span></div>
+                        <div class="vali-ele--2">
+                            <span class="name_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memName')}" th:errors="*{memName}"></span>
+                        </div>
                         <div class="vali-ele--3"></div>
                     </div>
                     <div class="join-ele">
@@ -78,7 +90,10 @@
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memNickname')}" th:errors="*{memNickname}"></span></div>
+                        <div class="vali-ele--2">
+                            <span class="nn_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memNickname')}" th:errors="*{memNickname}"></span>
+                        </div>
                         <div class="vali-ele--3"></div>
                     </div>
                     <div class="join-ele">
@@ -88,7 +103,10 @@
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"><span th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"></span></div>
+                        <div class="vali-ele--2">
+                            <span class="email_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"></span>
+                        </div>
                         <div class="vali-ele--3"></div>
                     </div>
                     <div class="join-ele">
@@ -98,7 +116,7 @@
                     </div>
                     <div class="vali-ele">
                         <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"></div>
+                        <div class="vali-ele--2"><span class="code_err errmsg"></span></div>
                         <div class="vali-ele--3"></div>
                     </div>
                     <div class="owner-input">
@@ -109,7 +127,10 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2">
+                                <span class="bn_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memBusinessnumber')}" th:errors="*{memBusinessnumber}"></span>
+                            </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -119,7 +140,10 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2">
+                                <span class="sn_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memStoreName')}" th:errors="*{memStoreName}"></span>
+                            </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -129,7 +153,10 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2">
+                                <span class="sp_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memStorePhonenumber')}" th:errors="*{memStorePhonenumber}"></span>
+                            </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -139,7 +166,10 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2">
+                                <span class="sl_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memStoreLocation')}" th:errors="*{memStoreLocation}"></span>
+                            </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -149,7 +179,9 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2">
+                                <span class="sld_err errmsg"></span>
+                            </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="hidden-address">
@@ -181,7 +213,10 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2">
+                                <span class="si_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memStoreIntroduce')}" th:errors="*{memStoreIntroduce}"></span>
+                            </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
@@ -191,7 +226,10 @@
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--2">
+                                <span class="sns_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memStoreSns')}" th:errors="*{memStoreSns}"></span>
+                            </div>
                             <div class="vali-ele--3"></div>
                         </div>
                     </div>
@@ -229,57 +267,5 @@
     <footer th:replace="~{layout/common_ui::footer}"></footer>
     <!-- //footer -->
 </div>
-<script type="text/javascript">
-        //사업자번호 인증 버튼
-        const $bnConfirmBtn = document.querySelector('.bn-confirm-btn');
-
-        //사업자번호 인증 버튼 클릭시
-        $bnConfirmBtn.addEventListener('click', e => {
-            //사업자번호 입력값
-            const bNoVal = memBusinessnumber.value;
-
-            //사업자번호 미입력시 알림
-            if (bNoVal.length == 0) {
-                alert('사업자번호를 입력하세요.');
-                memBusinessnumber.focus();
-                return;
-            }
-
-            //사업자번호 인증
-            bnConfirm(bNoVal);
-        });
-
-        //사업자번호 인증 함수
-        function bnConfirm(bNoVal) {
-            const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D`;
-            const data = { "b_no": [bNoVal] };
-
-            console.log(url, JSON.stringify(data));
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                  'Accept':'application/json',
-                  'Content-type': 'application/json'
-                },
-                  body: JSON.stringify(data)
-            }).then(res => res.json())
-              .then(res => {
-                console.log(res)
-                console.log(res.data[0].b_stt_cd)
-                if (res.data[0].b_stt_cd == '01') {
-                    alert('인증되었습니다!')
-                    $bnConfirmBtn.classList.remove('bad');
-                    $bnConfirmBtn.classList.add('good');
-                } else {
-                    alert('사업자번호를 다시 확인해주세요.')
-                    memBusinessnumber.value=''
-                    memBusinessnumber.focus();
-                    $bnConfirmBtn.classList.remove('good');
-                    $bnConfirmBtn.classList.add('bad');
-                }
-              })
-              .catch(err => console.log(err));
-        }
-    </script>
 </body>
 </html>

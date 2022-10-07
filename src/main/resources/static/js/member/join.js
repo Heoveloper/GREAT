@@ -10,12 +10,129 @@ $joinOwn.addEventListener('change', e => {
     $ownerInput.classList.add('reveal');
 });
 
+//에러메세지 선택자
+$idErr = document.querySelector('.id_err');
+$pwErr = document.querySelector('.pw_err');
+$pwcErr = document.querySelector('.pwc_err');
+$nnErr = document.querySelector('.nn_err');
+$nameErr = document.querySelector('.name_err');
+$emailErr = document.querySelector('.email_err');
+$codeErr = document.querySelector('.code_err');
+$bnErr = document.querySelector('.bn_err');
+$snErr = document.querySelector('.sn_err');
+$spErr = document.querySelector('.sp_err');
+$slErr = document.querySelector('.sl_err');
+$sldErr = document.querySelector('.sld_err');
+$siErr = document.querySelector('.si_err');
+$snsErr = document.querySelector('.sns_err');
+//에러메세지 전체
+$errmsg = document.querySelectorAll('.errmsg');
+
+//가입하기 버튼
+$joinBtn = document.querySelector('.join-btn');
+//회원가입 폼
+$signUpForm = document.querySelector('.sign-up');
+
+//가입하기 버튼 클릭시 호출되는 함수
+function btnClick() {
+    console.log(memStoreName.value);
+
+    for (let i = 0; i < $errmsg.length; i++) {
+      $errmsg[i].textContent = '';
+    }
+
+    //유효성 검사
+    if (!isValidChk()) {
+        return;
+    }
+
+    //회원가입
+    $signUpForm.submit();
+}
+
+//유효성 검사 함수
+function isValidChk() {
+    if (memId.value == '') {
+        $idErr.textContent = '아이디는 필수입력사항입니다.'
+        return false;
+    } else if ($dupChkId.classList[2] != 'good') {
+        $idErr.textContent = '아이디 중복확인이 필요합니다.'
+        return false;
+    } else if (memPassword.value == '') {
+        $pwErr.textContent = '비밀번호는 필수입력사항입니다.'
+        return false;
+    } else if (memPasswordCheck.value == '') {
+        $pwcErr.textContent = '비밀번호 확인은 필수입력사항입니다.'
+        return false;
+    } else if (memName.value == '') {
+        $nameErr.textContent = '이름은 필수입력사항입니다.'
+        return false;
+    } else if (memNickname.value == '') {
+        $nnErr.textContent = '닉네임은 필수입력사항입니다.'
+        return false;
+    } else if ($dupChkNn.classList[2] != 'good') {
+        $nnErr.textContent = '닉네임 중복확인이 필요합니다.'
+        return false;
+    } else if (memEmail.value == '') {
+        $emailErr.textContent = '이메일은 필수입력사항입니다.'
+        return false;
+    } else if ($sendCodeBtn.classList[2] == 'bad') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+        $emailErr.textContent = '인증코드를 발송해주세요.'
+        return false;
+    } else if (memCode.value == '') {
+        $codeErr.textContent = '인증코드는 필수입력사항입니다.'
+        return false;
+    }
+    else if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+        $codeErr.textContent = '인증코드 확인이 필요합니다.'
+        return false;
+    } else if (!($termsAll.checked)) {
+        alert('약관 전체동의가 필요합니다.');
+        return false;
+    }
+
+    //점주회원가입이면 유효성 검사
+    //고객회원이 아니면
+    else if (!($joinCust.checked)) {
+        if (memBusinessnumber.value == '') {
+            $bnErr.textContent = '사업자번호는 필수입력사항입니다.'
+            return false;
+        }
+        if ($bnConfirmBtn.classList[2] != 'good') {
+            $bnErr.textContent = '사업자번호 인증이 필요합니다.'
+            return false;
+        }
+        if (memStoreName.value == '') {
+            $snErr.textContent = '가게명은 필수입력사항입니다.'
+            return false;
+        }
+        if (memStorePhonenumber.value == '') {
+            $spErr.textContent = '가게 연락처는 필수입력사항입니다.'
+            return false;
+        }
+        const $address = document.querySelector(".address");
+        if ($address.value == '') {
+            $slErr.textContent = '가게 주소를 검색해주세요.'
+            return false;
+        }
+        const $detailedAddress = document.querySelector(".detailed-address");
+        if ($detailedAddress.value == '') {
+            $sldErr.textContent = '가게 상세주소를 입력해주세요.'
+            return false;
+        }
+        return true;
+    }
+
+    return true;
+}
+
 //아이디 중복확인 버튼
 const $dupChkId = document.querySelector('.dup-chk-id-btn');
 
 //아이디 중복확인 버튼 클릭시
 $dupChkId.addEventListener('click', e => {
     console.log('아이디 중복확인 클릭!');
+
     const idVal = memId.value;
     if (idVal.length == 0) {
         alert('아이디를 입력해주세요.');
@@ -42,6 +159,8 @@ function dupChkId(idVal) {
             alert ('사용가능한 아이디입니다!')
             $dupChkId.classList.remove('bad');
             $dupChkId.classList.add('good');
+            //아이디 에러메세지 제거
+            $idErr.textContent = ''
         } else {
             alert ('중복된 아이디가 존재합니다.')
             $dupChkId.classList.remove('good');
@@ -57,6 +176,7 @@ const $dupChkNn = document.querySelector('.dup-chk-nn-btn');
 //닉네임 중복확인 버튼 클릭시
 $dupChkNn.addEventListener('click', e => {
     console.log('닉네임 중복확인 클릭!');
+
     const nnVal = memNickname.value;
     if (nnVal.length == 0) {
         alert('닉네임을 입력해주세요.');
@@ -83,6 +203,8 @@ function dupChkNn(nnVal) {
             alert ('사용가능한 닉네임입니다!')
             $dupChkNn.classList.remove('bad')
             $dupChkNn.classList.add('good')
+            //닉네임 에러메세지 제거
+            $nnErr.textContent = ''
         } else {
             alert ('중복된 닉네임이 존재합니다.')
             $dupChkNn.classList.remove('good')
@@ -98,6 +220,7 @@ $sendCodeBtn = document.querySelector('.send-code-btn');
 //인증코드 발송 버튼 클릭시
 $sendCodeBtn.addEventListener('click', e => {
     console.log('인증코드 발송 버튼 클릭!');
+
     const mailVal = memEmail.value;
     if (mailVal.length == 0) {
         alert('인증코드를 받을 이메일을 입력하세요.');
@@ -126,6 +249,8 @@ function sendCode(mailVal) {
                 alert ('발송되었습니다! 메일을 확인해주세요.')
                 $sendCodeBtn.classList.remove('bad');
                 $sendCodeBtn.classList.add('good');
+                //이메일 에러메세지 제거
+                $emailErr.textContent = ''
             } else {
                 alert ('메일주소를 다시 확인해주세요.')
                 $sendCodeBtn.classList.remove('good');
@@ -141,6 +266,7 @@ $confirmCodeBtn = document.querySelector('.confirm-code-btn');
 //인증코드 확인 버튼 클릭시
 $confirmCodeBtn.addEventListener('click', e => {
     console.log('인증코드 확인 버튼 클릭!');
+
     const mailVal = memEmail.value;
     const codeVal = memCode.value;
     if (codeVal.length == 0) {
@@ -171,6 +297,8 @@ function confirmCode(mailVal, codeVal) {
                     alert ('인증번호 확인되었습니다!')
                     $confirmCodeBtn.classList.remove('bad');
                     $confirmCodeBtn.classList.add('good');
+                    //인증코드 에러메세지 제거
+                    $codeErr.textContent = ''
                 } else {
                     alert ('인증번호를 다시 확인해주세요.')
                     $confirmCodeBtn.classList.remove('good');
@@ -184,6 +312,61 @@ function confirmCode(mailVal, codeVal) {
 //const enKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D;
 ////공공데이터 decoding 인증키
 //const deKey = rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z/Pg0ebD8OFZz2/vx5XFDgH7o+KaOoIG9IVDYNw==;
+
+//사업자번호 인증 버튼
+const $bnConfirmBtn = document.querySelector('.bn-confirm-btn');
+
+//사업자번호 인증 버튼 클릭시
+$bnConfirmBtn.addEventListener('click', e => {
+
+    //사업자번호 에러메세지 제거
+    $bnErr.textContent = ''
+
+    //사업자번호 입력값
+    const bNoVal = memBusinessnumber.value;
+
+    //사업자번호 미입력시 알림
+    if (bNoVal.length == 0) {
+        alert('사업자번호를 입력하세요.');
+        memBusinessnumber.focus();
+        return;
+    }
+
+    //사업자번호 인증
+    bnConfirm(bNoVal);
+});
+
+//사업자번호 인증 함수
+function bnConfirm(bNoVal) {
+    const url = `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=rWGHLB92x6jWBuF2Vi7vGCyIOqWUR5A7otp6POH1Nh9ZrU5Z%2FPg0ebD8OFZz2%2Fvx5XFDgH7o%2BKaOoIG9IVDYNw%3D%3D`;
+    const data = { "b_no": [bNoVal] };
+
+    console.log(url, JSON.stringify(data));
+    fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept':'application/json',
+          'Content-type': 'application/json'
+        },
+          body: JSON.stringify(data)
+    }).then(res => res.json())
+      .then(res => {
+        console.log(res)
+        console.log(res.data[0].b_stt_cd)
+        if (res.data[0].b_stt_cd == '01') {
+            alert('인증되었습니다!')
+            $bnConfirmBtn.classList.remove('bad');
+            $bnConfirmBtn.classList.add('good');
+        } else {
+            alert('사업자번호를 다시 확인해주세요.')
+            memBusinessnumber.value=''
+            memBusinessnumber.focus();
+            $bnConfirmBtn.classList.remove('good');
+            $bnConfirmBtn.classList.add('bad');
+        }
+      })
+      .catch(err => console.log(err));
+}
 
 
 //카카오 geocoder(주소-좌표간 변환 서비스 객체) 생성
@@ -278,73 +461,4 @@ function checkTerms() {
     const $checkedTerms = document.querySelectorAll('input[name="agreeTerms"]:checked');
 
     $termsAll.checked = ($terms.length === $checkedTerms.length);
-}
-
-
-//가입하기 버튼
-$joinBtn = document.querySelector('.join-btn');
-//회원가입 폼
-$signUpForm = document.querySelector('.sign-up');
-
-//가입하기 버튼 클릭시 호출되는 함수
-function btnClick() {
-    console.log(memStoreName.value);
-
-    //유효성 검사
-    if (!isValidChk()) {
-        return;
-    }
-
-    //회원가입
-    $signUpForm.submit();
-}
-
-
-//유효성 검사 함수
-function isValidChk() {
-    if ($dupChkId.classList[2] != 'good') {
-        alert('아이디 중복확인이 필요합니다.');
-        return false;
-    } else if ($dupChkNn.classList[2] != 'good') {
-        alert('닉네임 중복확인이 필요합니다.');
-        return false;
-    } else if ($sendCodeBtn.classList[2] == 'bad') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
-        alert ('메일주소를 다시 확인해주세요.');
-        return false;
-    } else if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
-        alert('인증번호 확인이 필요합니다.');
-        return false;
-    } else if (!($termsAll.checked)) {
-        alert('약관 전체동의가 필요합니다.');
-        return false;
-    }
-
-    //점주회원가입이면 유효성 검사
-    //고객회원이 아니면
-    else if (!($joinCust.checked)) {
-        if ($bnConfirmBtn.classList[2] != 'good') {
-            alert('사업자번호 인증이 필요합니다.');
-            return false;
-        }
-        if (memStoreName.value == '') {
-            alert('가게명은 필수입력사항입니다.');
-            return false;
-        }
-        if (memStorePhonenumber.value == '') {
-            alert('가게 연락처는 필수입력사항입니다.');
-            return false;
-        }
-        if (memStoreLocation.value == '') {
-            alert('가게 주소는 필수입력사항입니다.');
-            return false;
-        }
-        const $detailedAddress = document.querySelector(".detailed-address");
-        if ($detailedAddress.value == '') {
-            alert('가게 상세주소를 입력해주세요.');
-            return false;
-        }
-        return true;
-    }
-
-    return true;
 }

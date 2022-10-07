@@ -81,3 +81,7 @@ h2 {letter-spacing: 3px; margin: 10px 0px;}
 /* 중복확인시 버튼 색깔 바꾸기 */
 .good {background-color: green; color: white; font-weight: bold;}
 .bad {background-color: red; color: white; font-weight: bold;}
+
+/* 에러메세지 */
+.idErr {margin-top: 10px; margin-bottom: 27.5px; font-size: 13px; font-weight: bold; color: var(--color-red);}
+.pwErr {margin-top: 10px; margin-bottom: 27.5px; font-size: 13px; font-weight: bold; color: var(--color-red);}

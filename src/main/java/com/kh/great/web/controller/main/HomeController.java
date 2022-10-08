@@ -89,12 +89,6 @@ public class HomeController {
             return "member/join";
         }
 
-        //사업자번호 길이 10자
-        if (request.getParameter("memBusinessnumber").length() != 10) {
-            bindingResult.rejectValue("memBusinessnumber", null, "사업자번호는 10자입니다.");
-            return "member/join";
-        }
-
         //오브젝트 검증(object error)
         //비밀번호-비밀번호 확인 일치
         if (!(join.getMemPassword().equals(join.getMemPasswordCheck()))) {

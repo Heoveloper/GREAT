@@ -158,7 +158,7 @@ function btnClick() {
 
 //유효성 검사 함수
 function isValidChk() {
-    console.log(memNumber);
+    //console.log(memNumber);
 //    if ($dupChkNn.classList[2] != 'good') {
 //        alert('닉네임 중복확인이 필요합니다.');
 //        return false;

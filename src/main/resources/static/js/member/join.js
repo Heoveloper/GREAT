@@ -58,8 +58,6 @@ $signUpForm = document.querySelector('.sign-up');
 
 //가입하기 버튼 클릭시 호출되는 함수
 function btnClick() {
-    console.log(memStoreName.value);
-
     for (let i = 0; i < $errmsg.length; i++) {
       $errmsg[i].textContent = '';
     }
@@ -138,7 +136,15 @@ memStoreSns.addEventListener('keydown', e => {
 //    }
 //}
 
-
+//const pattern1 = /[0-9]/;
+//
+//const pattern2 = /[a-zA-Z]/;
+//
+//const pattern3 = /[~!@\#$%<>^&*]/;     // 원하는 특수문자 추가 제거
+//
+//const pw_msg = "";
+//
+//$pwVal = memPassword.value;
 
 //유효성 검사 함수
 function isValidChk() {

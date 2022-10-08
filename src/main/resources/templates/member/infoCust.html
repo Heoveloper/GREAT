@@ -17,7 +17,7 @@
             <h2>회원정보</h2>
         </div>
         <div class="wrap-info content">
-            <form method="POST" action="/member/customer/${session.loginMember.memNumber}" class="info" th:object="${info}">
+            <form method="POST" th:action=@{|/member/customer/${session.loginMember.memNumber}|} class="info" th:object="${info}">
                 <div class="info-ele">
                     <div class="info-ele--1"><label for="">아이디<span> *</span></label></div>
                     <div class="info-ele--2"><input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요." readonly></div>
@@ -155,7 +155,7 @@
 
 <script type="text/javascript">
         //개인정보에 접근한 회원의 회원번호
-        const memNumber = [[${info.memNumber}]];
+        const memNumber = [[${session.loginMember.memNumber}]];
     </script>
 </body>
 </html>

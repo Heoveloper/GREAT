@@ -17,6 +17,13 @@ function btnClick() {
     $loginForm.submit();
 }
 
+//비밀번호 입력 후 엔터 입력시 로그인
+memPassword.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        $loginForm.submit();
+    }
+});
+
 
 //유효성 검사 함수
 function isValidChk() {

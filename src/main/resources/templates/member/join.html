@@ -22,9 +22,9 @@
             <form class="sign-up" th:method="POST" action="" th:object="${join}">
                 <div class="member-type select">
                     <input type="radio" class="select__customer" id="select--1" name="memType" value="customer"
-                           checked>
+                           th:field="*{memType}">
                     <label for="select--1">고객회원</label>
-                    <input type="radio" class="select__owner" id="select--2" name="memType" value="owner">
+                    <input type="radio" class="select__owner" id="select--2" name="memType" value="owner" th:field="*{memType}">
                     <label for="select--2">점주회원</label>
                 </div>
                 <div class="required">
@@ -174,7 +174,9 @@
                         </div>
                         <div class="join-ele">
                             <div class="join-ele--1"></div>
-                            <div class="join-ele--2"><input type="text" th:field="*{memStoreLocation}" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
+                            <div class="join-ele--2">
+                                <input type="text" th:field="*{memStoreLocation}" class="detailed-address" placeholder="상세 주소를 입력하세요.">
+                            </div>
                             <div class="join-ele--3"></div>
                         </div>
                         <div class="vali-ele">

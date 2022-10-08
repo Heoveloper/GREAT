@@ -22,7 +22,7 @@ public class EmailSVCImpl {
     private final SpringTemplateEngine templateEngine;
     //이메일 인증 저장소
     private final EmailAuthStore emailAuthStore;
-    
+
     //랜덤 인증 코드 생성
     public String createCode() {
         Random random = new Random();
@@ -55,10 +55,9 @@ public class EmailSVCImpl {
         String title = "GREAT 회원가입 인증코드"; //제목
 
         MimeMessage message = emailSender.createMimeMessage();
-        message.addRecipients(MimeMessage.RecipientType.TO, email); //보낼 이메일 설정
+        message.addRecipients(MimeMessage.RecipientType.TO, toEmail); //보낼 이메일 설정
         message.setSubject(title); //제목 설정
         message.setFrom(setFrom); //보내는 이메일
-        message.setFrom(toEmail);
         message.setText(setContext(authNo),  //인증 코드 생성
                 "utf-8", "html");
 

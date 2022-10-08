@@ -3,24 +3,35 @@ const $joinCust = document.querySelector('#select--1[type=radio]');
 const $joinOwn = document.querySelector('#select--2[type=radio]');
 const $ownerInput = document.querySelector('.owner-input');
 
+//주소, 상세주소 선택자
+const $address = document.querySelector(".address");
+const $detailedAddress = document.querySelector(".detailed-address");
+
+//고객/점주 탭 초기 상태: 고객회원
+if (!$joinCust.checked && !$joinOwn.checked) {
+    $joinCust.checked = true;
+}
+//주소 초기 상태: 빈 값
+if ($address.value != null) {
+    $address.value = '';
+}
+//상세주소 초기 상태: 빈 값
+if ($detailedAddress.value != null) {
+    $detailedAddress.value = '';
+}
+
+//고객/점주 탭 초기 상태 판단
+if ($joinOwn.checked) {
+   $ownerInput.classList.toggle('reveal');
+}
+
+//고객/점주 탭 클릭시 상태 판단
 $joinCust.addEventListener('change', e => {
     $ownerInput.classList.remove('reveal');
 });
 $joinOwn.addEventListener('change', e => {
     $ownerInput.classList.add('reveal');
 });
-
-//라디오버튼값 배열로 다 읽어오기
-//const $memType = document.getElementsByName('memType');
-//const $memTypeChecked = "a"; //여기에 선택된 radio 버튼의 값이 담기게 된다.
-//for(let i = 0; i < $memType.length; i++) {
-//    if($memType[i].checked) {
-//        $memTypeChecked = $memType[i].value;
-//    }
-//}
-
-//그냥생각
-//정안되면 점주회원가입시만 ajax로 처리하자..
 
 //에러메세지 선택자
 $idErr = document.querySelector('.id_err');
@@ -60,11 +71,74 @@ function btnClick() {
 
     //회원가입
     $signUpForm.submit();
-
-    if(!($joinCust.checked)) {
-        $joinOwn.setAttribute('checked', true);
-    }
 }
+
+//인증코드 입력 후 엔터 입력시 회원가입
+memCode.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        for (let i = 0; i < $errmsg.length; i++) {
+          $errmsg[i].textContent = '';
+        }
+
+        //유효성 검사
+        if (!isValidChk()) {
+            return;
+        }
+
+        //회원가입
+        $signUpForm.submit();
+    }
+});
+
+//상세주소 입력 후 엔터 입력시 회원가입
+$detailedAddress.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        for (let i = 0; i < $errmsg.length; i++) {
+          $errmsg[i].textContent = '';
+        }
+
+        //유효성 검사
+        if (!isValidChk()) {
+            return;
+        }
+
+        //회원가입
+        $signUpForm.submit();
+    }
+});
+
+//SNS 입력 후 엔터 입력시 회원가입
+memStoreSns.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        for (let i = 0; i < $errmsg.length; i++) {
+          $errmsg[i].textContent = '';
+        }
+
+        //유효성 검사
+        if (!isValidChk()) {
+            return;
+        }
+
+        //회원가입
+        $signUpForm.submit();
+    }
+});
+
+//memId.addEventListener('keyup', e => keyUpValid());
+//memPassword.addEventListener('keyup', e => keyUpValid());
+//memPasswordCheck.addEventListener('keyup', e => keyUpValid());
+//memName.addEventListener('keyup', e => keyUpValid());
+
+//'event: key up' 시 유효성 검사 함수
+//function keyUpValid() {
+//
+//    //유효성 검사
+//    if (!isValidChk()) {
+//        return;
+//    }
+//}
+
+
 
 //유효성 검사 함수
 function isValidChk() {
@@ -79,6 +153,9 @@ function isValidChk() {
         return false;
     } else if (memPasswordCheck.value == '') {
         $pwcErr.textContent = '비밀번호 확인은 필수입력사항입니다.'
+        return false;
+    } else if (memPassword.value != memPasswordCheck.value) {
+        $pwcErr.textContent = '비밀번호가 일치하지 않습니다.'
         return false;
     } else if (memName.value == '') {
         $nameErr.textContent = '이름은 필수입력사항입니다.'
@@ -98,8 +175,7 @@ function isValidChk() {
     } else if (memCode.value == '') {
         $codeErr.textContent = '인증코드는 필수입력사항입니다.'
         return false;
-    }
-    else if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+    } else if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
         $codeErr.textContent = '인증코드 확인이 필요합니다.'
         return false;
     } else if (!($termsAll.checked)) {
@@ -126,12 +202,10 @@ function isValidChk() {
             $spErr.textContent = '가게 연락처는 필수입력사항입니다.'
             return false;
         }
-        const $address = document.querySelector(".address");
         if ($address.value == '') {
             $slErr.textContent = '가게 주소를 검색해주세요.'
             return false;
         }
-        const $detailedAddress = document.querySelector(".detailed-address");
         if ($detailedAddress.value == '') {
             $sldErr.textContent = '가게 상세주소를 입력해주세요.'
             return false;

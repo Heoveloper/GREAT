@@ -50,8 +50,8 @@ public class HomeController {
     //회원가입 화면
     @GetMapping("/join")
     public String join(Model model) {
-
         model.addAttribute("join", new Join());
+
         return "member/join";    //회원가입 화면
     }
 
@@ -63,15 +63,6 @@ public class HomeController {
             RedirectAttributes redirectAttributes,
             HttpServletRequest request
     ) {
-        log.info("mempw {}", join.getMemPassword());
-        log.info("mempwc {}", join.getMemPasswordCheck());
-        log.info("cccheck = {}", join.getMemType());
-
-        //안됨//삭제예정//
-        if (request.getParameter("memType") == "owner") {
-            join.setMemType("owner");
-        }
-
         //기본 검증
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -80,20 +71,27 @@ public class HomeController {
 
         //필드 검증(field error)
         //아이디 길이 8~15자
-        if (join.getMemId().length() < 8 || join.getMemId().length() > 15) {
+        //if (join.getMemId().length() < 8 || join.getMemId().length() > 15) {
+        //    bindingResult.rejectValue("memId", null, "아이디 길이는 8~15자입니다.");
+        //    return "member/join";
+        //}
+
+        //필드 검증(field error)
+        //아이디 길이 8~15자
+        if (request.getParameter("memId").length() < 8 || request.getParameter("memId").length() > 15) {
             bindingResult.rejectValue("memId", null, "아이디 길이는 8~15자입니다.");
             return "member/join";
         }
 
         //닉네임 길이 2~6자
-        if (join.getMemNickname().length() < 2 || join.getMemNickname().length() > 6) {
+        if (request.getParameter("memNickname").length() < 2 || request.getParameter("memNickname").length() > 6) {
             bindingResult.rejectValue("memNickname", null, "닉네임 길이는 2~6자입니다.");
             return "member/join";
         }
 
         //사업자번호 길이 10자
         if (request.getParameter("memBusinessnumber").length() != 10) {
-            bindingResult.rejectValue("memNickname", null, "사업자번호는 10자입니다.");
+            bindingResult.rejectValue("memBusinessnumber", null, "사업자번호는 10자입니다.");
             return "member/join";
         }
 
@@ -255,17 +253,17 @@ public class HomeController {
 //        DetailForm detailForm = new DetailForm();
 //
 //        BeanUtils.copyProperties(findedProduct, detailForm);
-
-        //2) 첨부파일 조회
-//        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
-//        if(uploadFiles.size() > 0 ){
-//            List<UploadFile> imageFiles = new ArrayList<>();
-//            for (UploadFile file : uploadFiles) {
-//                imageFiles.add(file);
-//            }
-//            detailForm.setImageFiles(imageFiles);
-//        }
-
+//
+//        //2) 첨부파일 조회
+////        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
+////        if(uploadFiles.size() > 0 ){
+////            List<UploadFile> imageFiles = new ArrayList<>();
+////            for (UploadFile file : uploadFiles) {
+////                imageFiles.add(file);
+////            }
+////            detailForm.setImageFiles(imageFiles);
+////        }
+//
 //        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
 //        if(uploadFiles.size() > 0 ){
 //            detailForm.setImageFiles(uploadFiles);

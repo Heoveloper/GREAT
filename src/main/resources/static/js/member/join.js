@@ -48,6 +48,7 @@ $slErr = document.querySelector('.sl_err');
 $sldErr = document.querySelector('.sld_err');
 $siErr = document.querySelector('.si_err');
 $snsErr = document.querySelector('.sns_err');
+$termsErr = document.querySelector('.terms_err');
 //에러메세지 전체
 $errmsg = document.querySelectorAll('.errmsg');
 
@@ -122,19 +123,36 @@ memStoreSns.addEventListener('keydown', e => {
     }
 });
 
-//memId.addEventListener('keyup', e => keyUpValid());
-//memPassword.addEventListener('keyup', e => keyUpValid());
-//memPasswordCheck.addEventListener('keyup', e => keyUpValid());
-//memName.addEventListener('keyup', e => keyUpValid());
+//회원가입 키업시 유효성 검사
+memId.addEventListener('keyup', e => keyUpValid());
+memPassword.addEventListener('keyup', e => keyUpValid());
+memPasswordCheck.addEventListener('keyup', e => keyUpValid());
+memName.addEventListener('keyup', e => keyUpValid());
+memNickname.addEventListener('keyup', e => keyUpValid());
+memEmail.addEventListener('keyup', e => keyUpValid());
+memCode.addEventListener('keyup', e => keyUpValid());
+//회원가입(점주회원 추가입력사항) 키업시 유효성 검사
+memBusinessnumber.addEventListener('keyup', e => keyUpValid());
+memStoreName.addEventListener('keyup', e => keyUpValid());
+memStorePhonenumber.addEventListener('keyup', e => keyUpValid());
+$address.addEventListener('keyup', e => keyUpValid());
+$detailedAddress.addEventListener('keyup', e => keyUpValid());
+memStoreIntroduce.addEventListener('keyup', e => keyUpValid());
+memStoreSns.addEventListener('keyup', e => keyUpValid());
 
 //'event: key up' 시 유효성 검사 함수
-//function keyUpValid() {
-//
-//    //유효성 검사
-//    if (!isValidChk()) {
-//        return;
-//    }
-//}
+function keyUpValid() {
+
+    //공백 제거
+    if(!noSpace()) {
+        return;
+    }
+
+    //유효성 검사
+    if (!isValidChk()) {
+        return;
+    }
+}
 
 //const pattern1 = /[0-9]/;
 //
@@ -146,46 +164,121 @@ memStoreSns.addEventListener('keydown', e => {
 //
 //$pwVal = memPassword.value;
 
+//공백 제거 함수
+function noSpace() {
+    const space = /\s/;
+    if (space.exec(memId.value)) {
+        memId.value = '';
+        memId.focus();
+        return false;
+    }
+    if (space.exec(memPassword.value)) {
+        memPassword.value = '';
+        memPassword.focus();
+        return false;
+    }
+    if (space.exec(memPasswordCheck.value)) {
+        memPasswordCheck.value = '';
+        memPasswordCheck.focus();
+        return false;
+    }
+    if (space.exec(memBusinessnumber.value)) {
+        memBusinessnumber.value = '';
+        memBusinessnumber.focus();
+        return false;
+    }
+    if (space.exec(memStoreIntroduce.value)) {
+        memStoreIntroduce.value = '';
+        memStoreIntroduce.focus();
+        return false;
+    }
+    return true;
+}
+
+//이메일 형식 검사 함수
+function emailFormat() {
+        const emailFormat = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+
+        if (!emailFormat.exec(memEmail.value)) {
+            return false;
+        }
+        return true;
+}
+
 //유효성 검사 함수
 function isValidChk() {
     if (memId.value == '') {
-        $idErr.textContent = '아이디는 필수입력사항입니다.'
+        $idErr.textContent = '아이디는 필수입력사항입니다.';
         return false;
-    } else if ($dupChkId.classList[2] != 'good') {
-        $idErr.textContent = '아이디 중복확인이 필요합니다.'
+    }
+    if (memId.value.length < 8 || memId.value.length > 15) {
+        $idErr.textContent = '아이디는 8~15자입니다.';
         return false;
-    } else if (memPassword.value == '') {
-        $pwErr.textContent = '비밀번호는 필수입력사항입니다.'
+    }
+    if ($dupChkId.classList[2] != 'good') {
+        $idErr.textContent = '아이디 중복확인이 필요합니다.';
         return false;
-    } else if (memPasswordCheck.value == '') {
-        $pwcErr.textContent = '비밀번호 확인은 필수입력사항입니다.'
+    }
+    if (memPassword.value == '') {
+        $idErr.textContent = '';
+        $pwErr.textContent = '비밀번호는 필수입력사항입니다.';
         return false;
-    } else if (memPassword.value != memPasswordCheck.value) {
-        $pwcErr.textContent = '비밀번호가 일치하지 않습니다.'
+    }
+    if (memPassword.value.trim().length < 8 || memPassword.value.trim().length > 15) {
+        $pwErr.textContent = '비밀번호는 8~15자입니다.';
         return false;
-    } else if (memName.value == '') {
-        $nameErr.textContent = '이름은 필수입력사항입니다.'
+    }
+    if (memPasswordCheck.value == '') {
+        $pwErr.textContent = '';
+        $pwcErr.textContent = '비밀번호 확인은 필수입력사항입니다.';
         return false;
-    } else if (memNickname.value == '') {
-        $nnErr.textContent = '닉네임은 필수입력사항입니다.'
+    }
+    if (memPassword.value != memPasswordCheck.value) {
+        $pwcErr.textContent = '비밀번호가 일치하지 않습니다.';
         return false;
-    } else if ($dupChkNn.classList[2] != 'good') {
-        $nnErr.textContent = '닉네임 중복확인이 필요합니다.'
+    }
+    if (memName.value == '') {
+        $pwcErr.textContent = '';
+        $nameErr.textContent = '이름은 필수입력사항입니다.';
         return false;
-    } else if (memEmail.value == '') {
-        $emailErr.textContent = '이메일은 필수입력사항입니다.'
+    }
+    if (memNickname.value == '') {
+        $nameErr.textContent = '';
+        $nnErr.textContent = '닉네임은 필수입력사항입니다.';
         return false;
-    } else if ($sendCodeBtn.classList[2] == 'bad') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
-        $emailErr.textContent = '인증코드를 발송해주세요.'
+    }
+    if ($dupChkNn.classList[2] != 'good') {
+        $nnErr.textContent = '닉네임 중복확인이 필요합니다.';
         return false;
-    } else if (memCode.value == '') {
-        $codeErr.textContent = '인증코드는 필수입력사항입니다.'
+    }
+    if (memEmail.value == '') {
+        $nnErr.textContent = '';
+        $emailErr.textContent = '이메일은 필수입력사항입니다.';
         return false;
-    } else if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
-        $codeErr.textContent = '인증코드 확인이 필요합니다.'
+    }
+    if (!emailFormat()) {
+        $emailErr.textContent = '이메일 형식에 맞지 않습니다.';
         return false;
-    } else if (!($termsAll.checked)) {
-        alert('약관 전체동의가 필요합니다.');
+    }
+    if ($sendCodeBtn.classList[2] == 'bad') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+        $emailErr.textContent = '인증코드를 발송해주세요.';
+        return false;
+    }
+    if (memCode.value == '') {
+        $emailErr.textContent = '';
+        $codeErr.textContent = '인증코드는 필수입력사항입니다.';
+        return false;
+    }
+    if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+        $codeErr.textContent = '인증코드 확인이 필요합니다.';
+        return false;
+    }
+    if (!($termsAll.checked)) {
+        $codeErr.textContent = '';
+        $termsErr.textContent = '약관 전체동의 필요';
+        //let $all = document.querySelector('.terms-ele--1');
+        //$all.focus();
+        //alert('약관 전체동의가 필요합니다.');
         return false;
     }
 
@@ -218,7 +311,6 @@ function isValidChk() {
         }
         return true;
     }
-
     return true;
 }
 
@@ -230,8 +322,17 @@ $dupChkId.addEventListener('click', e => {
     console.log('아이디 중복확인 클릭!');
 
     const idVal = memId.value;
-    if (idVal.length == 0) {
-        alert('아이디를 입력해주세요.');
+//    if (idVal.trim().length == 0) {
+//        alert('아이디를 입력해주세요.');
+//        memId.focus();
+//        return;
+//    } else if (idVal.length < 8 || idVal.length > 15) {
+//        alert('아이디 길이는 8~15자입니다.')
+//        memId.focus();
+//        return;
+//    }
+    if (idVal.trim().length == 0 || idVal.length < 8 || idVal.length > 15) {
+        alert('아이디 조건에 맞지 않습니다.')
         memId.focus();
         return;
     }
@@ -252,13 +353,13 @@ function dupChkId(idVal) {
       .then(res => {
         console.log(res)
         if (res.header.rtcd == '00') {
-            alert ('사용가능한 아이디입니다!')
+            //alert ('사용가능한 아이디입니다!')
             $dupChkId.classList.remove('bad');
             $dupChkId.classList.add('good');
             //아이디 에러메세지 제거
             $idErr.textContent = ''
         } else {
-            alert ('중복된 아이디가 존재합니다.')
+            //alert ('중복된 아이디가 존재합니다.')
             $dupChkId.classList.remove('good');
             $dupChkId.classList.add('bad');
         }
@@ -274,8 +375,8 @@ $dupChkNn.addEventListener('click', e => {
     console.log('닉네임 중복확인 클릭!');
 
     const nnVal = memNickname.value;
-    if (nnVal.length == 0) {
-        alert('닉네임을 입력해주세요.');
+    if (nnVal.trim().length == 0 || nnVal.length < 2 || nnVal.length > 6) {
+        alert('닉네임은 2~6자입니다.');
         memNickname.focus();
         return;
     }
@@ -296,13 +397,13 @@ function dupChkNn(nnVal) {
       .then(res => {
         console.log(res)
         if (res.header.rtcd == '00') {
-            alert ('사용가능한 닉네임입니다!')
+            //alert ('사용가능한 닉네임입니다!')
             $dupChkNn.classList.remove('bad')
             $dupChkNn.classList.add('good')
             //닉네임 에러메세지 제거
             $nnErr.textContent = ''
         } else {
-            alert ('중복된 닉네임이 존재합니다.')
+            //alert ('중복된 닉네임이 존재합니다.')
             $dupChkNn.classList.remove('good')
             $dupChkNn.classList.add('bad')
         }

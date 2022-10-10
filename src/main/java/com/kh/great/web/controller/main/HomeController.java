@@ -158,10 +158,16 @@ public class HomeController {
         //기본 검증
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            return "/findPw";
+            return "member/findPw";
         }
 
         Member findedMember = memberSVC.findByMemIdAndMemEmail(findPw.getMemId(), findPw.getMemEmail());
+        //찾은 회원이 없으면
+        if (findedMember == null) {
+            bindingResult.rejectValue("memId", null, "아이디와 이메일이 일치하는 회원이 없습니다.");
+            return "member/findPw";
+        }
+
         log.info("findedMember = {}", findedMember);
         log.info("findedMember.getMemNumber = {}", findedMember.getMemNumber());
 
@@ -247,17 +253,17 @@ public class HomeController {
 //        DetailForm detailForm = new DetailForm();
 //
 //        BeanUtils.copyProperties(findedProduct, detailForm);
-//
-//        //2) 첨부파일 조회
-////        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
-////        if(uploadFiles.size() > 0 ){
-////            List<UploadFile> imageFiles = new ArrayList<>();
-////            for (UploadFile file : uploadFiles) {
-////                imageFiles.add(file);
-////            }
-////            detailForm.setImageFiles(imageFiles);
-////        }
-//
+
+        //2) 첨부파일 조회
+//        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
+//        if(uploadFiles.size() > 0 ){
+//            List<UploadFile> imageFiles = new ArrayList<>();
+//            for (UploadFile file : uploadFiles) {
+//                imageFiles.add(file);
+//            }
+//            detailForm.setImageFiles(imageFiles);
+//        }
+
 //        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
 //        if(uploadFiles.size() > 0 ){
 //            detailForm.setImageFiles(uploadFiles);

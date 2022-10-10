@@ -193,7 +193,7 @@ function bnConfirm(bNoVal) {
 //카카오 geocoder(주소-좌표간 변환 서비스 객체) 생성
 const geocoder = new kakao.maps.services.Geocoder();
 
-//주소 검색 버튼
+//주소 변경 버튼
 $addrSearchBtn = document.querySelector('.addr-search-btn');
 //주소 입력창
 $address = document.querySelector('.address');
@@ -202,10 +202,14 @@ $detailedAddress = document.querySelector('.detailed-address');
 //감춰둔 상세주소
 const $detailAddr = document.querySelector('.hidden-addr');
 
-//주소 검색 버튼 클릭시 상세주소 입력창 보여주기
+//주소 변경 버튼 클릭시 상세주소 입력창 보여주기
 $addrSearchBtn.addEventListener('click', e => {
+    //$detailedAddress.setAttribute('value', "${info.memStoreLocation}");
+
+    //주소, 상세주소 입력창 빈값
     $address.value='';
     $detailedAddress.value='';
+    //상세주소 보여주기
     $detailAddr.classList.add('show-addr');
 });
 
@@ -277,7 +281,7 @@ $modifyBtn = document.querySelector('.modify-btn');
 //점주회원정보 수정 폼
 $infoForm = document.querySelector('.info');
 
-//가입하기 버튼 클릭시 호출되는 함수
+//수정완료 버튼 클릭시 호출되는 함수
 function btnClick() {
 
     //유효성 검사
@@ -293,10 +297,7 @@ function btnClick() {
 //유효성 검사 함수
 function isValidChk() {
     console.log(memNumber);
-//    if ($dupChkId.classList[2] != 'good') {
-//        alert('아이디 중복확인이 필요합니다.');
-//        return false;
-//    } else if ($dupChkNn.classList[2] != 'good') {
+//    if ($dupChkNn.classList[2] != 'good') {
 //        alert('닉네임 중복확인이 필요합니다.');
 //        return false;
 //    } else if ($sendCodeBtn.classList[2] == 'bad') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함

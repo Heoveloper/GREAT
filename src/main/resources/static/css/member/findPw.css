@@ -31,5 +31,15 @@ h2 {margin: 30px 0px 10px;}
               border: none; border-radius: 5px; letter-spacing: 3px;}
 
 .send-code-btn, .confirm-code-btn {width: 100px; height: 30px; font-size: 12px; font-weight: bold;
-                         border: none; border-radius: 5px; margin-top: 10px; background-color: var(--main-color-gre);
-                         color: gray;}
+                                   border: none; border-radius: 5px; margin-top: 10px;
+                                   background-color: var(--main-color-gre); color: gray;}
+
+/* 중복확인시 버튼 색깔 바꾸기 */
+.good {background-color: green; color: white; font-weight: bold;}
+.bad {background-color: red; color: white; font-weight: bold;}
+
+/* 에러 발생시 에러메세지 */
+.findPwEmpty {display: none;}
+.findPwEmpty.reveal {display: block; margin-top: 10px; font-size: 13px; font-weight: bold; color: var(--color-red);}
+
+.findPwFailed {margin-top: 10px; font-size: 13px; font-weight: bold; color: var(--color-red);}

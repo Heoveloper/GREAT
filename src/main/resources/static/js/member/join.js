@@ -140,6 +140,30 @@ $detailedAddress.addEventListener('keyup', e => keyUpValid());
 memStoreIntroduce.addEventListener('keyup', e => keyUpValid());
 memStoreSns.addEventListener('keyup', e => keyUpValid());
 
+//입력값 변경시 인증 해제
+memId.addEventListener('change', e => changeId());
+memNickname.addEventListener('change', e => changeNn());
+memEmail.addEventListener('change', e => changeEmail());
+memCode.addEventListener('change', e => changeCode());
+function changeId () {
+    $dupChkId.classList.remove('bad');
+    $dupChkId.classList.remove('good');
+}
+function changeNn () {
+    $dupChkNn.classList.remove('bad');
+    $dupChkNn.classList.remove('good');
+}
+function changeEmail () {
+    $sendCodeBtn.classList.remove('bad');
+    $sendCodeBtn.classList.remove('good');
+    $confirmCodeBtn.classList.remove('bad');
+    $confirmCodeBtn.classList.remove('good');
+}
+function changeCode () {
+    $confirmCodeBtn.classList.remove('bad');
+    $confirmCodeBtn.classList.remove('good');
+}
+
 //'event: key up' 시 유효성 검사 함수
 function keyUpValid() {
 
@@ -278,17 +302,17 @@ function isValidChk() {
     //비밀번호 확인 검사
     if (memPasswordCheck.value == '') {
         $pwcErr.textContent = '비밀번호 확인은 필수입력사항입니다.';
-        return;
+        return false;
     }
     else if (memPassword.value != memPasswordCheck.value) {
         $pwcErr.textContent = '비밀번호가 일치하지 않습니다.';
-        return;
+        return false;
     }
     else {$pwcErr.textContent = '';}
     //이름 검사
     if (memName.value == '') {
         $nameErr.textContent = '이름은 필수입력사항입니다.';
-        return;
+        return false;
     }
     else {$nameErr.textContent = '';}
     //닉네임 검사
@@ -314,7 +338,7 @@ function isValidChk() {
         $emailErr.textContent = '이메일 형식에 맞지 않습니다.';
         return false;
     }
-    else if ($sendCodeBtn.classList[2] == 'bad') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+    else if ($sendCodeBtn.classList[2] != 'good') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
         $emailErr.textContent = '인증코드를 발송해주세요.';
         return false;
     }
@@ -324,7 +348,7 @@ function isValidChk() {
         $codeErr.textContent = '인증코드는 필수입력사항입니다.';
         return false;
     }
-    else if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
+    else if ($confirmCodeBtn.classList[2] != 'good') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
         $codeErr.textContent = '인증코드 확인이 필요합니다.';
         return false;
     }
@@ -340,9 +364,11 @@ function isValidChk() {
         }
         else if (!bnFormat()) {
             $bnErr.textContent = '숫자만 입력가능합니다.'
+            return false;
         }
         else if (memBusinessnumber.value.trim().length != 10) {
             $bnErr.textContent = '사업자번호는 10자입니다.'
+            return false;
         }
         else if ($bnConfirmBtn.classList[2] != 'good') {
             $bnErr.textContent = '사업자번호 인증이 필요합니다.'
@@ -362,6 +388,7 @@ function isValidChk() {
         }
         else if (!phoneFormat()) {
             $spErr.textContent = '숫자만 입력가능합니다.'
+            return false;
         }
         else {$spErr.textContent = ''}
         //가게 주소 검사

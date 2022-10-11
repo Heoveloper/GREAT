@@ -58,3 +58,9 @@ h2 {margin: 30px 0px 10px;}
 .location-choice :nth-child(2) {background: var(--main-color-yel);}
 .location-choice a {display: table-cell; position: relative; vertical-align: middle; text-align: center;
                     border: none; letter-spacing: 2px;}
+
+/* 에러 발생시 에러메세지 */
+.resetPwEmpty {display: none;}
+.resetPwEmpty.reveal {display: block; margin-top: 10px; font-size: 13px; font-weight: bold; color: var(--color-red);}
+
+.resetPwFailed {margin-top: 10px; font-size: 13px; font-weight: bold; color: var(--color-red);}

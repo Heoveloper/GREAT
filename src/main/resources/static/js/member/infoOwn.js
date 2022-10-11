@@ -7,6 +7,25 @@ function close() {
     document.querySelector(".background").className = "background";
 }
 
+//에러메세지 선택자
+$idErr = document.querySelector('.id_err');
+$pwErr = document.querySelector('.pw_err');
+$pwcErr = document.querySelector('.pwc_err');
+$nnErr = document.querySelector('.nn_err');
+$nameErr = document.querySelector('.name_err');
+$emailErr = document.querySelector('.email_err');
+$codeErr = document.querySelector('.code_err');
+$bnErr = document.querySelector('.bn_err');
+$snErr = document.querySelector('.sn_err');
+$spErr = document.querySelector('.sp_err');
+$slErr = document.querySelector('.sl_err');
+$sldErr = document.querySelector('.sld_err');
+$siErr = document.querySelector('.si_err');
+$snsErr = document.querySelector('.sns_err');
+$termsErr = document.querySelector('.terms_err');
+//에러메세지 전체
+$errmsg = document.querySelectorAll('.errmsg');
+
 
 //닉네임 중복확인 버튼
 const $dupChkNn = document.querySelector('.dup-chk-nn-btn');
@@ -83,6 +102,7 @@ function sendCode(mailVal) {
                 alert ('발송되었습니다! 메일을 확인해주세요.')
                 $sendCodeBtn.classList.remove('bad');
                 $sendCodeBtn.classList.add('good');
+                $emailErr.textContent = '';
             } else {
                 alert ('메일주소를 다시 확인해주세요.')
                 $sendCodeBtn.classList.remove('good');
@@ -128,6 +148,7 @@ function confirmCode(mailVal, codeVal) {
                     alert ('인증번호 확인되었습니다!')
                     $confirmCodeBtn.classList.remove('bad');
                     $confirmCodeBtn.classList.add('good');
+                    $codeErr.textContent = '';
                 } else {
                     alert ('인증번호를 다시 확인해주세요.')
                     $confirmCodeBtn.classList.remove('good');
@@ -178,6 +199,7 @@ function bnConfirm(bNoVal) {
             alert('인증되었습니다!')
             $bnConfirmBtn.classList.remove('bad');
             $bnConfirmBtn.classList.add('good');
+            $bnErr.textContent = '';
         } else {
             alert('사업자번호를 다시 확인해주세요.')
             memBusinessnumber.value=''
@@ -204,11 +226,13 @@ const $detailAddr = document.querySelector('.hidden-addr');
 
 //주소 변경 버튼 클릭시 상세주소 입력창 보여주기
 $addrSearchBtn.addEventListener('click', e => {
-    //$detailedAddress.setAttribute('value', "${info.memStoreLocation}");
+    //$detailedAddress.setAttribute('id', "memStoreLocation");
 
     //주소, 상세주소 입력창 빈값
     $address.value='';
     $detailedAddress.value='';
+
+
     //상세주소 보여주기
     $detailAddr.classList.add('show-addr');
 });
@@ -276,6 +300,37 @@ const callback = function(result, status) {
 };
 
 
+//입력값 변경시 인증 해제
+memNickname.addEventListener('change', e => changeNn());
+memEmail.addEventListener('change', e => changeEmail());
+memCode.addEventListener('change', e => changeCode());
+memBusinessnumber.addEventListener('change', e => changeBn());
+function changeNn() {
+    $dupChkNn.classList.add('reveal');
+    $dupChkNn.classList.remove('bad');
+    $dupChkNn.classList.remove('good');
+}
+function changeEmail() {
+    $sendCodeBtn.classList.add('reveal');
+    $sendCodeBtn.classList.remove('bad');
+    $sendCodeBtn.classList.remove('good');
+    $confirmCodeBtn.classList.add('reveal');
+    $confirmCodeBtn.classList.remove('bad');
+    $confirmCodeBtn.classList.remove('good');
+    memCode.removeAttribute("readonly");
+}
+function changeCode() {
+    //$confirmCodeBtn.classList.add('reveal');
+    $confirmCodeBtn.classList.remove('bad');
+    $confirmCodeBtn.classList.remove('good');
+}
+function changeBn() {
+    $bnConfirmBtn.classList.add('reveal');
+    $bnConfirmBtn.classList.remove('bad');
+    $bnConfirmBtn.classList.remove('good');
+}
+
+
 //수정완료 버튼
 $modifyBtn = document.querySelector('.modify-btn');
 //점주회원정보 수정 폼
@@ -293,50 +348,176 @@ function btnClick() {
     $infoForm.submit();
 }
 
+//회원가입 키업시 유효성 검사
+memPassword.addEventListener('keyup', e => keyUpValid());
+memPasswordCheck.addEventListener('keyup', e => keyUpValid());
+
+//'event: key up' 시 유효성 검사 함수
+function keyUpValid() {
+
+    //공백 제거
+    if(!noSpace()) {
+        return;
+    }
+
+    //유효성 검사
+    if (!isValidChk()) {
+        return;
+    }
+}
+
+//공백 제거 함수
+function noSpace() {
+    const space = /\s/;
+    if (space.exec(memId.value)) {
+        memId.value = '';
+        memId.focus();
+        return false;
+    }
+    if (space.exec(memPassword.value)) {
+        memPassword.value = '';
+        memPassword.focus();
+        return false;
+    }
+    if (space.exec(memPasswordCheck.value)) {
+        memPasswordCheck.value = '';
+        memPasswordCheck.focus();
+        return false;
+    }
+    if (space.exec(memName.value)) {
+        memName.value = '';
+        memName.focus();
+        return false;
+    }
+    if (space.exec(memNickname.value)) {
+        memNickname.value = '';
+        memNickname.focus();
+        return false;
+    }
+    if (space.exec(memEmail.value)) {
+        memEmail.value = '';
+        memEmail.focus();
+        return false;
+    }
+    if (space.exec(memCode.value)) {
+        memCode.value = '';
+        memCode.focus();
+        return false;
+    }
+    if (space.exec(memBusinessnumber.value)) {
+        memBusinessnumber.value = '';
+        memBusinessnumber.focus();
+        return false;
+    }
+    if (space.exec(memStorePhonenumber.value)) {
+        memStorePhonenumber.value = '';
+        memStorePhonenumber.focus();
+        return false;
+    }
+    return true;
+}
+
+//비밀번호 형식 검사 함수
+function pwFormat() {
+        //const password = /^[a-z0-9_-]{8,15}$/;
+        const pwFormat = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/;
+
+
+        if (!pwFormat.exec(memPassword.value)) {
+            return false;
+        }
+        return true;
+}
+
+//이메일 형식 검사 함수
+function emailFormat() {
+        //const emailFormat = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+        const emailFormat = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
+        if (!emailFormat.exec(memEmail.value)) {
+            return false;
+        }
+        return true;
+}
+
+//사업자번호 형식 검사 함수
+function bnFormat() {
+        const bnFormat = /^[0-9]+/g;
+
+        if (!bnFormat.exec(memBusinessnumber.value)) {
+            return false;
+        }
+        return true;
+}
+
+//가게 연락처 형식 검사 함수
+function phoneFormat() {
+        const phoneFormat = /^[0-9]+/g;
+
+        if (!phoneFormat.exec(memStorePhonenumber.value)) {
+            return false;
+        }
+        return true;
+}
+
+
+
 
 //유효성 검사 함수
 function isValidChk() {
     console.log(memNumber);
-//    if ($dupChkNn.classList[2] != 'good') {
-//        alert('닉네임 중복확인이 필요합니다.');
-//        return false;
-//    } else if ($sendCodeBtn.classList[2] == 'bad') {        //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
-//        alert ('메일주소를 다시 확인해주세요.');
-//        return false;
-//    } else if ($confirmCodeBtn.classList[2] == 'bad') {     //나중에 바꿀 거 바꾸고 !=good으로 바꿔줘야함
-//        alert('인증번호 확인이 필요합니다.');
-//        return false;
-//    } else if (!($termsAll.checked)) {
-//        alert('약관 전체동의가 필요합니다.');
-//        return false;
-//    }
-//
-//    //점주회원가입이면 유효성 검사
-//    //고객회원이 아니면
-//    else if (!($joinCust.checked)) {
-//        if ($bnConfirmBtn.classList[2] != 'good') {
-//            alert('사업자번호 인증이 필요합니다.');
-//            return false;
-//        }
-//        if (memStoreName.value == '') {
-//            alert('가게명은 필수입력사항입니다.');
-//            return false;
-//        }
-//        if (memStorePhonenumber.value == '') {
-//            alert('가게 연락처는 필수입력사항입니다.');
-//            return false;
-//        }
-//        if (memStoreLocation.value == '') {
-//            alert('가게 주소는 필수입력사항입니다.');
-//            return false;
-//        }
-//        const $detailedAddress = document.querySelector(".detailed-address");
-//        if ($detailedAddress.value == '') {
-//            alert('가게 상세주소를 입력해주세요.');
-//            return false;
-//        }
-//        return true;
-//    }
+    //비밀번호 검사
+    if (memPassword.value == '') {
+        $pwErr.textContent = '비밀번호는 필수입력사항입니다.';
+        return false;
+    }
+    else if (!pwFormat()) {
+        $pwErr.textContent = '비밀번호: 숫자/소문자/특수문자 포함 8~15자';
+        return false;
+    }
+    else {$pwErr.textContent = '';}
+    //비밀번호 확인 검사
+    if (memPasswordCheck.value == '') {
+        $pwcErr.textContent = '비밀번호 확인은 필수입력사항입니다.';
+        return false;
+    }
+    else if (memPassword.value != memPasswordCheck.value) {
+        $pwcErr.textContent = '비밀번호가 일치하지 않습니다.';
+        return false;
+    }
+    else {$pwcErr.textContent = '';}
+    //닉네임 검사
+    if ($dupChkNn.classList[2] == 'reveal') {
+        if ($dupChkNn.classList[3] != 'good') {
+            $nnErr.textContent = '닉네임 중복확인이 필요합니다.';
+            return false;
+        }
+        else {$nnErr.textContent = '';}
+    }
+    //이메일 검사
+    if ($sendCodeBtn.classList[2] == 'reveal') {
+        if ($sendCodeBtn.classList[3] != 'good') {
+            $emailErr.textContent = '인증코드를 발송해주세요.';
+            return false;
+        }
+        else {$emailErr.textContent = '';}
+    }
+    //인증코드 검사
+    if ($confirmCodeBtn.classList[2] == 'reveal') {
+        if ($confirmCodeBtn.classList[3] != 'good') {
+            $codeErr.textContent = '인증코드 확인이 필요합니다.';
+            return false;
+        }
+        else {$codeErr.textContent = '';}
+    }
+    //사업자번호 검사
+    if ($bnConfirmBtn.classList[2] == 'reveal') {
+        if ($bnConfirmBtn.classList[3] != 'good') {
+            $bnErr.textContent = '사업자번호 인증이 필요합니다.';
+            return false;
+        }
+        else {$bnErr.textContent = '';}
+    }
 
     return true;
 }
@@ -347,12 +528,39 @@ const $exitBtn = document.querySelector('.exit-btn');
 
 //회원탈퇴 버튼 클릭시
 $exitBtn.addEventListener('click', e => {
+    if ($pwcEmpty.classList[1] == 'reveal') {
+        $pwcEmpty.classList.remove('reveal');
+        $pwc.classList.remove('err');
+    }
+    if ($exitFailed.classList[1] == 'reveal') {
+        $exitFailed.classList.remove('reveal');
+        $pwc.classList.remove('err');
+    }
+
     //탈퇴 시도시 비밀번호 확인창에 입력한 값
     const $exitPwc = exitPwc.value;
 
     //회원탈퇴
     exit(memNumber, $exitPwc);
 });
+
+//'탈퇴 시 비밀번호 확인' 에러메세지
+$pwcEmpty = document.querySelector('.pwcEmpty');
+//'탈퇴 시 비밀번호 불일치' 에러메세지
+$exitFailed = document.querySelector('.exitFailed');
+//에러 발생시 수정할 모달팝업 부분
+$pwc = document.querySelector('.pwc');
+
+//유효성 검사 함수
+function isExitValidChk() {
+    if (exitPwc.value == '') {
+        $pwcEmpty.classList.add('reveal');
+        $pwc.classList.add('err');
+        return false;
+    }
+
+    return true;
+}
 
 //회원탈퇴 AJAX
 function exit(memNumber, $exitPwc) {
@@ -373,7 +581,9 @@ function exit(memNumber, $exitPwc) {
             alert ('탈퇴되었습니다!')
             window.location.href = 'http://localhost:9080/';
         } else {
-            alert ('비밀번호를 다시 확인해주세요.')
+            if (!isExitValidChk()) {return;}
+            $exitFailed.classList.add('reveal');
+            $pwc.classList.add('err');
             exitPwc.value = '';
             exitPwc.focus();
         }

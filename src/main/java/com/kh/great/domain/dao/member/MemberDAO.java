@@ -27,8 +27,8 @@ public interface MemberDAO {
 
     /**
      * 비밀번호 찾기
-     * @param memId
-     * @param memEmail
+     * @param memId 아이디
+     * @param memEmail 이메일
      * @return
      */
     Member findByMemIdAndMemEmail(String memId, String memEmail);

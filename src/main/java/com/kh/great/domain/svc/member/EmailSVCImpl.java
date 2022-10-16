@@ -52,7 +52,7 @@ public class EmailSVCImpl {
 
         String setFrom = "altruism_tap@naver.com"; //email-config에 설정한 자신의 이메일 주소(보내는 사람)
         String toEmail = email; //받는 사람
-        String title = "GREAT 회원가입 인증코드"; //제목
+        String title = "GREAT 이메일 인증코드"; //제목
 
         MimeMessage message = emailSender.createMimeMessage();
         message.addRecipients(MimeMessage.RecipientType.TO, toEmail); //보낼 이메일 설정

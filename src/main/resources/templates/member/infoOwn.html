@@ -37,7 +37,10 @@
                 </div>
                 <div class="vali-ele">
                     <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memPassword}"></span></div>
+                    <div class="vali-ele--2">
+                        <span class="pw_err errmsg"></span>
+                        <span th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></span>
+                    </div>
                     <div class="vali-ele--3"></div>
                 </div>
                 <div class="info-ele">
@@ -47,7 +50,10 @@
                 </div>
                 <div class="vali-ele">
                     <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memPasswordCheck}"></span></div>
+                    <div class="vali-ele--2">
+                        <span class="pwc_err errmsg"></span>
+                        <span th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
+                    </div>
                     <div class="vali-ele--3"></div>
                 </div>
                 <div class="info-ele">
@@ -67,7 +73,10 @@
                 </div>
                 <div class="vali-ele">
                     <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memNickname}"></span></div>
+                    <div class="vali-ele--2">
+                        <span class="nn_err errmsg"></span>
+                        <span th:if="${#fields.hasErrors('memNickname')}" th:errors="*{memNickname}"></span>
+                    </div>
                     <div class="vali-ele--3"></div>
                 </div>
                 <div class="info-ele">
@@ -77,27 +86,33 @@
                 </div>
                 <div class="vali-ele">
                     <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memEmail}"></span></div>
+                    <div class="vali-ele--2">
+                        <span class="email_err errmsg"></span>
+                        <span th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"></span>
+                    </div>
                     <div class="vali-ele--3"></div>
                 </div>
                 <div class="info-ele">
                     <div class="info-ele--1"><label for="">인증코드</label></div>
-                    <div class="info-ele--2"><input type="text" id="memCode" name="memCode" placeholder="인증코드를 입력하세요."></div>
+                    <div class="info-ele--2"><input type="text" id="memCode" name="memCode" placeholder="인증코드를 입력하세요." readonly></div>
                     <div class="info-ele--3"><button type="button" class="btn confirm-code-btn">인증코드 확인</button></div>
                 </div>
                 <div class="vali-ele">
                     <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"></div>
+                    <div class="vali-ele--2"><span class="code_err errmsg"></span></div>
                     <div class="vali-ele--3"></div>
                 </div>
                 <div class="info-ele">
                     <div class="info-ele--1"><label for="">사업자번호</label></div>
                     <div class="info-ele--2"><input type="text" th:field="*{memBusinessnumber}" placeholder="사업자번호를 입력하세요. (- 제외)"></div>
-                    <div class="info-ele--3"><button type="button" class="bn-confirm-btn">인증</button></div>
+                    <div class="info-ele--3"><button type="button" class="btn bn-confirm-btn">인증</button></div>
                 </div>
                 <div class="vali-ele">
                     <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memBusinessnumber}"></span></div>
+                    <div class="vali-ele--2">
+                        <span class="bn_err errmsg"></span>
+                        <span th:if="${#fields.hasErrors('memBusinessnumber')}" th:errors="*{memBusinessnumber}"></span>
+                    </div>
                     <div class="vali-ele--3"></div>
                 </div>
                 <div class="info-ele">
@@ -134,7 +149,7 @@
                 <div class="hidden-addr">
                     <div class="info-ele">
                         <div class="info-ele--1"></div>
-                        <div class="info-ele--2"><input type="text" th:field="*{memStoreLocation}" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
+                        <div class="info-ele--2"><input type="text" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
                         <div class="info-ele--3"></div>
                     </div>
                     <div class="vali-ele">
@@ -219,15 +234,23 @@
                         <h2>정말 탈퇴하시겠습니까?</h2>
                     </div>
                     <div class="withdraw-desc">
-                        <p>탈퇴 후 데이터는 복구할 수 없으며 30일 보관 후 삭제됩니다.</p>
-                        <p>탈퇴를 원하시면 비밀번호를 입력해주세요.</p>
+                        <p>회원 탈퇴시 모든 데이터는 복구할 수 없습니다.</p>
+                        <p>계속 탈퇴를 진행하시려면 비밀번호를 입력해주세요.</p>
                     </div>
                 </div>
-                <div class="pwc">
-                    <i class="fa-solid fa-key"></i>
-                    <i class="bar"></i>
-                    <input id="exitPwc" type="password" placeholder="비밀번호를 입력하세요." />
-                </div>
+                <form th:object="${info}">
+                    <div class="pwc">
+                        <i class="fa-solid fa-key"></i>
+                        <i class="bar"></i>
+                        <input id="exitPwc" type="password" placeholder="비밀번호를 입력하세요." />
+                    </div>
+                    <div class="pwcEmpty">
+                        <p>비밀번호를 입력하세요.</p>
+                    </div>
+                    <div class="exitFailed">
+                        <p>비밀번호가 일치하지 않습니다.</p>
+                    </div>
+                </form>
                 <div class="location-choice">
                     <a href="javascript:close();">
                         돌아가기

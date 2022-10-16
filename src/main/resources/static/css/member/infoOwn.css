@@ -70,6 +70,10 @@ h2 {letter-spacing: 3px; margin: 20px; padding: 0px;}
 .alert h2 {margin: 30px 0px;}
 .pwc {display: flex; justify-content: space-evenly; align-items: center; margin-top: 10px; margin-bottom: 57px;
 	  outline: 1px solid #979797; width: 300px; height: 45px; border-radius: 8px;}
+/* 에러 발생시 변경 */
+.pwc.err {display: flex; justify-content: space-evenly; align-items: center; margin-top: 10px; margin-bottom: 10px;
+          outline: 1px solid #979797; width: 300px; height: 45px; border-radius: 8px;}
+/* //에러 발생시 변경 */
 .pwc i {display: flex; justify-content: center;}
 .pwc .bar {display: flex; width: 1px; height: 30px; background-color: #979797;}
 .pwc input {display: flex; vertical-align: 2px; border: none; width: 200px; height: 20px; margin: 0; font-size: 18px;}
@@ -85,3 +89,14 @@ h2 {letter-spacing: 3px; margin: 20px; padding: 0px;}
 /* 중복확인시 버튼 색깔 바꾸기 */
 .good {background-color: green; color: white; font-weight: bold;}
 .bad {background-color: red; color: white; font-weight: bold;}
+
+/* 에러 발생시 에러메세지 */
+.pwcEmpty {display: none;}
+.pwcEmpty.reveal {display: block; margin-top: 10px; margin-bottom: 27.5px; font-size: 13px; font-weight: bold; color: var(--color-red);}
+
+.exitFailed {display: none;}
+.exitFailed.reveal {display: block; margin-top: 10px; margin-bottom: 27.5px; font-size: 13px; font-weight: bold; color: var(--color-red);}
+
+/* 값 바뀌기 전 인증버튼 숨기기 */
+.dup-chk-nn-btn, .send-code-btn, .confirm-code-btn, .bn-confirm-btn {display: none}
+.dup-chk-nn-btn.reveal, .send-code-btn.reveal, .confirm-code-btn.reveal, .bn-confirm-btn.reveal {display: block}

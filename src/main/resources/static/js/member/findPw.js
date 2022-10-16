@@ -140,7 +140,8 @@ function isValidChk() {
         $findPwEmpty.classList.add('reveal');
         findPwErrmsg.textContent = '이메일 형식에 맞지 않습니다.';
         return false;
-    } else if ($sendCodeBtn.classList[2] != 'good') {
+    }
+    else if ($sendCodeBtn.classList[2] != 'good') {
         findPwErrmsg.textContent = '인증코드를 발송해주세요.';
         return false;
     }

@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -44,11 +43,11 @@ public class MemberSVCImpl implements MemberSVC {
     }
 
     /**
-     * 비밀번호 찾기
+     * 비밀번호 찾기 (조회 by 아이디, 이메일)
      *
-     * @param memId
-     * @param memEmail
-     * @return
+     * @param memId 아이디
+     * @param memEmail 이메일
+     * @return 회원정보
      */
     @Override
     public Member findByMemIdAndMemEmail(String memId, String memEmail) {
@@ -70,9 +69,9 @@ public class MemberSVCImpl implements MemberSVC {
     /**
      * 로그인
      *
-     * @param memId       아이디
-     * @param memPassword 패스워드
-     * @return 회원
+     * @param memId 아이디
+     * @param memPassword 비밀번호
+     * @return 회원정보
      */
     @Override
     public Optional<Member> login(String memId, String memPassword) {
@@ -126,16 +125,6 @@ public class MemberSVCImpl implements MemberSVC {
         Long cnt = memberDAO.exit(memNumber);
         log.info("삭제건수={}", cnt);
         return cnt;
-    }
-
-    /**
-     * 목록
-     *
-     * @return 회원전체
-     */
-    @Override
-    public List<Member> all() {
-        return memberDAO.all();
     }
 
     /**

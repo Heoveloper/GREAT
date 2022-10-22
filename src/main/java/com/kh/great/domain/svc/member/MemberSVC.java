@@ -2,7 +2,6 @@ package com.kh.great.domain.svc.member;
 
 import com.kh.great.domain.dao.member.Member;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface MemberSVC {
@@ -22,17 +21,17 @@ public interface MemberSVC {
     Member findByMemNameAndMemEmail(String memName, String memEmail);
 
     /**
-     * 비밀번호 찾기
-     * @param memId
-     * @param memEmail
-     * @return
+     * 비밀번호 찾기 (조회 by 아이디, 이메일)
+     * @param memId 아이디
+     * @param memEmail 이메일
+     * @return 회원정보
      */
     Member findByMemIdAndMemEmail(String memId, String memEmail);
 
     /**
      * 비밀번호 재설정
      * @param memNumber 회원번호
-     * @param member 수정할 정보
+     * @param newPassword 수정할 정보
      * @return 재설정건수
      */
     Long resetPw(Long memNumber, String newPassword);
@@ -40,8 +39,8 @@ public interface MemberSVC {
     /**
      * 로그인
      * @param memId 아이디
-     * @param memPassword 패스워드
-     * @return 회원
+     * @param memPassword 비밀번호
+     * @return 회원정보
      */
     Optional<Member> login(String memId, String memPassword);
 
@@ -73,12 +72,6 @@ public interface MemberSVC {
      * @return 삭제건수
      */
     Long exit(Long memNumber);
-
-    /**
-     * 목록
-     * @return 회원전체
-     */
-    List<Member> all();
 
     /**
      * 아이디 중복체크

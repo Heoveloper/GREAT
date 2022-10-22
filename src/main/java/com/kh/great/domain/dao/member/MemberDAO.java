@@ -1,6 +1,5 @@
 package com.kh.great.domain.dao.member;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface MemberDAO {
@@ -26,10 +25,10 @@ public interface MemberDAO {
     Member findByMemNameAndMemEmail(String memName, String memEmail);
 
     /**
-     * 비밀번호 찾기
+     * 비밀번호 찾기 (조회 by 아이디, 이메일)
      * @param memId 아이디
      * @param memEmail 이메일
-     * @return
+     * @return 회원정보
      */
     Member findByMemIdAndMemEmail(String memId, String memEmail);
 
@@ -45,7 +44,7 @@ public interface MemberDAO {
      * 로그인
      * @param memId 아이디
      * @param memPassword 비밀번호
-     * @return 회원
+     * @return 회원정보
      */
     Optional<Member> login(String memId, String memPassword);
 
@@ -77,12 +76,6 @@ public interface MemberDAO {
      * @return 삭제건수
      */
     Long exit(Long memNumber);
-
-    /**
-     * 목록
-     * @return 회원전체
-     */
-    List<Member> all();
 
     /**
      * 아이디 중복체크

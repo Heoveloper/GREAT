@@ -1,5 +1,6 @@
 package com.kh.great.domain.dao.member;
 
+import com.kh.great.domain.dao.product.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,7 @@ public class Member {
     private LocalDateTime memRegtime;           //date
     private LocalDateTime memLockExpiration;    //date
     private String memAdmin;                    //varchar2(3)
+    private Product product;
 
     public Member(String memType, String memId, String memPassword, String memName, String memNickname, String memEmail, String memBusinessnumber, String memStoreName, String memStroePhonenumber, String memStoreLocation, String memStoreLatitude, String memStoreLongitude, String memStoreIntroduce, String memStoreSns, LocalDateTime memRegtime, LocalDateTime memLockExpiration, String memAdmin) {
         this.memType = memType;

@@ -58,7 +58,7 @@ public class EmailSVCImpl {
         message.addRecipients(MimeMessage.RecipientType.TO, toEmail); //보낼 이메일 설정
         message.setSubject(title); //제목 설정
         message.setFrom(setFrom); //보내는 이메일
-        message.setText(setContext(authNo),  //인증 코드 생성
+        message.setText(setContext(authNo), //인증 코드 생성
                 "utf-8", "html");
 
         return message;

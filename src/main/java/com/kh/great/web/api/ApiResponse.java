@@ -12,7 +12,7 @@ public class ApiResponse<T> {
     @Data
     @AllArgsConstructor
     public static class Header {
-        private String rtcd;    //응답 코드  "00"-성공 ,"99"-실패
+        private String rtcd;    //응답 코드 "00"-성공, "99"-실패
         private String rtmsg;   //응답 메세지
     }
 

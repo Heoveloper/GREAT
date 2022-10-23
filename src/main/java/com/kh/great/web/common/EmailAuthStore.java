@@ -24,7 +24,7 @@ public class EmailAuthStore {
     public boolean isExist(String email, String authNo){
 
         boolean isExist = false;
-        //이메일이 없을경우 false
+        //이메일이 없을 경우 false
         if(get(email) == null) return isExist;
 
         //이메일이 존재하고 인증번호가 같으면 true

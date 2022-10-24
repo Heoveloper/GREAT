@@ -1,5 +1,6 @@
 package com.kh.great.domain.common.file;
 
+import com.kh.great.domain.dao.uploadFile.UploadFile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,11 +1,13 @@
 package com.kh.great.domain.dao.product;
 
 import com.kh.great.domain.Deal;
-import com.kh.great.domain.common.file.UploadFile;
 import com.kh.great.domain.dao.member.Member;
+import com.kh.great.domain.dao.uploadFile.UploadFile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -29,13 +31,14 @@ public class Product {
     private Integer discountRate;   //할인율    DISCOUNT_RATE	NUMBER(2,0)
     private String paymentOption;  //결제방식    PAYMENT_OPTION	VARCHAR2 (32 BYTE)
     private String detailInfo;     //상품설명    DETAIL_INFO	VARCHAR2 (4000 BYTE)
-
+    @DateTimeFormat(pattern = "yy-MM-dd HH:mm:ss")
     private LocalDateTime rDate;    //등록일    R_DATE DATE DEFAULT SYSDATE
     private LocalDateTime uDate;    //수정일    U_DATE	DATE DEFAULT SYSDATE
     private Integer pStatus;        //판매상태    P_STATUS	NUMBER(1,0)
 
     private Member member;
     private Deal deal;
+    private List<MultipartFile> files; //상품 이미지 첨부(여러건)
 
     private List<UploadFile> imageFiles;
 }

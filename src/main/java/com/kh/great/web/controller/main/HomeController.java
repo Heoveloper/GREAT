@@ -1,12 +1,16 @@
 package com.kh.great.web.controller.main;
 
+import com.kh.great.domain.common.file.AttachCode;
 import com.kh.great.domain.dao.member.Member;
 import com.kh.great.domain.dao.product.Product;
+import com.kh.great.domain.dao.uploadFile.UploadFile;
 import com.kh.great.domain.svc.member.EmailSVCImpl;
 import com.kh.great.domain.svc.member.MemberSVC;
 import com.kh.great.domain.svc.product.ProductSVC;
+import com.kh.great.domain.svc.uploadFile.UploadFileSVC;
 import com.kh.great.web.api.member.FindId;
 import com.kh.great.web.dto.member.*;
+import com.kh.great.web.dto.product.DetailForm;
 import com.kh.great.web.session.LoginMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,17 +36,17 @@ public class HomeController {
 
     private final MemberSVC memberSVC;
     final ProductSVC productSVC;
-//    private final UploadFileSVC uploadFileSVC;
+    private final UploadFileSVC uploadFileSVC;
     private final EmailSVCImpl emailSVCImpl;
 
     @GetMapping
     public String home(Model model) {
-//        List<Product> list = productSVC.today_deadline();
-//        for (int i = 0; i < list.size(); i++) {
-//            list.get(i).setImageFiles(uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(),
-//                    list.get(i).getPNumber()));
-//        }
-//        model.addAttribute("list", list);
+        List<Product> list = productSVC.today_deadline();
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setImageFiles(uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(),
+                    list.get(i).getPNumber()));
+        }
+        model.addAttribute("list", list);
 
         return "main/main";
     }
@@ -246,13 +250,13 @@ public class HomeController {
     }
 
     //상품 개별 조회
-//    @GetMapping("/product/{num}")
-//    public String findByProductNum(@PathVariable("num") Long num, Model model) {
-//        //1) 상품조회
-//        Product findedProduct = productSVC.findByProductNum(num);
-//        DetailForm detailForm = new DetailForm();
-//
-//        BeanUtils.copyProperties(findedProduct, detailForm);
+    @GetMapping("/product/{num}")
+    public String findByProductNum(@PathVariable("num") Long num, Model model) {
+        //1) 상품조회
+        Product findedProduct = productSVC.findByProductNum(num);
+        DetailForm detailForm = new DetailForm();
+
+        BeanUtils.copyProperties(findedProduct, detailForm);
 
         //2) 첨부파일 조회
 //        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
@@ -264,15 +268,15 @@ public class HomeController {
 //            detailForm.setImageFiles(imageFiles);
 //        }
 
-//        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
-//        if(uploadFiles.size() > 0 ){
-//            detailForm.setImageFiles(uploadFiles);
-//        }
-//        log.info("detailForm={}",detailForm);
-//        model.addAttribute("form", detailForm);
-//
-//        return "product/detailForm";
-//    }
+        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
+        if(uploadFiles.size() > 0 ){
+            detailForm.setImageFiles(uploadFiles);
+        }
+        log.info("detailForm={}",detailForm);
+        model.addAttribute("form", detailForm);
+
+        return "product/detailForm";
+    }
 
 
     // 검색 목록

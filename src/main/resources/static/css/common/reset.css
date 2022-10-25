@@ -23,7 +23,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-h1,h2,h3,h4 {
+h1, h2, h3, h4 {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -32,7 +32,7 @@ h1,h2,h3,h4 {
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+    display: block;
 }
 body {
 	line-height: 1.5;
@@ -63,6 +63,14 @@ textarea:focus {
 input:focus {
 	outline: none;
 }
-select:focus{
+select:focus {
 	outline: none;
+}
+
+/* ckeditor 충돌 방지 위해 별도 정의 */
+.ck.ck-editor__main strong,
+.ck.ck-editor__main i,
+.ck.ck-editor__main ol,
+.ck.ck-editor__main ul {
+   all: revert;
 }

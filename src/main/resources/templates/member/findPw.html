@@ -8,63 +8,63 @@
     <title>GREAT | 비밀번호 찾기</title>
 </head>
 <body>
-<div class="wrapper">
-    <header th:replace="~{layout/common_ui::choose_header}"></header>
+    <div class="wrapper">
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
 
-    <!-- main -->
-    <main class="main container">
-        <div class="title content">
-            <h1>비밀번호를 잊으셨습니까?</h1>
-        </div>
-        <div class="wrap-find-pw content">
-            <div class="find-pw-title">
-                <h2>비밀번호 찾기</h2>
+        <!-- main -->
+        <main class="main container">
+            <div class="title content">
+                <h1>비밀번호를 잊으셨습니까?</h1>
             </div>
-            <form class="find-pw" action="" method="POST" th:object="${findPw}">
-                <div class="input-data content">
-                    <div class="wrap-id">
-                        <div class="id">
-                            <i class="icon__id fa-regular fa-user"></i>
-                            <i class="bar__id"></i>
-                            <input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요." />
+            <div class="wrap-find-pw content">
+                <div class="find-pw-title">
+                    <h2>비밀번호 찾기</h2>
+                </div>
+                <form class="find-pw" action="" method="POST" th:object="${findPw}">
+                    <div class="input-data content">
+                        <div class="wrap-id">
+                            <div class="id">
+                                <i class="icon__id fa-regular fa-user"></i>
+                                <i class="bar__id"></i>
+                                <input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요." />
+                            </div>
+                        </div>
+                        <div class="wrap-email">
+                            <div class="email">
+                                <i class="icon__email fa-regular fa-envelope"></i>
+                                <i class="bar__email"></i>
+                                <input type="email" th:field="*{memEmail}" placeholder="이메일 주소를 입력하세요.">
+                            </div>
+                            <button type="button" class="btn send-code-btn">인증코드 발송</button>
+                        </div>
+                        <div class="wrap-certify">
+                            <div class="certify">
+                                <i class="icon__certify fa-solid fa-check"></i>
+                                <i class="bar__certify"></i>
+                                <input type="text" id="memCode" name="memCode" placeholder="인증코드를 입력하세요.">
+                            </div>
+                            <button type="button" class="btn confirm-code-btn">인증코드 확인</button>
                         </div>
                     </div>
-                    <div class="wrap-email">
-                        <div class="email">
-                            <i class="icon__email fa-regular fa-envelope"></i>
-                            <i class="bar__email"></i>
-                            <input type="email" th:field="*{memEmail}" placeholder="이메일 주소를 입력하세요.">
-                        </div>
-                        <button type="button" class="btn send-code-btn">인증코드 발송</button>
+                    <div class="findPwEmpty">
+                        <p id="findPwErrmsg">비밀번호를 찾으려는 회원의 정보를 입력하세요.</p>
                     </div>
-                    <div class="wrap-certify">
-                        <div class="certify">
-                            <i class="icon__certify fa-solid fa-check"></i>
-                            <i class="bar__certify"></i>
-                            <input type="text" id="memCode" name="memCode" placeholder="인증코드를 입력하세요.">
-                        </div>
-                        <button type="button" class="btn confirm-code-btn">인증코드 확인</button>
+                    <p th:errors="*{memId}"></p>
+                    <p th:errors="*{memEmail}"></p>
+                    <div class="findPwFailed" th:if="${#fields.hasGlobalErrors()}">
+                        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
                     </div>
-                </div>
-                <div class="findPwEmpty">
-                    <p id="findPwErrmsg">비밀번호를 찾으려는 회원의 정보를 입력하세요.</p>
-                </div>
-                <p th:errors="*{memId}"></p>
-                <p th:errors="*{memEmail}"></p>
-                <div class="findPwFailed" th:if="${#fields.hasGlobalErrors()}">
-                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-                </div>
-                <div class="wrap-confirm-btn content">
-                    <button type="button" class="btn confirm-btn" onclick='btnClick()'>확인</button>
-                </div>
-            </form>
-        </div>
-    </main>
-    <!-- //main -->
+                    <div class="wrap-confirm-btn content">
+                        <button type="button" class="btn confirm-btn" onclick='btnClick()'>확인</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <!-- //main -->
 
-    <!-- footer -->
-    <footer th:replace="~{layout/common_ui::footer}"></footer>
-    <!-- //footer -->
-</div>
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
 </body>
 </html>

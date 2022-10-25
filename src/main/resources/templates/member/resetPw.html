@@ -8,72 +8,72 @@
     <title>GREAT | 비밀번호 재설정</title>
 </head>
 <body>
-<div class="wrapper">
-    <header th:replace="~{layout/common_ui::choose_header}"></header>
+    <div class="wrapper">
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
 
-    <!-- main -->
-    <main class="main container" th:object="${resetPw}">
-        <div class="title content">
-            <h2>비밀번호 재설정</h2>
-        </div>
-        <div class="id">
-            <i class="fa-solid fa-user"></i>
-            <i class="bar"></i>
-            <input type="text" th:field="*{memId}" readonly />
-        </div>
-        <div class="pw">
-            <i class="fa-solid fa-key"></i>
-            <i class="bar"></i>
-            <input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요." />
-        </div>
-        <div class="pwc">
-            <i class="fa-solid fa-key"></i>
-            <i class="bar"></i>
-            <input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요." />
-        </div>
-        <div class="resetPwEmpty">
-            <p id="resetPwErrmsg">재설정할 비밀번호를 입력하세요.</p>
-        </div>
-        <p th:errors="*{memId}"></p>
-        <p th:errors="*{memPassword}"></p>
-        <p th:errors="*{memPasswordCheck}"></p>
-        <div class="resetPwFailed" th:if="${#fields.hasGlobalErrors()}">
-            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-        </div>
-        <div class="wrap-confirm-btn content">
-            <button class="btn confirm-btn">재설정 완료</button>
-        </div>
-    </main>
-    <!-- //main -->
+        <!-- main -->
+        <main class="main container" th:object="${resetPw}">
+            <div class="title content">
+                <h2>비밀번호 재설정</h2>
+            </div>
+            <div class="id">
+                <i class="fa-solid fa-user"></i>
+                <i class="bar"></i>
+                <input type="text" th:field="*{memId}" readonly />
+            </div>
+            <div class="pw">
+                <i class="fa-solid fa-key"></i>
+                <i class="bar"></i>
+                <input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요." />
+            </div>
+            <div class="pwc">
+                <i class="fa-solid fa-key"></i>
+                <i class="bar"></i>
+                <input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요." />
+            </div>
+            <div class="resetPwEmpty">
+                <p id="resetPwErrmsg">재설정할 비밀번호를 입력하세요.</p>
+            </div>
+            <p th:errors="*{memId}"></p>
+            <p th:errors="*{memPassword}"></p>
+            <p th:errors="*{memPasswordCheck}"></p>
+            <div class="resetPwFailed" th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+            </div>
+            <div class="wrap-confirm-btn content">
+                <button class="btn confirm-btn">재설정 완료</button>
+            </div>
+        </main>
+        <!-- //main -->
 
-    <!-- footer -->
-    <footer th:replace="~{layout/common_ui::footer}"></footer>
-    <!-- //footer -->
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
 
-    <!-- 모달 팝업 -->
-    <div class="background">
-        <div class="wrap-pop-up">
-            <div class="pop-up">
-                <div class="title">
-                    <h2>비밀번호가 변경되었습니다.</h2>
-                </div>
-                <div class="location-choice">
-                    <a th:href="@{/}">
-                        메인화면
-                    </a>
-                    <a th:href="@{/login}">
-                        로그인
-                    </a>
+        <!-- 모달 팝업 -->
+        <div class="background">
+            <div class="wrap-pop-up">
+                <div class="pop-up">
+                    <div class="title">
+                        <h2>비밀번호가 변경되었습니다.</h2>
+                    </div>
+                    <div class="location-choice">
+                        <a th:href="@{/}">
+                            메인화면
+                        </a>
+                        <a th:href="@{/login}">
+                            로그인
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- //모달 팝업 -->
     </div>
-    <!-- //모달 팝업 -->
-</div>
 
-<script type="text/javascript" th:inline="javascript">
-        //비밀번호를 재설정 하려는 회원아이디
-        const ids = [[${resetPw.memId}]];
+    <script type="text/javascript" th:inline="javascript">
+            //비밀번호를 재설정 하려는 회원아이디
+            const ids = [[${resetPw.memId}]];
     </script>
 </body>
 </html>

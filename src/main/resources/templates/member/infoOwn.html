@@ -10,146 +10,19 @@
     <title>GREAT | 회원정보</title>
 </head>
 <body>
-<div class="wrapper">
-    <header th:replace="~{layout/common_ui::choose_header}"></header>
+    <div class="wrapper">
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
 
-    <!-- main -->
-    <main class="main container">
-        <div class="title content">
-            <h2>회원정보</h2>
-        </div>
-        <div class="wrap-info content">
-            <form th:method="POST" th:action=@{|/member/owner/${session.loginMember.memNumber}|} class="info" th:object="${info}">
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">아이디</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요." readonly></div>
-                    <div class="info-ele--3"></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"></div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">비밀번호</label></div>
-                    <div class="info-ele--2"><input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요."></div>
-                    <div class="info-ele--3"></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2">
-                        <span class="pw_err errmsg"></span>
-                        <span th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></span>
-                    </div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">비밀번호 확인</label></div>
-                    <div class="info-ele--2"><input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요."></div>
-                    <div class="info-ele--3"></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2">
-                        <span class="pwc_err errmsg"></span>
-                        <span th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
-                    </div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">이름</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memName}" placeholder="이름을 입력하세요."></div>
-                    <div class="info-ele--3"></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memName}"></span></div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">닉네임</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memNickname}" placeholder="닉네임을 입력하세요."></div>
-                    <div class="info-ele--3"><button type="button" class="btn dup-chk-nn-btn">중복확인</button></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2">
-                        <span class="nn_err errmsg"></span>
-                        <span th:if="${#fields.hasErrors('memNickname')}" th:errors="*{memNickname}"></span>
-                    </div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">이메일</label></div>
-                    <div class="info-ele--2"><input type="email" th:field="*{memEmail}" placeholder="이메일을 입력하세요."></div>
-                    <div class="info-ele--3"><button type="button" class="btn send-code-btn">인증코드 발송</button></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2">
-                        <span class="email_err errmsg"></span>
-                        <span th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"></span>
-                    </div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">인증코드</label></div>
-                    <div class="info-ele--2"><input type="text" id="memCode" name="memCode" placeholder="인증코드를 입력하세요." readonly></div>
-                    <div class="info-ele--3"><button type="button" class="btn confirm-code-btn">인증코드 확인</button></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span class="code_err errmsg"></span></div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">사업자번호</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memBusinessnumber}" placeholder="사업자번호를 입력하세요. (- 제외)"></div>
-                    <div class="info-ele--3"><button type="button" class="btn bn-confirm-btn">인증</button></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2">
-                        <span class="bn_err errmsg"></span>
-                        <span th:if="${#fields.hasErrors('memBusinessnumber')}" th:errors="*{memBusinessnumber}"></span>
-                    </div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">가게명</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memStoreName}" placeholder="가게명을 입력하세요."></div>
-                    <div class="info-ele--3"></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memStoreName}"></span></div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">가게 연락처</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memStorePhonenumber}" placeholder="가게 연락처를 입력하세요. (- 제외)"></div>
-                    <div class="info-ele--3"></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memStorePhonenumber}"></span></div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">가게 주소</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memStoreLocation}" class="address" placeholder="가게 주소를 입력하세요."
-                                                    readonly></div>
-                    <div class="info-ele--3"><button type="button" class="btn addr-search-btn">주소 변경</button></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memStoreLocation}"></span></div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="hidden-addr">
+        <!-- main -->
+        <main class="main container">
+            <div class="title content">
+                <h2>회원정보</h2>
+            </div>
+            <div class="wrap-info content">
+                <form th:method="POST" th:action=@{|/member/owner/${session.loginMember.memNumber}|} class="info" th:object="${info}">
                     <div class="info-ele">
-                        <div class="info-ele--1"></div>
-                        <div class="info-ele--2"><input type="text" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
+                        <div class="info-ele--1"><label for="">아이디</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요." readonly></div>
                         <div class="info-ele--3"></div>
                     </div>
                     <div class="vali-ele">
@@ -157,117 +30,244 @@
                         <div class="vali-ele--2"></div>
                         <div class="vali-ele--3"></div>
                     </div>
-                </div>
-                <div class="hidden-address">
-                    <div class="join-ele">
-                        <div class="join-ele--1"></div>
-                        <div class="join-ele--2"><input type="text" class="postcode" placeholder="우편 번호를 입력하세요." readonly></div>
-                        <div class="join-ele--3"></div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">비밀번호</label></div>
+                        <div class="info-ele--2"><input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요."></div>
+                        <div class="info-ele--3"></div>
                     </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"></div>
-                        <div class="join-ele--2"><input type="text" class="extra-address" placeholder="참고 항목을 입력하세요." readonly></div>
-                        <div class="join-ele--3"></div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2">
+                            <span class="pw_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></span>
+                        </div>
+                        <div class="vali-ele--3"></div>
                     </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"></div>
-                        <div class="join-ele--2"><input type="text" th:field="*{memStoreLatitude}" class="lat" placeholder="위도" readonly></div>
-                        <div class="join-ele--3"></div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">비밀번호 확인</label></div>
+                        <div class="info-ele--2"><input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요."></div>
+                        <div class="info-ele--3"></div>
                     </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"></div>
-                        <div class="join-ele--2"><input type="text" th:field="*{memStoreLongitude}" class="lng" placeholder="경도" readonly></div>
-                        <div class="join-ele--3"></div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2">
+                            <span class="pwc_err errmsg"></span>
+                            <span th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
+                        </div>
+                        <div class="vali-ele--3"></div>
                     </div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">가게 소개</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memStoreIntroduce}" placeholder="가게 소개를 입력하세요."></div>
-                    <div class="info-ele--3"></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memStoreIntroduce}"></span></div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="info-ele">
-                    <div class="info-ele--1"><label for="">SNS</label></div>
-                    <div class="info-ele--2"><input type="text" th:field="*{memStoreSns}" placeholder="인증번호를 입력하세요."></div>
-                    <div class="info-ele--3"></div>
-                </div>
-                <div class="vali-ele">
-                    <div class="vali-ele--1"></div>
-                    <div class="vali-ele--2"><span th:errors="*{memStoreSns}"></span></div>
-                    <div class="vali-ele--3"></div>
-                </div>
-                <div class="wrap-btn content">
-                    <button class="btn main-btn" th:onclick="|location.href='@{/}'|">
-                        <i class="fa-solid fa-house"></i>
-                        <label for="">메인 화면</label>
-                    </button>
-                    <button type="button" class="btn modify-btn" onclick='btnClick()'>
-                        <i class="fa-solid fa-pen"></i>
-                        <label for="">수정 완료</label>
-                    </button>
-                </div>
-                <div class="withdraw content">
-                    <a href="javascript:show();"><i class="fa-solid fa-arrow-right-from-bracket"></i>회원 탈퇴</a>
-                </div>
-            </form>
-        </div>
-    </main>
-    <!-- //main -->
-
-    <!-- footer -->
-    <footer th:replace="~{layout/common_ui::footer}"></footer>
-    <!-- //footer -->
-
-    <!-- 모달 팝업 -->
-    <div class="background">
-        <div class="wrap-pop-up">
-            <div class="pop-up">
-                <div class="close">
-                    <a href="javascript:close();"><i class="fa-solid fa-xmark fa-lg"></i></a>
-                </div>
-                <div class="alert">
-                    <div class="title">
-                        <h2>정말 탈퇴하시겠습니까?</h2>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">이름</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memName}" placeholder="이름을 입력하세요."></div>
+                        <div class="info-ele--3"></div>
                     </div>
-                    <div class="withdraw-desc">
-                        <p>회원 탈퇴시 모든 데이터는 복구할 수 없습니다.</p>
-                        <p>계속 탈퇴를 진행하시려면 비밀번호를 입력해주세요.</p>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memName}"></span></div>
+                        <div class="vali-ele--3"></div>
                     </div>
-                </div>
-                <form th:object="${info}">
-                    <div class="pwc">
-                        <i class="fa-solid fa-key"></i>
-                        <i class="bar"></i>
-                        <input id="exitPwc" type="password" placeholder="비밀번호를 입력하세요." />
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">닉네임</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memNickname}" placeholder="닉네임을 입력하세요."></div>
+                        <div class="info-ele--3"><button type="button" class="btn dup-chk-nn-btn">중복확인</button></div>
                     </div>
-                    <div class="pwcEmpty">
-                        <p>비밀번호를 입력하세요.</p>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2">
+                            <span class="nn_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memNickname')}" th:errors="*{memNickname}"></span>
+                        </div>
+                        <div class="vali-ele--3"></div>
                     </div>
-                    <div class="exitFailed">
-                        <p>비밀번호가 일치하지 않습니다.</p>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">이메일</label></div>
+                        <div class="info-ele--2"><input type="email" th:field="*{memEmail}" placeholder="이메일을 입력하세요."></div>
+                        <div class="info-ele--3"><button type="button" class="btn send-code-btn">인증코드 발송</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2">
+                            <span class="email_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"></span>
+                        </div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">인증코드</label></div>
+                        <div class="info-ele--2"><input type="text" id="memCode" name="memCode" placeholder="인증코드를 입력하세요." readonly></div>
+                        <div class="info-ele--3"><button type="button" class="btn confirm-code-btn">인증코드 확인</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span class="code_err errmsg"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">사업자번호</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memBusinessnumber}" placeholder="사업자번호를 입력하세요. (- 제외)"></div>
+                        <div class="info-ele--3"><button type="button" class="btn bn-confirm-btn">인증</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2">
+                            <span class="bn_err errmsg"></span>
+                            <span th:if="${#fields.hasErrors('memBusinessnumber')}" th:errors="*{memBusinessnumber}"></span>
+                        </div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">가게명</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStoreName}" placeholder="가게명을 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStoreName}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">가게 연락처</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStorePhonenumber}" placeholder="가게 연락처를 입력하세요. (- 제외)"></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStorePhonenumber}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">가게 주소</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStoreLocation}" class="address" placeholder="가게 주소를 입력하세요."
+                                                        readonly></div>
+                        <div class="info-ele--3"><button type="button" class="btn addr-search-btn">주소 변경</button></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStoreLocation}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="hidden-addr">
+                        <div class="info-ele">
+                            <div class="info-ele--1"></div>
+                            <div class="info-ele--2"><input type="text" class="detailed-address" placeholder="상세 주소를 입력하세요."></div>
+                            <div class="info-ele--3"></div>
+                        </div>
+                        <div class="vali-ele">
+                            <div class="vali-ele--1"></div>
+                            <div class="vali-ele--2"></div>
+                            <div class="vali-ele--3"></div>
+                        </div>
+                    </div>
+                    <div class="hidden-address">
+                        <div class="join-ele">
+                            <div class="join-ele--1"></div>
+                            <div class="join-ele--2"><input type="text" class="postcode" placeholder="우편 번호를 입력하세요." readonly></div>
+                            <div class="join-ele--3"></div>
+                        </div>
+                        <div class="join-ele">
+                            <div class="join-ele--1"></div>
+                            <div class="join-ele--2"><input type="text" class="extra-address" placeholder="참고 항목을 입력하세요." readonly></div>
+                            <div class="join-ele--3"></div>
+                        </div>
+                        <div class="join-ele">
+                            <div class="join-ele--1"></div>
+                            <div class="join-ele--2"><input type="text" th:field="*{memStoreLatitude}" class="lat" placeholder="위도" readonly></div>
+                            <div class="join-ele--3"></div>
+                        </div>
+                        <div class="join-ele">
+                            <div class="join-ele--1"></div>
+                            <div class="join-ele--2"><input type="text" th:field="*{memStoreLongitude}" class="lng" placeholder="경도" readonly></div>
+                            <div class="join-ele--3"></div>
+                        </div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">가게 소개</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStoreIntroduce}" placeholder="가게 소개를 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStoreIntroduce}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="info-ele">
+                        <div class="info-ele--1"><label for="">SNS</label></div>
+                        <div class="info-ele--2"><input type="text" th:field="*{memStoreSns}" placeholder="인증번호를 입력하세요."></div>
+                        <div class="info-ele--3"></div>
+                    </div>
+                    <div class="vali-ele">
+                        <div class="vali-ele--1"></div>
+                        <div class="vali-ele--2"><span th:errors="*{memStoreSns}"></span></div>
+                        <div class="vali-ele--3"></div>
+                    </div>
+                    <div class="wrap-btn content">
+                        <button class="btn main-btn" th:onclick="|location.href='@{/}'|">
+                            <i class="fa-solid fa-house"></i>
+                            <label for="">메인 화면</label>
+                        </button>
+                        <button type="button" class="btn modify-btn" onclick='btnClick()'>
+                            <i class="fa-solid fa-pen"></i>
+                            <label for="">수정 완료</label>
+                        </button>
+                    </div>
+                    <div class="withdraw content">
+                        <a href="javascript:show();"><i class="fa-solid fa-arrow-right-from-bracket"></i>회원 탈퇴</a>
                     </div>
                 </form>
-                <div class="location-choice">
-                    <a href="javascript:close();">
-                        돌아가기
-                    </a>
-                    <a class="exit-btn" href="#" onclick="return false;">
-                        탈퇴
-                    </a>
+            </div>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+
+        <!-- 모달 팝업 -->
+        <div class="background">
+            <div class="wrap-pop-up">
+                <div class="pop-up">
+                    <div class="close">
+                        <a href="javascript:close();"><i class="fa-solid fa-xmark fa-lg"></i></a>
+                    </div>
+                    <div class="alert">
+                        <div class="title">
+                            <h2>정말 탈퇴하시겠습니까?</h2>
+                        </div>
+                        <div class="withdraw-desc">
+                            <p>회원 탈퇴시 모든 데이터는 복구할 수 없습니다.</p>
+                            <p>계속 탈퇴를 진행하시려면 비밀번호를 입력해주세요.</p>
+                        </div>
+                    </div>
+                    <form th:object="${info}">
+                        <div class="pwc">
+                            <i class="fa-solid fa-key"></i>
+                            <i class="bar"></i>
+                            <input id="exitPwc" type="password" placeholder="비밀번호를 입력하세요." />
+                        </div>
+                        <div class="pwcEmpty">
+                            <p>비밀번호를 입력하세요.</p>
+                        </div>
+                        <div class="exitFailed">
+                            <p>비밀번호가 일치하지 않습니다.</p>
+                        </div>
+                    </form>
+                    <div class="location-choice">
+                        <a href="javascript:close();">
+                            돌아가기
+                        </a>
+                        <a class="exit-btn" href="#" onclick="return false;">
+                            탈퇴
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- //모달 팝업 -->
     </div>
-    <!-- //모달 팝업 -->
-</div>
 
-<script type="text/javascript">
-        //개인정보에 접근한 회원의 회원번호
-        const memNumber = [[${session.loginMember.memNumber}]];
+    <script type="text/javascript">
+            //개인정보에 접근한 회원의 회원번호
+            const memNumber = [[${session.loginMember.memNumber}]];
     </script>
 </body>
 </html>

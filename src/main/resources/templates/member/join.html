@@ -10,269 +10,269 @@
     <title>GREAT | 회원가입</title>
 </head>
 <body>
-<div class="wrapper">
-    <header th:replace="~{layout/common_ui::choose_header}"></header>
+    <div class="wrapper">
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
 
-    <!-- main -->
-    <main layout:fragment="main" class="main container">
-        <div class="title content">
-            <h2>회원가입</h2>
-        </div>
-        <div class="join content">
-            <form class="sign-up" th:method="POST" action="" th:object="${join}">
-                <div class="member-type select">
-                    <input type="radio" class="select__customer" id="select--1" name="memType" value="customer"
-                           th:field="*{memType}">
-                    <label for="select--1">고객회원</label>
-                    <input type="radio" class="select__owner" id="select--2" name="memType" value="owner" th:field="*{memType}">
-                    <label for="select--2">점주회원</label>
-                </div>
-                <div class="required">
-                    <label><span>*</span> 필수입력사항</label>
-                </div>
-                <div class="join-element">
-                    <div class="join-ele">
-                        <div class="join-ele--1"><label for="">아이디<span> *</span></label></div>
-                        <div class="join-ele--2"><input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요."></div>
-                        <div class="join-ele--3"><button type="button" class="btn dup-chk-id-btn">중복확인</button></div>
+        <!-- main -->
+        <main layout:fragment="main" class="main container">
+            <div class="title content">
+                <h2>회원가입</h2>
+            </div>
+            <div class="join content">
+                <form class="sign-up" th:method="POST" action="" th:object="${join}">
+                    <div class="member-type select">
+                        <input type="radio" class="select__customer" id="select--1" name="memType" value="customer"
+                               th:field="*{memType}">
+                        <label for="select--1">고객회원</label>
+                        <input type="radio" class="select__owner" id="select--2" name="memType" value="owner" th:field="*{memType}">
+                        <label for="select--2">점주회원</label>
                     </div>
-                    <div class="vali-ele">
-                        <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2">
-                            <span class="id_err errmsg"></span>
-                            <span th:if="${#fields.hasErrors('memId')}" th:errors="*{memId}"></span>
-                        </div>
-                        <div class="vali-ele--3"></div>
+                    <div class="required">
+                        <label><span>*</span> 필수입력사항</label>
                     </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"><label for="">비밀번호<span> *</span></label></div>
-                        <div class="join-ele--2"><input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요."></div>
-                        <div class="join-ele--3"></div>
-                    </div>
-                    <div class="vali-ele">
-                        <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2">
-                            <span class="pw_err errmsg"></span>
-                            <span th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></span>
-                        </div>
-                        <div class="vali-ele--3"></div>
-                    </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"><label for="">비밀번호 확인<span> *</span></label></div>
-                        <div class="join-ele--2"><input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요."></div>
-                        <div class="join-ele--3"></div>
-                    </div>
-                    <div class="vali-ele">
-                        <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2">
-                            <span class="pwc_err errmsg"></span>
-                            <span th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
-                        </div>
-                        <div class="vali-ele--3"></div>
-                    </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"><label for="">이름<span> *</span></label></div>
-                        <div class="join-ele--2"><input type="text" th:field="*{memName}" placeholder="이름을 입력하세요."></div>
-                        <div class="join-ele--3"></div>
-                    </div>
-                    <div class="vali-ele">
-                        <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2">
-                            <span class="name_err errmsg"></span>
-                            <span th:if="${#fields.hasErrors('memName')}" th:errors="*{memName}"></span>
-                        </div>
-                        <div class="vali-ele--3"></div>
-                    </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"><label for="">닉네임<span> *</span></label></div>
-                        <div class="join-ele--2"><input type="text" th:field="*{memNickname}" placeholder="닉네임을 입력하세요."></div>
-                        <div class="join-ele--3"><button type="button" class="btn dup-chk-nn-btn">중복확인</button></div>
-                    </div>
-                    <div class="vali-ele">
-                        <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2">
-                            <span class="nn_err errmsg"></span>
-                            <span th:if="${#fields.hasErrors('memNickname')}" th:errors="*{memNickname}"></span>
-                        </div>
-                        <div class="vali-ele--3"></div>
-                    </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"><label for="">이메일<span> *</span></label></div>
-                        <div class="join-ele--2"><input type="email" th:field="*{memEmail}" placeholder="이메일 주소를 입력하세요."></div>
-                        <div class="join-ele--3"><button type="button" class="btn send-code-btn">인증코드 발송</button></div>
-                    </div>
-                    <div class="vali-ele">
-                        <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2">
-                            <span class="email_err errmsg"></span>
-                            <span th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"></span>
-                        </div>
-                        <div class="vali-ele--3"></div>
-                    </div>
-                    <div class="join-ele">
-                        <div class="join-ele--1"><label for="">인증코드<span> *</span></label></div>
-                        <div class="join-ele--2"><input type="text" id="memCode" name="memCode" placeholder="인증코드를 입력하세요."></div>
-                        <div class="join-ele--3"><button type="button" class="btn confirm-code-btn">인증코드 확인</button></div>
-                    </div>
-                    <div class="vali-ele">
-                        <div class="vali-ele--1"></div>
-                        <div class="vali-ele--2"><span class="code_err errmsg"></span></div>
-                        <div class="vali-ele--3"></div>
-                    </div>
-                    <div class="owner-input">
+                    <div class="join-element">
                         <div class="join-ele">
-                            <div class="join-ele--1"><label for="">사업자번호<span> *</span></label></div>
-                            <div class="join-ele--2"><input type="text" th:field="*{memBusinessnumber}" placeholder="사업자번호를 입력하세요. (- 제외)"></div>
-                            <div class="join-ele--3"><button type="button" class="btn bn-confirm-btn">인증</button></div>
+                            <div class="join-ele--1"><label for="">아이디<span> *</span></label></div>
+                            <div class="join-ele--2"><input type="text" th:field="*{memId}" placeholder="아이디를 입력하세요."></div>
+                            <div class="join-ele--3"><button type="button" class="btn dup-chk-id-btn">중복확인</button></div>
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
                             <div class="vali-ele--2">
-                                <span class="bn_err errmsg"></span>
-                                <span th:if="${#fields.hasErrors('memBusinessnumber')}" th:errors="*{memBusinessnumber}"></span>
+                                <span class="id_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memId')}" th:errors="*{memId}"></span>
                             </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
-                            <div class="join-ele--1"><label for="">가게명<span> *</span></label></div>
-                            <div class="join-ele--2"><input type="text" th:field="*{memStoreName}" placeholder="가게명을 입력하세요."></div>
+                            <div class="join-ele--1"><label for="">비밀번호<span> *</span></label></div>
+                            <div class="join-ele--2"><input type="password" th:field="*{memPassword}" placeholder="비밀번호를 입력하세요."></div>
                             <div class="join-ele--3"></div>
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
                             <div class="vali-ele--2">
-                                <span class="sn_err errmsg"></span>
-                                <span th:if="${#fields.hasErrors('memStoreName')}" th:errors="*{memStoreName}"></span>
+                                <span class="pw_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memPassword')}" th:errors="*{memPassword}"></span>
                             </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
-                            <div class="join-ele--1"><label for="">가게 연락처<span> *</span></label></div>
-                            <div class="join-ele--2"><input type="text" th:field="*{memStorePhonenumber}" placeholder="가게 연락처를 입력하세요. (- 제외)"></div>
+                            <div class="join-ele--1"><label for="">비밀번호 확인<span> *</span></label></div>
+                            <div class="join-ele--2"><input type="password" th:field="*{memPasswordCheck}" placeholder="비밀번호를 재입력하세요."></div>
                             <div class="join-ele--3"></div>
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
                             <div class="vali-ele--2">
-                                <span class="sp_err errmsg"></span>
-                                <span th:if="${#fields.hasErrors('memStorePhonenumber')}" th:errors="*{memStorePhonenumber}"></span>
+                                <span class="pwc_err errmsg"></span>
+                                <span th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
                             </div>
                             <div class="vali-ele--3"></div>
                         </div>
                         <div class="join-ele">
-                            <div class="join-ele--1"><label for="">가게 주소<span> *</span></label></div>
-                            <div class="join-ele--2"><input type="text" th:field="*{memStoreLocation}" class="address" placeholder="가게 주소를 검색하세요." readonly></div>
-                            <div class="join-ele--3"><button type="button" class="btn addr-search-btn">주소 검색</button></div>
-                        </div>
-                        <div class="vali-ele">
-                            <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2">
-                                <span class="sl_err errmsg"></span>
-                                <span th:if="${#fields.hasErrors('memStoreLocation')}" th:errors="*{memStoreLocation}"></span>
-                            </div>
-                            <div class="vali-ele--3"></div>
-                        </div>
-                        <div class="join-ele">
-                            <div class="join-ele--1"></div>
-                            <div class="join-ele--2">
-                                <input type="text" th:field="*{memStoreLocation}" class="detailed-address" placeholder="상세 주소를 입력하세요.">
-                            </div>
+                            <div class="join-ele--1"><label for="">이름<span> *</span></label></div>
+                            <div class="join-ele--2"><input type="text" th:field="*{memName}" placeholder="이름을 입력하세요."></div>
                             <div class="join-ele--3"></div>
                         </div>
                         <div class="vali-ele">
                             <div class="vali-ele--1"></div>
                             <div class="vali-ele--2">
-                                <span class="sld_err errmsg"></span>
+                                <span class="name_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memName')}" th:errors="*{memName}"></span>
                             </div>
                             <div class="vali-ele--3"></div>
                         </div>
-                        <div class="hidden-address">
+                        <div class="join-ele">
+                            <div class="join-ele--1"><label for="">닉네임<span> *</span></label></div>
+                            <div class="join-ele--2"><input type="text" th:field="*{memNickname}" placeholder="닉네임을 입력하세요."></div>
+                            <div class="join-ele--3"><button type="button" class="btn dup-chk-nn-btn">중복확인</button></div>
+                        </div>
+                        <div class="vali-ele">
+                            <div class="vali-ele--1"></div>
+                            <div class="vali-ele--2">
+                                <span class="nn_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memNickname')}" th:errors="*{memNickname}"></span>
+                            </div>
+                            <div class="vali-ele--3"></div>
+                        </div>
+                        <div class="join-ele">
+                            <div class="join-ele--1"><label for="">이메일<span> *</span></label></div>
+                            <div class="join-ele--2"><input type="email" th:field="*{memEmail}" placeholder="이메일 주소를 입력하세요."></div>
+                            <div class="join-ele--3"><button type="button" class="btn send-code-btn">인증코드 발송</button></div>
+                        </div>
+                        <div class="vali-ele">
+                            <div class="vali-ele--1"></div>
+                            <div class="vali-ele--2">
+                                <span class="email_err errmsg"></span>
+                                <span th:if="${#fields.hasErrors('memEmail')}" th:errors="*{memEmail}"></span>
+                            </div>
+                            <div class="vali-ele--3"></div>
+                        </div>
+                        <div class="join-ele">
+                            <div class="join-ele--1"><label for="">인증코드<span> *</span></label></div>
+                            <div class="join-ele--2"><input type="text" id="memCode" name="memCode" placeholder="인증코드를 입력하세요."></div>
+                            <div class="join-ele--3"><button type="button" class="btn confirm-code-btn">인증코드 확인</button></div>
+                        </div>
+                        <div class="vali-ele">
+                            <div class="vali-ele--1"></div>
+                            <div class="vali-ele--2"><span class="code_err errmsg"></span></div>
+                            <div class="vali-ele--3"></div>
+                        </div>
+                        <div class="owner-input">
                             <div class="join-ele">
-                                <div class="join-ele--1"></div>
-                                <div class="join-ele--2"><input type="text" class="postcode" placeholder="우편 번호" readonly></div>
+                                <div class="join-ele--1"><label for="">사업자번호<span> *</span></label></div>
+                                <div class="join-ele--2"><input type="text" th:field="*{memBusinessnumber}" placeholder="사업자번호를 입력하세요. (- 제외)"></div>
+                                <div class="join-ele--3"><button type="button" class="btn bn-confirm-btn">인증</button></div>
+                            </div>
+                            <div class="vali-ele">
+                                <div class="vali-ele--1"></div>
+                                <div class="vali-ele--2">
+                                    <span class="bn_err errmsg"></span>
+                                    <span th:if="${#fields.hasErrors('memBusinessnumber')}" th:errors="*{memBusinessnumber}"></span>
+                                </div>
+                                <div class="vali-ele--3"></div>
+                            </div>
+                            <div class="join-ele">
+                                <div class="join-ele--1"><label for="">가게명<span> *</span></label></div>
+                                <div class="join-ele--2"><input type="text" th:field="*{memStoreName}" placeholder="가게명을 입력하세요."></div>
                                 <div class="join-ele--3"></div>
+                            </div>
+                            <div class="vali-ele">
+                                <div class="vali-ele--1"></div>
+                                <div class="vali-ele--2">
+                                    <span class="sn_err errmsg"></span>
+                                    <span th:if="${#fields.hasErrors('memStoreName')}" th:errors="*{memStoreName}"></span>
+                                </div>
+                                <div class="vali-ele--3"></div>
+                            </div>
+                            <div class="join-ele">
+                                <div class="join-ele--1"><label for="">가게 연락처<span> *</span></label></div>
+                                <div class="join-ele--2"><input type="text" th:field="*{memStorePhonenumber}" placeholder="가게 연락처를 입력하세요. (- 제외)"></div>
+                                <div class="join-ele--3"></div>
+                            </div>
+                            <div class="vali-ele">
+                                <div class="vali-ele--1"></div>
+                                <div class="vali-ele--2">
+                                    <span class="sp_err errmsg"></span>
+                                    <span th:if="${#fields.hasErrors('memStorePhonenumber')}" th:errors="*{memStorePhonenumber}"></span>
+                                </div>
+                                <div class="vali-ele--3"></div>
+                            </div>
+                            <div class="join-ele">
+                                <div class="join-ele--1"><label for="">가게 주소<span> *</span></label></div>
+                                <div class="join-ele--2"><input type="text" th:field="*{memStoreLocation}" class="address" placeholder="가게 주소를 검색하세요." readonly></div>
+                                <div class="join-ele--3"><button type="button" class="btn addr-search-btn">주소 검색</button></div>
+                            </div>
+                            <div class="vali-ele">
+                                <div class="vali-ele--1"></div>
+                                <div class="vali-ele--2">
+                                    <span class="sl_err errmsg"></span>
+                                    <span th:if="${#fields.hasErrors('memStoreLocation')}" th:errors="*{memStoreLocation}"></span>
+                                </div>
+                                <div class="vali-ele--3"></div>
                             </div>
                             <div class="join-ele">
                                 <div class="join-ele--1"></div>
-                                <div class="join-ele--2"><input type="text" class="extra-address" placeholder="참고 항목" readonly></div>
+                                <div class="join-ele--2">
+                                    <input type="text" th:field="*{memStoreLocation}" class="detailed-address" placeholder="상세 주소를 입력하세요.">
+                                </div>
                                 <div class="join-ele--3"></div>
+                            </div>
+                            <div class="vali-ele">
+                                <div class="vali-ele--1"></div>
+                                <div class="vali-ele--2">
+                                    <span class="sld_err errmsg"></span>
+                                </div>
+                                <div class="vali-ele--3"></div>
+                            </div>
+                            <div class="hidden-address">
+                                <div class="join-ele">
+                                    <div class="join-ele--1"></div>
+                                    <div class="join-ele--2"><input type="text" class="postcode" placeholder="우편 번호" readonly></div>
+                                    <div class="join-ele--3"></div>
+                                </div>
+                                <div class="join-ele">
+                                    <div class="join-ele--1"></div>
+                                    <div class="join-ele--2"><input type="text" class="extra-address" placeholder="참고 항목" readonly></div>
+                                    <div class="join-ele--3"></div>
+                                </div>
+                                <div class="join-ele">
+                                    <div class="join-ele--1"></div>
+                                    <div class="join-ele--2"><input type="text" th:field="*{memStoreLatitude}" class="lat" placeholder="위도" readonly></div>
+                                    <div class="join-ele--3"></div>
+                                </div>
+                                <div class="join-ele">
+                                    <div class="join-ele--1"></div>
+                                    <div class="join-ele--2"><input type="text" th:field="*{memStoreLongitude}" class="lng" placeholder="경도" readonly></div>
+                                    <div class="join-ele--3"></div>
+                                </div>
                             </div>
                             <div class="join-ele">
-                                <div class="join-ele--1"></div>
-                                <div class="join-ele--2"><input type="text" th:field="*{memStoreLatitude}" class="lat" placeholder="위도" readonly></div>
+                                <div class="join-ele--1"><label for="">가게 소개</label></div>
+                                <div class="join-ele--2"><input type="text" th:field="*{memStoreIntroduce}" placeholder="가게 소개를 입력하세요."></div>
                                 <div class="join-ele--3"></div>
+                            </div>
+                            <div class="vali-ele">
+                                <div class="vali-ele--1"></div>
+                                <div class="vali-ele--2">
+                                    <span class="si_err errmsg"></span>
+                                    <span th:if="${#fields.hasErrors('memStoreIntroduce')}" th:errors="*{memStoreIntroduce}"></span>
+                                </div>
+                                <div class="vali-ele--3"></div>
                             </div>
                             <div class="join-ele">
-                                <div class="join-ele--1"></div>
-                                <div class="join-ele--2"><input type="text" th:field="*{memStoreLongitude}" class="lng" placeholder="경도" readonly></div>
+                                <div class="join-ele--1"><label for="">SNS</label></div>
+                                <div class="join-ele--2"><input type="text" th:field="*{memStoreSns}" placeholder="인증번호를 입력하세요."></div>
                                 <div class="join-ele--3"></div>
                             </div>
-                        </div>
-                        <div class="join-ele">
-                            <div class="join-ele--1"><label for="">가게 소개</label></div>
-                            <div class="join-ele--2"><input type="text" th:field="*{memStoreIntroduce}" placeholder="가게 소개를 입력하세요."></div>
-                            <div class="join-ele--3"></div>
-                        </div>
-                        <div class="vali-ele">
-                            <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2">
-                                <span class="si_err errmsg"></span>
-                                <span th:if="${#fields.hasErrors('memStoreIntroduce')}" th:errors="*{memStoreIntroduce}"></span>
+                            <div class="vali-ele">
+                                <div class="vali-ele--1"></div>
+                                <div class="vali-ele--2">
+                                    <span class="sns_err errmsg"></span>
+                                    <span th:if="${#fields.hasErrors('memStoreSns')}" th:errors="*{memStoreSns}"></span>
+                                </div>
+                                <div class="vali-ele--3"></div>
                             </div>
-                            <div class="vali-ele--3"></div>
-                        </div>
-                        <div class="join-ele">
-                            <div class="join-ele--1"><label for="">SNS</label></div>
-                            <div class="join-ele--2"><input type="text" th:field="*{memStoreSns}" placeholder="인증번호를 입력하세요."></div>
-                            <div class="join-ele--3"></div>
-                        </div>
-                        <div class="vali-ele">
-                            <div class="vali-ele--1"></div>
-                            <div class="vali-ele--2">
-                                <span class="sns_err errmsg"></span>
-                                <span th:if="${#fields.hasErrors('memStoreSns')}" th:errors="*{memStoreSns}"></span>
-                            </div>
-                            <div class="vali-ele--3"></div>
                         </div>
                     </div>
-                </div>
-                <div class="terms">
-                    <h3>이용약관</h3>
-                    <div class="terms-ele">
-                        <div class="terms-ele--1"><input type="checkbox" name="agreeAllTerms" id="terms--all" value="checkedAll" onclick='checkAllTerms(this)'></div>
-                        <div class="terms-ele--2"><label for="terms--all">전체 동의</label></div>
-                        <div class="terms-ele--3"><a href="" class="view-terms">약관 보기</a></div>
+                    <div class="terms">
+                        <h3>이용약관</h3>
+                        <div class="terms-ele">
+                            <div class="terms-ele--1"><input type="checkbox" name="agreeAllTerms" id="terms--all" value="checkedAll" onclick='checkAllTerms(this)'></div>
+                            <div class="terms-ele--2"><label for="terms--all">전체 동의</label></div>
+                            <div class="terms-ele--3"><a href="" class="view-terms">약관 보기</a></div>
+                        </div>
+                        <div class="terms-ele">
+                            <div class="terms-ele--1"><input type="checkbox" name="agreeTerms" id="terms--1" value="checked--1" onclick='checkTerms()'></div>
+                            <div class="terms-ele--2"><label for="terms--1">이용약관 동의</label></div>
+                            <div class="terms-ele--3"><a href="" class="view-terms">약관 보기</a></div>
+                        </div>
+                        <div class="terms-ele">
+                            <div class="terms-ele--1"><input type="checkbox" name="agreeTerms" id="terms--2" value="checked--2" onclick='checkTerms()'></div>
+                            <div class="terms-ele--2"><label for="terms--2">개인정보 수집 동의</label></div>
+                            <div class="terms-ele--3"><a href="" class="view-terms">약관 보기</a></div>
+                        </div>
+                        <div class="terms-ele">
+                            <div class="terms-ele--1"><input type="checkbox" name="agreeTerms" id="terms--3" value="checked--3" onclick='checkTerms()'></div>
+                            <div class="terms-ele--2"><label for="terms--3">개인정보 이용 동의</label></div>
+                            <div class="terms-ele--3"><a href="" class="view-terms">약관 보기</a></div>
+                        </div>
+                        <div class="terms-ele">
+                            <div class="terms-ele--1"></div>
+                            <div class="terms-ele--2"><span class="terms_err errmsg"></span></div>
+                            <div class="terms-ele--3"></div>
+                        </div>
                     </div>
-                    <div class="terms-ele">
-                        <div class="terms-ele--1"><input type="checkbox" name="agreeTerms" id="terms--1" value="checked--1" onclick='checkTerms()'></div>
-                        <div class="terms-ele--2"><label for="terms--1">이용약관 동의</label></div>
-                        <div class="terms-ele--3"><a href="" class="view-terms">약관 보기</a></div>
-                    </div>
-                    <div class="terms-ele">
-                        <div class="terms-ele--1"><input type="checkbox" name="agreeTerms" id="terms--2" value="checked--2" onclick='checkTerms()'></div>
-                        <div class="terms-ele--2"><label for="terms--2">개인정보 수집 동의</label></div>
-                        <div class="terms-ele--3"><a href="" class="view-terms">약관 보기</a></div>
-                    </div>
-                    <div class="terms-ele">
-                        <div class="terms-ele--1"><input type="checkbox" name="agreeTerms" id="terms--3" value="checked--3" onclick='checkTerms()'></div>
-                        <div class="terms-ele--2"><label for="terms--3">개인정보 이용 동의</label></div>
-                        <div class="terms-ele--3"><a href="" class="view-terms">약관 보기</a></div>
-                    </div>
-                    <div class="terms-ele">
-                        <div class="terms-ele--1"></div>
-                        <div class="terms-ele--2"><span class="terms_err errmsg"></span></div>
-                        <div class="terms-ele--3"></div>
-                    </div>
-                </div>
-                <button type="button" class="btn join-btn" onclick='btnClick()'>가입하기</button>
-            </form>
-        </div>
-    </main>
-    <!-- //main -->
+                    <button type="button" class="btn join-btn" onclick='btnClick()'>가입하기</button>
+                </form>
+            </div>
+        </main>
+        <!-- //main -->
 
-    <!-- footer -->
-    <footer th:replace="~{layout/common_ui::footer}"></footer>
-    <!-- //footer -->
-</div>
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
 </body>
 </html>

@@ -50,11 +50,6 @@ public class PageCriteria {
     }
 
     /**
-     * board테이블의 전체레코드수
-     * @param totalRec
-     */
-
-    /**
      * board 테이블의 전체 레코드 수
      * @param totalRec 전체 레코드 수
      */

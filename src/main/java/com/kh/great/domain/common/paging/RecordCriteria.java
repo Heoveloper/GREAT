@@ -24,6 +24,7 @@ public class RecordCriteria {
     public int getStartRec() {
         return this.startRec;
     }
+
     /**
      * 종료레코드
      * 한페이지에 보여줄 레코드수 * 요청페이지

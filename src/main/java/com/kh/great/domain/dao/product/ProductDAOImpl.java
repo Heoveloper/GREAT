@@ -28,7 +28,7 @@ import java.util.Map;
 public class ProductDAOImpl implements ProductDAO {
     private final JdbcTemplate jt;
 
-    //상품등록
+    //상품 등록
     @Override
     public Long save(Product product) {
         StringBuffer sql = new StringBuffer();
@@ -62,7 +62,7 @@ public class ProductDAOImpl implements ProductDAO {
         return  Long.valueOf(keyHolder.getKeys().get("p_number").toString());
     }
 
-    //상품조회
+    //상품 조회
     @Override
     public Product findByProductNum(Long pNum) {
         StringBuffer sql = new StringBuffer();
@@ -91,14 +91,14 @@ public class ProductDAOImpl implements ProductDAO {
         return product;
     }
 
-    //상품수정
+    //상품 수정
     @Override
     public int update(Long pNum, Product product) {
         int result = 0;
         StringBuffer sql = new StringBuffer();
 
         sql.append("update product_info ");
-        sql.append("SET p_title = ?, P_NAME=?, DEADLINE_TIME = TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), CATEGORY=?, REMAIN_COUNT=?, NORMAL_PRICE = ?, SALE_PRICE = ?, DISCOUNT_RATE=?, PAYMENT_OPTION=?, detail_info=?, u_date=sysdate ");
+        sql.append("SET p_title = ?, P_NAME = ?, DEADLINE_TIME = TO_DATE(?,'YYYY-MM-DD\"T\"HH24:MI'), CATEGORY = ?, REMAIN_COUNT = ?, NORMAL_PRICE = ?, SALE_PRICE = ?, DISCOUNT_RATE = ?, PAYMENT_OPTION = ?, detail_info = ?, u_date=sysdate ");
         sql.append("WHERE p_number = ? ");
 
         result=jt.update(sql.toString(), product.getPTitle(), product.getPName(), product.getDeadlineTime(), product.getCategory(), product.getRemainCount(), product.getNormalPrice(), product.getSalePrice(), (product.getNormalPrice()-product.getSalePrice())*100/product.getNormalPrice(), product.getPaymentOption(), product.getDetailInfo(), pNum );
@@ -106,14 +106,14 @@ public class ProductDAOImpl implements ProductDAO {
         return result;
     }
 
-    //상품목록
+    //상품 목록
     @Override
     public List<Product> findAll() {
         StringBuffer sql = new StringBuffer();
 
         sql.append("select p_number, p_name, DISCOUNT_RATE, SALE_PRICE, NORMAL_PRICE, DEADLINE_TIME ");
         sql.append(" from product_info");
-        sql.append(" where deadline_time>sysdate and REMAIN_COUNT >0 ");
+        sql.append(" where deadline_time > sysdate and REMAIN_COUNT > 0 ");
         sql.append(" order by R_DATE desc ");
 
         List<Product> result = jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class));
@@ -127,7 +127,7 @@ public class ProductDAOImpl implements ProductDAO {
         return jt.update(sql, pNum);
     }
 
-    // 오늘 마감할인 상품
+    //오늘 마감 할인 상품
     @Override
     public List<Product> today_deadline() {
         StringBuffer sql = new StringBuffer();
@@ -200,7 +200,7 @@ public class ProductDAOImpl implements ProductDAO {
         return result;
     }
 
-    // 판매관리화면에서 각 상품 판매 상태 변경하기
+    //판매 관리 화면에서 각 상품 판매 상태 변경하기
     @Override
     public int pManage_status_update(Long pNum, Integer pStatus) {
         int result = 0;
@@ -215,7 +215,7 @@ public class ProductDAOImpl implements ProductDAO {
         return result;
     }
 
-    // 판매 내역
+    //판매 내역
     public List<Product> saleList(Long ownerNumber) {
         StringBuffer sql = new StringBuffer();
 
@@ -243,7 +243,7 @@ public class ProductDAOImpl implements ProductDAO {
         return result;
     }
 
-    //판매내역 csr
+    //판매 내역 csr
     public List<Product> pSaleList(@PathVariable("ownerNumber") Long ownerNumber, @RequestParam ("pickUp_status") Integer pickUp_status,  @RequestParam ("history_start_date") String history_start_date, @RequestParam ("history_end_date") String history_end_date) {
         StringBuffer sql = new StringBuffer();
         System.out.println("ownerNumber = " + ownerNumber + ", pickUp_status = " + pickUp_status + ", history_start_date = " + history_start_date + ", history_end_date = " + history_end_date);

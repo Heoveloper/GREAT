@@ -14,8 +14,8 @@ import java.util.UUID;
 @Component
 public class FileUtils {
 
-  @Value("${attach.root_dir}") //application.properties 파일의 키 값을 읽어옴
-  private String attachRoot; //첨부파일 루트
+  @Value("${attach.root_dir}")  //application.properties 파일의 키, 값을 읽어옴
+  private String attachRoot;    //첨부파일 루트
 
   //MultipartFile -> UploadFile
   public UploadFile multipartFileToUploadFile(MultipartFile file, AttachCode code, Long rid) {
@@ -73,7 +73,7 @@ public class FileUtils {
     }
   }
 
-  //첨부파일의 물리적인 경로 추출 ex)d:/tmp/P0101/xx-xxx-xx.jpg
+  //첨부파일의 물리적인 경로 추출 ex) d:/tmp/P0101/xx-xxx-xx.jpg
   public String getAttachFilePath(AttachCode code, String storeFileName) {
     return this.attachRoot + code.name() + "/" + storeFileName;
   }

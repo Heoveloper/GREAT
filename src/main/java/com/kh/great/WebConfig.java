@@ -1,6 +1,5 @@
 package com.kh.great;
 
-
 import com.kh.great.web.interceptor.member.LogInterceptor;
 import com.kh.great.web.interceptor.member.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
@@ -37,9 +36,17 @@ public class WebConfig implements WebMvcConfigurer {
         whiteList.add("/api/member/**");
         whiteList.add("/error");
         whiteList.add("/zonning");
-        whiteList.add("/products/**");
+        whiteList.add("/searchresult");
+//        whiteList.add("/products/**");
         whiteList.add("/mypage/**");
         whiteList.add("/buy/**");
+        whiteList.add("/api/**");
+        whiteList.add("/product/**");
+//        whiteList.add("/community/**");
+        whiteList.add("/comment/**");
+        whiteList.add("/notice/list");
+        whiteList.add("/community/list/**");
+        whiteList.add("/community/article/**");
 
 
         registry.addInterceptor(new LoginInterceptor())

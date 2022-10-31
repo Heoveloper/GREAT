@@ -1,6 +1,6 @@
 package com.kh.great.domain.dao.product;
 
-import com.kh.great.domain.Deal;
+import com.kh.great.domain.dao.deal.Deal;
 import com.kh.great.domain.dao.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

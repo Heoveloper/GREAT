@@ -1,6 +1,6 @@
 package com.kh.great.domain.dao.product;
 
-import com.kh.great.domain.Deal;
+import com.kh.great.domain.dao.deal.Deal;
 import com.kh.great.domain.dao.member.Member;
 import com.kh.great.domain.dao.uploadFile.UploadFile;
 import lombok.AllArgsConstructor;
@@ -39,6 +39,5 @@ public class Product {
     private Member member;
     private Deal deal;
     private List<MultipartFile> files;  //상품 이미지 첨부(여러건)
-
     private List<UploadFile> imageFiles;
 }

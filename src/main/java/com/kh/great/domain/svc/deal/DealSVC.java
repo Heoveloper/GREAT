@@ -1,9 +1,11 @@
-package com.kh.great.domain.dao.deal;
+package com.kh.great.domain.svc.deal;
+
+import com.kh.great.domain.dao.deal.Deal;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface DealDAO {
+public interface DealSVC {
     //구매 등록
     Deal add(Deal deal);
 
@@ -20,7 +22,7 @@ public interface DealDAO {
     int deleteByOrderNumber(Long orderNumber);
 
     //구매 취소 시 상품 개수 증가
-    int delUpdate(Long pNumber,Deal deal);
+    //int delUpdate(Long pNumber,Deal deal);
 
     //남은 수량 0개일 시
     int updatePstatus(Long pNumber);

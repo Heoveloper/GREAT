@@ -24,8 +24,7 @@ import java.util.Optional;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class DealDAOImpl implements DealDAO{
-
+public class DealDAOImpl implements DealDAO {
     private final JdbcTemplate jt;
 
     //구매 등록
@@ -64,8 +63,6 @@ public class DealDAOImpl implements DealDAO{
     @Override
     public List<Deal> findByMemberNumber(Long memNumber) {
         StringBuffer sql = new StringBuffer();
-
-
 
         sql.append("select *");
         sql.append("  from ( select * ");
@@ -130,7 +127,7 @@ public class DealDAOImpl implements DealDAO{
 
     //판매 테이블 수정
     @Override
-    public int update(Long pNumber,Deal deal) {
+    public int update(Long pNumber, Deal deal) {
         StringBuffer sql = new StringBuffer();
         sql.append("update product_info ");
         sql.append("  set remain_count = remain_count - ? ");

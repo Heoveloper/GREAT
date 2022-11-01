@@ -5,44 +5,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>GREAT</title>
+    <script type="text/javascript" th:src="@{/js/mypage/good.js}"></script>
 </head>
 <body>
-<section th:if="${list.size>0}" class="items content" th:fragment="each_product">
-    <div class="item" th:each="rec, i:${list}" th:data-product-num="${rec.pNumber}">
-        <th:block th:if="${i.count}<9">
-            <a th:href="@{/products/{pNumber}(pNumber=${(rec.pNumber)})}" class="item__image">
-                <img src="https://cdn.imweb.me/thumbnail/20210628/f9482d3bbe416.jpg"  alt="">
-<!--                <th:block th:if="${rec.imageFiles}">-->
-<!--                    <th:block th:each="imageFile : ${rec.imageFiles[0]}">-->
-<!--                        <img class="good_Img" th:src="@{/api/attach/img/{attachCode}/{storeFilename}(attachCode=${imageFile.code},storeFilename=${imageFile.storeFilename})}"-->
-<!--                             alt="이미지를 불러올수 없습니다">-->
-<!--                    </th:block>-->
-<!--                </th:block>-->
-            </a>
-            <button class="heart_Btn"><i class="heartIcon far fa-heart fas"></i></button>
-            <a href="#" class="item__title">[[${rec.pName}]]</a>
-            <div class="item__price-box">
-                <div class="item__discount-rate">[[${rec.discountRate}]]%</div>
-                <div class="item__price">[[${rec.salePrice}]]원</div>
-                <div class="item__price--normal">[[${rec.normalPrice}]]원</div>
-            </div>
-            <div class="item__time-box">
-                <div class="item__magam">마감시간</div>
-                <div class="item__time" th:text="${#strings.substring(rec.deadlineTime,11,16)}"></div>
-            </div>
-        </th:block>
-    </div>
-</section>
-<section th:if="${list.size==0}" class="item_none content" th:fragment="each_product">
-    <div class="item">
-        <img class="img_soldout" th:src="@{img/main/soldout2.png}" />
-        <div class="text_soldout">
-            <div>오늘의 마감 할인 상품이 모두 <u>소진</u>되었습니다.</div>
-            <div>내일 다시 방문 해주세요.</div>
-            <div>감사합니다.</div>
+    <section th:if="${list.size>0}" class="items content" th:fragment="each_product">
+        <div class="item" th:each="rec, i:${list}" th:data-product-num="${rec.pNumber}">
+            <th:block th:if="${i.count}<9">
+                <a th:href="@{/product/{pNumber}(pNumber=${(rec.pNumber)})}" class="item__image">
+                    <th:block th:if="${#lists.size(rec.imageFiles)}>0">
+                        <th:block th:with="one=${#lists.size(rec.imageFiles)}-1">
+                            <th:block th:each="imageFile : ${rec.imageFiles[one]}">
+                                <img class="good_Img" th:src="@{/api/attach/img/{attachCode}/{storeFilename}(attachCode=${imageFile.code},storeFilename=${imageFile.storeFilename})}"
+                                     alt="이미지를 불러올수 없습니다">
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                    <th:block th:if="${#lists.size(rec.imageFiles)}==0">
+                        <img src="/img/product/등록된 사진이 없습니다.png" alt="">
+                    </th:block>
+                </a>
+                <button class="heart_Btn"><i class="heartIcon far fa-heart"></i></button>
+                <a href="#" class="item__title">[[${rec.pName}]]</a>
+                <div class="item__price-box">
+                    <div class="item__discount-rate">[[${rec.discountRate}]]%</div>
+                    <div class="item__price">[[${rec.salePrice}]]원</div>
+                    <div class="item__price--normal">[[${rec.normalPrice}]]원</div>
+                </div>
+                <div class="item__time-box">
+                    <div class="item__magam">마감시간</div>
+                    <div class="item__time" th:text="${#strings.substring(rec.deadlineTime,11,16)}"></div>
+                </div>
+            </th:block>
         </div>
-    </div>
-</section>
+    </section>
+    <section th:if="${list.size==0}" class="item_none content" th:fragment="each_product">
+        <div class="item">
+            <img class="img_soldout" th:src="@{img/main/soldout2.png}" />
+            <div class="text_soldout">
+                <div><u style="font-weight: bold">오늘의 마감 할인 상품은 매진되었습니다!</u></div>
+                <div>내일 다시 방문해주세요.</div>
+                <div>감사합니다.</div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

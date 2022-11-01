@@ -12,7 +12,7 @@
     min-width: 1200px;
 }
 
-.wrapper>.container>.content {
+.wrapper > .container > .content {
     width: 1115px;
     min-width: 800px;
 }
@@ -209,108 +209,118 @@
 }
 
 /* footer */
-.footer{
-  background: var(--mainBtn-color-gre);
-  width: 2000px;
-  color: rgb(49, 49, 49);
-  /* margin-top: 30px; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+.footer {
+    background: var(--mainBtn-color-gre);
+    width: 2000px;
+    color: rgb(49, 49, 49);
+    /* margin-top: 30px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
 }
 
-.footer-content{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.footer-content a{
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-transform: capitalize;
-  line-height: 1.5rem;
-  margin: 20px 0 10px;
-  color: rgb(49, 49, 49);
+.footer-content a {
+    margin: 20px 0 10px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.5rem;
+    text-transform: capitalize;
+    color: rgb(49, 49, 49);
 }
 
-.footer-content span{
-  color: var(--main-color-yel);
+.footer-content span {
+    color: var(--main-color-yel);
 }
 
-.footer-content p{
-  max-width: 500px;
-  line-height: 28px;
-  font-size: 14px;
-  color: rgb(49, 49, 49);
+.footer-content p {
+    max-width: 500px;
+    line-height: 25px;
+    font-size: 14px;
+    color: rgb(49, 49, 49);
 }
 
-.socials{
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  height: 30px;
+.socials {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0px;
+    height: 30px;
 }
 
-.socials li{
-  margin: 0 10px;
+.socials li {
+    margin: 0 10px;
 }
 
-.socials a i{
-  font-size: 1.1rem;
-  width: 20px;
-  transition: color .4s ease;
+.socials a i {
+    font-size: 1.1rem;
+    width: 20px;
+    transition: color .4s ease;
 }
 
 .socials .fa-github {
-  color: black;
-  font-size: 25px;
+    color: black;
+    font-size: 25px;
 }
 
 .socials .fa-youtube {
-  color: red;
-  font-size: 25px;
+    color: red;
+    font-size: 25px;
 }
 
-.socials a:hover i{
-  font-size: 30px;
-  animation-delay: 10s;
+.socials a:hover i {
+    font-size: 30px;
+    animation-delay: 10s;
 }
 
-.footer-bottom{
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
+.footer-bottom {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-bottom .cs_center {
+    padding-right: 30px;
 }
 
 .footer-bottom p {
-  text-align: center;
-  font-size: 13px;
-  word-spacing: 2px;
-  text-transform: capitalize;
-  font-weight: bold;
+    text-align: center;
+    font-size: 13px;
+    word-spacing: 2px;
+    //text-transform: capitalize;
+    font-weight: bold;
+}
+
+.footer-bottom .great_desc p,
+.footer-bottom .cs_center p {
+    text-align: left;
 }
 
 .footer-bottom p a {
-color: var(--main-color-yel);
-font-size: 14px;
-text-decoration: none;
+    //color: var(--main-color-yel);
+    color: orange;
+    font-size: 14px;
+    text-decoration: none;
 }
 
 .footer-bottom span {
-  text-transform: uppercase;
-  opacity: 0.4;
-  font-weight: 200;
+    text-transform: uppercase;
+    opacity: 0.4;
+    font-weight: 200;
 }
 
 .company {
-  display: flex;
-  justify-content: center;
-  font-size: 12px;
-  margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    margin-top: 10px;
 }

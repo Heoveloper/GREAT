@@ -1,8 +1,14 @@
 @charset "UTF-8";
 
-* {
-    /* outline: 1px solid plum; */
+input:focus {
+    outline: block;
+ }
+
+.fieldError {
+    border: solid 2px #ee3d10;
+    border-radius: 8px;
 }
+
 .main {
     display: flex;
     flex-direction: column;
@@ -15,7 +21,7 @@ h2 {
     line-height: 3;
 }
 
-.main >.p-write-info {
+.main > .p-write-info {
     outline: 0.5px solid black;
     border-radius: 10px;
     padding: 20px;
@@ -25,23 +31,30 @@ h2 {
     justify-items: center;
 }
 
+.pNumber {
+    display: none;
+}
+
 th {
     font-weight: bold;
-    vertical-align: middle;   
+    vertical-align: middle;
 }
+
 label {
     display: inline-block;
     width: 100px;
 }
+
 td {
     padding: 6px;
-    
 }
+
 input, select {
     display: inline-block;
-    width: 190px;
+    width: 260px;
     height: 32px;
 }
+
 .title {
     width: 100%;
 }
@@ -53,13 +66,28 @@ input, select {
     overscroll-behavior-x: hidden;
 }
 
-.photo li {
-    
+/*
+textarea {
+    width: 100%;
+    resize: none;
+}
+*/
+
+/* ck editor 최소 높이 */
+.ck-editor {
+    min-height: 300px;
 }
 
-textarea {
-    width:100%;
-    resize: none;
+.ck-editor > .ck-editor__main {
+    min-height: 300px;
+}
+
+.ck-editor > .ck-editor__main > .ck-blurred {
+    min-height: 300px;
+}
+
+.ck-editor > .ck-editor__main > .ck-focused {
+    min-height: 300px;
 }
 
 /* 버튼(취소, 임시저장, 저장) */
@@ -79,6 +107,7 @@ button {
     border: 0;
     margin: 10px;
 }
+
 button:hover {
     cursor: pointer;
     outline: 1px solid black;
@@ -87,9 +116,4 @@ button:hover {
 
 .write-btn #tempSave, #cancelBtn {
     background-color: #e0e0e0;
-}
-
-footer {
-    height: 150px;
-    background-color: grey;
 }

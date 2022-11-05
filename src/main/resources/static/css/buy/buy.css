@@ -1,0 +1,165 @@
+@charset "UTF-8";
+
+input[type="text"], select {
+    margin: 0;
+    padding: 0;
+}
+
+.main h2 {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.main h3 {
+    margin-top: 20px;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+}
+
+.main .main__content {
+    display: flex;
+    justify-content: center;
+}
+
+/* 주문상품 */
+.main .main__content .order__item {
+    margin: 20px;
+    width: 410px;
+    height: 700px;
+    border: 1px solid black;
+}
+
+.main .main__content .order__item .ordered {
+    display: flex;
+}
+
+.main .main__content .order__item .ordered .ordered-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.main .main__content .order__item img {
+    margin: 20px;
+    width: 200px;
+    height: 200px;
+}
+
+.main .main__content .order__item .item-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main .main__content .order__item .item-text label {
+    display: inline-block;
+    width: 115px;
+    margin: 20px 0;
+}
+
+.main .main__content .order__item .item-text input[type="text"], input[type="number"], input[type="datetime-local"] {
+    width: 183px;
+    height: 30px;
+    font-size: 15px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.main .main__content .order__item .item-text input[type="datetime-local"] {
+    font-size: 12px;
+}
+
+/* 결제방식 선택 */
+.main .main__content .buy-choice {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    width: 410px;
+    height: 700px;
+    border: 1px solid black;
+}
+
+.main .main__content .buy-choice .buy-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 500px;
+}
+
+.main .main__content .buy-choice .buy-content label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 150px;
+    height: 35px;
+}
+
+.main .main__content .buy-choice .buy-offline {
+    height: 350px;
+}
+
+.main .main__content .buy-choice .buy-online label {
+    display: inline-block;
+    margin: 20px 0;
+    width: 115px;
+}
+
+.main .main__content .buy-choice .buy-online select {
+    margin-left: -6px;
+    width: 183px;
+    height: 30px;
+    font-size: 15px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.main .main__content .buy-choice .buy-online input[type="text"] {
+    width: 183px;
+    height: 30px;
+    font-size: 15px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+
+.buy-choice input[type='radio'] {
+    display: none;
+}
+
+.buy-choice input:checked + label {
+    background-color: var(--main-color-yel);
+}
+
+.buy-online, .buy-offline {
+    display: none;
+}
+
+#online:checked ~ .buy-online,
+#offline:checked ~ .buy-offline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.buy-offline h3 {
+    margin: 0;
+    height: 60px;
+}
+
+/* 버튼 */
+.btnbuy {
+    padding: 10px;
+    width: 80%;
+    height: 40px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--main-color-yel);
+}

@@ -2,7 +2,7 @@
 
 input:focus {
     outline: block;
- }
+}
 
 .fieldError {
     border: solid 2px #ee3d10;
@@ -22,13 +22,13 @@ h2 {
 }
 
 .main > .p-write-info {
-    outline: 0.5px solid black;
-    border-radius: 10px;
-    padding: 20px;
-    width: 800px;
     display: flex;
     flex-direction: column;
     justify-items: center;
+    padding: 20px;
+    width: 800px;
+    border-radius: 10px;
+    outline: 0.5px solid black;
 }
 
 .pNumber {
@@ -61,8 +61,8 @@ input, select {
 
 .photos {
     display: flex;
-    width: 100%;
     flex-wrap: wrap;
+    width: 100%;
     overscroll-behavior-x: hidden;
 }
 
@@ -77,15 +77,12 @@ textarea {
 .ck-editor {
     min-height: 300px;
 }
-
 .ck-editor > .ck-editor__main {
     min-height: 300px;
 }
-
 .ck-editor > .ck-editor__main > .ck-blurred {
     min-height: 300px;
 }
-
 .ck-editor > .ck-editor__main > .ck-focused {
     min-height: 300px;
 }
@@ -97,15 +94,14 @@ textarea {
 }
 
 button {
+    margin: 10px;
     width: 80px;
     height: 30px;
     font-size: 14px;
-    border-radius: 8px;
-
     /* outline: 1px solid black; */
-    background-color: #f1c40f;
     border: 0;
-    margin: 10px;
+    border-radius: 8px;
+    background-color: #f1c40f;
 }
 
 button:hover {

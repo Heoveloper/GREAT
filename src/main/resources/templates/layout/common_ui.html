@@ -16,123 +16,148 @@
     </th:block>
 </head>
 <body>
-<div class="wrapper">
-    <!--비회원-->
-    <header class="header container" th:fragment="choose_header">
-        <nav class="top-menu content">
-            <th:block th:if="${session.isEmpty()}">
-                <a href="/join" class="top-menu__join">회원가입</a>
-                <a href="/login" class="top-menu__login">로그인</a>
-            </th:block>
-            <th:block th:if="${session.memType}=='customer'">
-                <li th:class="top-menu__member"><a th:href="@{/member/infoChk}" th:text="${session.memNickname} + 님">회원님</a>
-                    <ul>
-                        <li><a th:href="@{/mypage/}+@{review/}+${session.memNumber}">내 리뷰</a></li>
-                        <li><a th:href="@{/mypage/}+${session.memNumber}">주문 내역</a></li>
-                        <li><a th:href="@{/mypage/}+@{bookmark/}+${session.memNumber}">즐겨찾기</a></li>
-                        <li><a th:href="@{/mypage/}+@{good/}+${session.memNumber}">좋아요</a></li>
-                        <li><a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a></li>
-                    </ul>
-                </li>
-            </th:block>
-            <th:block th:if="${session.memType}=='owner'">
-                <li th:class="top-menu__member"><a th:href="@{/member/infoChk}" th:text="${session.memNickname} + 님">회원님</a>
-                    <ul>
-                        <li><a th:href="@{/products/add}">판매글 작성</a></li>
-                        <li><a th:href="@{/products/}+${session.memNumber}+@{/manage}">상품 관리</a></li>
-                        <li><a th:href="@{/products/}+${session.memNumber}+@{/saleList}">판매 내역</a></li>
-                        <li><a th:href="@{/mypage/profile/}+${session.memNumber}">내 프로필</a></li>
-                        <li><a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a></li>
-                    </ul>
-                </li>
-            </th:block>
-            <th:block th:if="${session.memAdmin}=='y'">
-                <li th:class="top-menu__member"><a th:text="${session.memNickname} + 님">회원님</a>
-                    <ul>
-                        <li><a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a></li>
-                    </ul>
-                </li>
-            </th:block>
-            <a th:href="@{/community/list}" class="top-menu__cs">커뮤니티</a>
-            <a th:href="@{/notice/list}" class="top-menu__cs">공지사항</a>
-        </nav>
-        <th:block th:replace="~{layout/common_ui::common_header}"></th:block>
-        <div th:replace="~{layout/common_ui::topBtn}"></div>
-    </header>
+    <div class="wrapper">
+        <!-- header -->
+        <header class="header container" th:fragment="choose_header">
+            <!-- 회원유형별 nav -->
+            <nav class="top-menu content">
+                <!-- 비회원 top menu -->
+                <th:block th:if="${session.isEmpty()}">
+                    <a href="/join" class="top-menu__join">회원가입</a>
+                    <a href="/login" class="top-menu__login">로그인</a>
+                </th:block>
+                <!-- //비회원 top menu -->
 
-    <!-- 공통 헤더 -->
-    <th:block th:fragment="common_header">
-        <div class="logo content"><a th:href="@{/}">GR<span>EAT</span></a></div>
-        <nav class="bottom-menu content">
-            <div class="category">
-                <ul>
-                    <li class="region-category"> 지역 선택&nbsp;&nbsp;<i class="fa-solid fa-chevron-down"> </i>
+                <!-- 고객회원 top menu -->
+                <th:block th:if="${session.memType}=='customer'">
+                    <li th:class="top-menu__member"><a th:href="@{/member/infoChk}" th:text="${session.memNickname} + 님">회원님</a>
                         <ul>
-                            <li><a th:href="@{/zonning?zone=남구&category=전체}">남구</a></li>
-                            <li><a th:href="@{/zonning?zone=중구&category=전체}">중구</a></li>
-                            <li><a th:href="@{/zonning?zone=북구&category=전체}">북구</a></li>
-                            <li><a th:href="@{/zonning?zone=동구&category=전체}">동구</a></li>
-                            <li><a th:href="@{/zonning?zone=울주군&category=전체}">울주군</a></li>
+                            <li><a th:href="@{/mypage/}+@{review/}+${session.memNumber}">내 리뷰</a></li>
+                            <li><a th:href="@{/mypage/}+${session.memNumber}">주문 내역</a></li>
+                            <li><a th:href="@{/mypage/}+@{bookmark/}+${session.memNumber}">즐겨찾기</a></li>
+                            <li><a th:href="@{/mypage/}+@{good/}+${session.memNumber}">좋아요</a></li>
+                            <li><a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a></li>
                         </ul>
                     </li>
+                </th:block>
+                <!-- //고객회원 top menu -->
+
+                <!-- 점주회원 top menu -->
+                <th:block th:if="${session.memType}=='owner'">
+                    <li th:class="top-menu__member"><a th:href="@{/member/infoChk}" th:text="${session.memNickname} + 님">회원님</a>
+                        <ul>
+                            <li><a th:href="@{/products/add}">판매글 작성</a></li>
+                            <li><a th:href="@{/products/}+${session.memNumber}+@{/manage}">상품 관리</a></li>
+                            <li><a th:href="@{/products/}+${session.memNumber}+@{/saleList}">판매 내역</a></li>
+                            <li><a th:href="@{/mypage/profile/}+${session.memNumber}">내 프로필</a></li>
+                            <li><a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a></li>
+                        </ul>
+                    </li>
+                </th:block>
+                <!-- //점주회원 top menu -->
+
+                <!-- 관리자 top menu -->
+                <th:block th:if="${session.memAdmin}=='y'">
+                    <li th:class="top-menu__member"><a th:text="${session.memNickname} + 님">회원님</a>
+                        <ul>
+                            <li><a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>로그아웃</a></li>
+                        </ul>
+                    </li>
+                </th:block>
+                <!-- //관리자 top menu -->
+
+                <!-- 공통 top menu -->
+                <a th:href="@{/community/list}" class="top-menu__cs">커뮤니티</a>
+                <a th:href="@{/notice/list}" class="top-menu__cs">공지사항</a>
+                <!-- //공통 top menu -->
+            </nav>
+            <!-- //회원유형별 nav -->
+
+            <!-- 공통 header -->
+            <th:block th:replace="~{layout/common_ui::common_header}"></th:block>
+            <!-- //공통 header -->
+
+            <!-- top 버튼 -->
+            <div th:replace="~{layout/common_ui::topBtn}"></div>
+            <!-- //top 버튼 -->
+        </header>
+        <!-- header -->
+
+        <!-- 공통 header -->
+        <th:block th:fragment="common_header">
+            <div class="logo content"><a th:href="@{/}">GR<span>EAT</span></a></div>
+            <nav class="bottom-menu content">
+                <div class="category">
+                    <ul>
+                        <li class="region-category"> 지역 선택&nbsp;&nbsp;<i class="fa-solid fa-chevron-down"> </i>
+                            <ul>
+                                <li><a th:href="@{/zonning?zone=남구&category=전체}">남구</a></li>
+                                <li><a th:href="@{/zonning?zone=중구&category=전체}">중구</a></li>
+                                <li><a th:href="@{/zonning?zone=북구&category=전체}">북구</a></li>
+                                <li><a th:href="@{/zonning?zone=동구&category=전체}">동구</a></li>
+                                <li><a th:href="@{/zonning?zone=울주군&category=전체}">울주군</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search">
+                    <input type="text" class="search__search-box" placeholder="검색어를 입력하세요.">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </nav>
+        </th:block>
+        <!-- //공통 header -->
+
+        <!-- top 버튼 -->
+        <div class="topbtn" th:fragment="topBtn">
+            <a href="#"><i class="fa-solid fa-angles-up"></i></a>
+        </div>
+        <!-- //top 버튼 -->
+
+        <!-- 페이지 버튼 -->
+        <div class="board__page width--900px" th:fragment="pagingBtn">
+            <div class="board__page--select">
+                <a href=""><i class="fa-solid fa-chevron-left"></i>이전</a>
+                <a href="">1</a>
+                <a href="">2</a>
+                <a href="">3</a>
+                <a href="">4</a>
+                <a href="">5</a>
+                <a href="">다음<i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        </div>
+        <!-- //페이지 버튼 -->
+
+        <!-- footer -->
+        <footer class="footer container" th:fragment="footer">
+            <div class="footer-content">
+                <ul class="socials">
+                    <li><a href="https://github.com/Heoveloper/great"><i class="fa-brands fa-github"></i></a></li>
+                    <li><a href="https://www.youtube.com/watch?v=ywZq0PTX36A"><i class="fa fa-youtube"></i></a></li>
                 </ul>
+                <p>GREAT는 울산 지역 마감 할인 상품 거래 플랫폼입니다.</p>
+                <p>서비스를 이용하시는 회원분들 감사드립니다. </p>
+                <p>더욱 발전해서 더 좋은 서비스를 제공하는 GREAT가 되겠습니다. </p>
             </div>
-            <div class="search">
-                <input type="text" class="search__search-box" placeholder="검색어를 입력하세요.">
-                <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="footer-bottom">
+                <div class="cs_center">
+                    <p style="text-align: center">고객센터</p>
+                    <p>Monday to Friday 09:00 A.M. - 06:00 P.M.</p>
+                    <p>Lunch 12:00 P.M. - 1:00 P.M.</p>
+                    <p>토요일, 일요일, 공휴일 휴무</p>
+                </div>
+                <div class="great_desc">
+                    <p style="text-align: center">GREAT</p>
+                    <p>Designed By<a href="https://github.com/zziyeon/GREAT"> 369 Team Project</a></p>
+                    <p><i class="fa-solid fa-phone"></i> 1501-1501</p>
+                    <p><i class="fa-sharp fa-solid fa-envelope"></i> great3team@gmail.com</p>
+                </div>
             </div>
-        </nav>
-    </th:block>
-
-    <!-- top버튼 -->
-    <div class="topbtn" th:fragment="topBtn">
-        <a href="#"><i class="fa-solid fa-angles-up"></i></a>
+            <div class="company">
+                ⓒ 2022.GREAT.All rights reserved
+            </div>
+        </footer>
+        <!-- //footer -->
     </div>
-
-    <!-- 페이지 버튼 -->
-    <div class="board__page width--900px" th:fragment="pagingBtn">
-        <div class="board__page--select">
-            <a href=""><i class="fa-solid fa-chevron-left"></i>이전</a>
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="">5</a>
-            <a href="">다음<i class="fa-solid fa-chevron-right"></i></a>
-        </div>
-    </div>
-
-    <!-- footer -->
-    <footer class="footer container" th:fragment="footer">
-        <div class="footer-content">
-            <ul class="socials">
-                <li><a href="https://github.com/Heoveloper/great"><i class="fa-brands fa-github"></i></a></li>
-                <li><a href="https://www.youtube.com/watch?v=ywZq0PTX36A"><i class="fa fa-youtube"></i></a></li>
-            </ul>
-            <p>GREAT는 울산 지역 마감 할인 상품 거래 플랫폼입니다.</p>
-            <p>서비스를 이용하시는 회원분들 감사드립니다. </p>
-            <p>더욱 발전해서 더 좋은 서비스를 제공하는 GREAT가 되겠습니다. </p>
-            <!--Footer's social icon-->
-        </div>
-        <!--Copyright Area-->
-        <div class="footer-bottom">
-            <div class="cs_center">
-                <p style="text-align: center">고객센터</p>
-                <p>Monday to Friday 09:00 A.M. - 06:00 P.M.</p>
-                <p>Lunch 12:00 P.M. - 1:00 P.M.</p>
-                <p>토요일, 일요일, 공휴일 휴무</p>
-            </div>
-            <div class="great_desc">
-                <p style="text-align: center">GREAT</p>
-                <p>Designed By<a href="https://github.com/zziyeon/GREAT"> 369 Team Project</a></p>
-                <p><i class="fa-solid fa-phone"></i> 1501-1501</p>
-                <p><i class="fa-sharp fa-solid fa-envelope"></i> great3team@gmail.com</p>
-            </div>
-        </div>
-        <div class="company">
-            ⓒ 2022.GREAT.All rights reserved
-        </div>
-    </footer>
-</div>
 </body>
 </html>

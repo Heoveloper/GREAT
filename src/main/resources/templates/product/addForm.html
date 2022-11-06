@@ -3,151 +3,120 @@
       xmlns:th="https://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
-    <title>판매글 작성 | GREAT</title>
-    <link rel="stylesheet" th:href="@{/css/product/product_write.css}">
+    <link rel="stylesheet" th:href="@{/css/product/productWrite.css}">
     <script type="text/javascript" defer th:src="@{/js/product/limitDate.js}"></script>
-    <script th:src="@{/js/product/ckeditor.js}"></script>
+    <script th:src="@{/js/common/common.js}"></script>
+    <script th:src="@{/js/common/ckeditor.js}"></script>
+    <title>GREAT | 판매글 작성</title>
 </head>
 <body>
-<div class="wrapper">
-    <header th:replace="~{layout/common_ui::choose_header}"></header>
-    <form id="form" action="" method="post" th:object="${form}" enctype="multipart/form-data">
-        <main class="main container">
-            <h2>판매글 작성</h2>
-            <div class="p-write-info">
-                <table class="write_tb">
-                    <tr>
-                        <th ><label for="pTitle">글제목</label></th>
-                        <td colspan="3"><input class="title" type="text" th:field="*{pTitle}"  placeholder="제목을 입력하세요(30자 이내)"></td>
-                    </tr>
-                    <tr>
-                        <th><label for="pName">상품명</label></th>
-                        <td><input type="text" th:field="*{pName}" placeholder="20자 이내"></td>
-                        <th><label for="deadlineTime">마감시간</label></th>
-                        <td><input type="datetime-local" id="currentTime" th:field="*{deadlineTime}"></td>
-                    </tr>
-                    <tr>
-                        <th><label for="category">업종 </label></th>
-                        <td><select name="type of business" id="tob" th:field="*{category}">
-                            <option value="" th:selected="selected">업종선택</option>
-                            <option value="한식">한식</option>
-                            <option value="중식">중식</option>
-                            <option value="일식">일식</option>
-                            <option value="양식">양식</option>
-                            <option value="아시안식">아시안식</option>
-                            <option value="분식">분식</option>
-                            <option value="도시락">도시락</option>
-                            <option value="카페/디저트" >카페/디저트</option>
-                        </select></td>
-                        <th><label for="totalCount">판매 수량</label></th>
-                        <td><input type="number" th:field="*{totalCount}" min="0"></td>
-                    </tr>
-                    <tr>
-                        <th><label for="normalPrice">정상가</label></th>
-                        <td><input type="text" th:field="*{normalPrice}" placeholder="숫자만 입력해주세요"></td>
-                        <th><label for="salePrice" >할인가</label></th>
-                        <td><input type="text" th:field="*{salePrice}" placeholder="숫자만 입력해주세요"></td>
-                    </tr>
-                    <tr>
-                        <th><label for="paymentOption">결제 방식</label></th>
-                        <td><select name="" th:field="*{paymentOption}">
-                            <option value="온라인 결제 & 현장 결제">온라인 결제 & 현장 결제</option>
-                            <option value="온라인 결제">온라인 결제</option>
-                            <option value="현장 결제">현장 결제</option>
-                        </select></td>
-                        <th><label for="">대표 사진 등록</label></th>
-                        <td><input type="file" accept="image/jpg, image/jpeg, image/png" th:field="*{files}"></td>
-                    </tr>
-<!--                    <tr>-->
-<!--                        <th><label for="detailInfo">상세설명</label></th>-->
-<!--                        <td colspan="3"><textarea name="detailInfo" th:field="*{detailInfo}" rows="10" autofocusw></textarea></td>-->
-<!--                    </tr>-->
-                    <tr>
-                        <td colspan="4" class="board-write__article-main">
-                            <textarea class="board-write__article-content" th:field="*{detailInfo}" cols="30" rows="10" placeholder="내용을 작성하세요." autofocus></textarea>
-                        </td>
-                    </tr>
-                </table>
-                <div class="write-btn">
-                    <button type="button" id="cancelBtn">취소</button>
-                    <button type="submit" id="saveBtn">등록</button>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <form id="form" action="" method="post" th:object="${form}" enctype="multipart/form-data">
+            <!-- main -->
+            <main class="main container">
+                <h2>판매글 작성</h2>
+                <div class="p-write-info">
+                    <table class="write_tb">
+                        <tr>
+                            <th ><label for="pTitle">글제목</label></th>
+                            <td colspan="3"><input class="title" type="text" th:field="*{pTitle}"  placeholder="제목을 입력하세요(100자 이내)"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="pName">상품명</label></th>
+                            <td><input type="text" th:field="*{pName}" placeholder="10자 이내"></td>
+                            <th><label for="deadlineTime">마감시간</label></th>
+                            <td><input type="datetime-local" id="currentTime" th:field="*{deadlineTime}"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="category">업종 </label></th>
+                            <td><select name="type of business" id="tob" th:field="*{category}">
+                                <option value="" th:selected="selected">업종선택</option>
+                                <option value="한식">한식</option>
+                                <option value="중식">중식</option>
+                                <option value="일식">일식</option>
+                                <option value="양식">양식</option>
+                                <option value="아시안식">아시안식</option>
+                                <option value="분식">분식</option>
+                                <option value="도시락">도시락</option>
+                                <option value="카페/디저트" >카페/디저트</option>
+                            </select></td>
+                            <th><label for="totalCount">판매 수량</label></th>
+                            <td><input type="number" th:field="*{totalCount}" min="0"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="normalPrice">정상가</label></th>
+                            <td><input type="text" th:field="*{normalPrice}" placeholder="숫자만 입력해주세요"></td>
+                            <th><label for="salePrice" >할인가</label></th>
+                            <td><input type="text" th:field="*{salePrice}" placeholder="숫자만 입력해주세요"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="paymentOption">결제 방식</label></th>
+                            <td><select name="" th:field="*{paymentOption}">
+                                <option value="온라인 결제 & 현장 결제">온라인 결제 & 현장 결제</option>
+                                <option value="온라인 결제">온라인 결제</option>
+                                <option value="현장 결제">현장 결제</option>
+                            </select></td>
+                            <th><label for="">대표 사진 등록</label></th>
+                            <td><input type="file" accept="image/jpg, image/jpeg, image/png" th:field="*{files}"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="board-write__article-main">
+                                <textarea class="board-write__article-content" th:field="*{detailInfo}" cols="30" rows="10" placeholder="내용을 작성하세요." autofocus style="visibility:hidden"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="write-btn">
+                        <button type="button" id="cancelBtn">취소</button>
+                        <button type="submit" id="saveBtn">등록</button>
+                    </div>
                 </div>
-            </div>
-        </main>
-    </form>
-    <footer th:replace="~{layout/common_ui::footer}"></footer>
-</div>
+            </main>
+            <!-- //main -->
+        </form>
 
-<script>
-    const form = {
-        articleContents: document.getElementById('detailInfo')
-    };
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
 
-    //ckeditor
-    ClassicEditor
-		.create( document.querySelector( '#detailInfo' ), {
-		 plugin:['ListStyle','Markdown','MediaEmbed','MediaEmbedToolbar'],
-			toolbar: {
-				items: [
-					'heading',
-					'|',
-					'underline',
-					'bold',
-					'italic',
-					'link',
-					'bulletedList',
-					'numberedList',
-					'todoList',
-					'|',
-					'outdent',
-					'indent',
-					'|',
-					'imageInsert',
-					'imageUpload',
-					'blockQuote',
-					'insertTable',
-					'mediaEmbed',
-					'markdown',
-					'undo',
-					'redo',
-					'|',
-					'highlight',
-					'fontFamily',
-					'fontColor',
-					'fontBackgroundColor',
-					'fontSize',
-					'|',
-					'htmlEmbed',
-					'specialCharacters'
-				]
-			},
-			language: 'en',
-			image: {
-				toolbar: [
-					'imageTextAlternative',
-					'imageStyle:full',
-					'imageStyle:side'
-				]
-			},
-			table: {
-				contentToolbar: [
-					'tableColumn',
-					'tableRow',
-					'mergeTableCells',
-					'tableCellProperties',
-					'tableProperties'
-				]
-			},
-		})
-		.then( editor => {
+    <script>
+        //ckeditor
+        newCkeditor(document.querySelector('#detailInfo'), false);
 
-			window.editor = editor;
-		} )
-		.catch( error => {
-			console.error( error );
-		} );
-</script>
+        //총 수량
+        totalCount.addEventListener('keyup', e => {err(totalCount)});
 
+        //정상가
+        normalPrice.addEventListener('keyup', e => {err(normalPrice)});
 
+        //할인가
+        salePrice.addEventListener('keyup', e => {err(salePrice)});
+
+        //에러 검증 함수
+        function err(entry) {
+            if (isNaN(entry.value) || entry.value <= 0) {
+                if (!entry.classList.contains('fieldError')) {
+                    entry.classList.add('fieldError');
+                }
+            } else {
+                entry.classList.remove('fieldError');
+            }
+        }
+
+        //취소 버튼
+        const $cancelBtn = document.getElementById('cancelBtn');
+
+        $cancelBtn.addEventListener('click', e => {
+            location.href=`/`;
+        });
+
+        const form = {
+            articleContents: document.getElementById('detailInfo')
+        };
+    </script>
 </body>
 </html>

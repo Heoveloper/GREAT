@@ -4,14 +4,16 @@
 <head>
     <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
     <link rel="stylesheet" th:href="@{/css/main/main.css}">
-    <link rel="stylesheet" th:href="@{/css/product/음식 카테고리.css}">
+    <link rel="stylesheet" th:href="@{/css/product/foodCategory.css}">
     <script type="text/javascript" defer th:src="@{/js/main/main.js}"></script>
     <script type="text/javascript" th:src="@{/js/mypage/good.js}"></script>
     <title>GREAT</title>
 </head>
 <body>
     <div class="wrapper">
+        <!-- header -->
         <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
 
         <!-- figure -->
         <figure class="figure container">
@@ -81,16 +83,16 @@
                 let id = hearts[idx].parentElement.parentElement.dataset.productNum;
                 let pNumber = parseInt(id);
 
-                if([[${session.isEmpty()}]]) {
+                if ([[${session.isEmpty()}]]) {
                     alert("로그인이 필요합니다.");
                 }
 
-                if([[${session.memType}]] == 'owner') {
+                if ([[${session.memType}]] == 'owner') {
                     alert("고객회원만 좋아요 가능합니다.");
                 }
 
-                if([[${session.memType}]] == 'customer') {
-                    if(hearts[idx].className == 'heartIcon far fa-heart') {
+                if ([[${session.memType}]] == 'customer') {
+                    if (hearts[idx].className == 'heartIcon far fa-heart') {
                         hearts[idx].classList.add('fas');
                         goodAdd(pNumber, data);
                     } else {

@@ -86,28 +86,26 @@
     color: var(--main-text-gre);
 }
 
+.main > .view_array > .view_array-type > ul > li:hover {
+    color: black;
+}
+
 .view_array-type ul li .selected {
     color: black;
     font-weight: bold;
 }
 
-/*------------------------------------------------------*/
-.main > .view_array > .view_array-type > ul > li:hover {
-    color: black;
-}
-/*------------------------------------------------------*/
-
-.main > .view_array > .view_array-type > ul > li:nth-child(1):before {
-    display: none;
-}
-
 .main > .view_array > .view_array-type > ul > li::before {
     content: "";
     display: flex;
+    margin-right: 10px;
     width: 1px;
     height: 10px;
-    margin-right: 10px;
     background-color: var(--main-text-gre);
+}
+
+.main > .view_array > .view_array-type > ul > li:nth-child(1):before {
+    display: none;
 }
 
 /* main 리스트들 */
@@ -145,9 +143,9 @@ u {
     position: relative;
     display : flex;
     flex-direction: column;
+    overflow: hidden;
     width: 260px;
     font-size: 16px;
-    overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 }
@@ -155,9 +153,9 @@ u {
 .main > .items > .item:hover {
     display : flex;
     flex-direction: column;
-    width: 260px;
-    /* margin : 10px 15px; */
     /* overflow: hidden; */
+    /* margin : 10px 15px; */
+    width: 260px;
     border-radius: 8px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.664);
 }
@@ -173,14 +171,14 @@ u {
 
 .main > .items > .item > .heart_Btn {
     position: absolute;
+    right: 12px;
+    bottom: 90px;
+    z-index: 3;
     padding-top: 5px;
     width: 35px;
     height: 35px;
-    right: 12px;
-    bottom: 90px;
     font-size: 18px;
     text-align: center;
-    z-index: 3;
     border: none;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.6);
@@ -195,16 +193,16 @@ u {
 }
 
 .main > .items > .item > .item__price-box > .item__discount-rate {
-    color: red;
     margin-right: 10px;
+    color: red;
 }
 
 .main > .items > .item > .item__price-box > .item__price--normal {
-    color: var(--main-text-gre);
     margin-left: 8px;
-    text-decoration: line-through;
+    color: var(--main-text-gre);
     font-size: 12px;
     font-weight: lighter;
+    text-decoration: line-through;
 }
 
 .main > .items > .item > .item__time-box {
@@ -220,12 +218,11 @@ u {
     color: rgb(241, 196, 15);
 }
 
-
 .main > .view-all {
-    display:flex;
+    display: flex;
     justify-content: end;
-    font-size: 12px;
     margin-top: 20px;
+    font-size: 12px;
 }
 
 /*
@@ -235,9 +232,9 @@ u {
 */
 
 .main > .view-all a:hover {
-    /* margin-right:35px; */
-    background-color: #eee;
-    border-radius: 8px;
     margin-left: 10px;
+    /* margin-right: 35px; */
+    border-radius: 8px;
+    background-color: #eee;
     transition: all 0.5s;
 }

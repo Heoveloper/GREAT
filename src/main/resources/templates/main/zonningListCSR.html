@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/product/foodCategory.css}">
+    <script type="text/javascript" defer th:src="@{/js/main/zonning_list_csr.js}"></script>
+    <title>GREAT | 지역별</title>
+</head>
+<body>
+    <div class="wrapper" >
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container" th:with="zone=${param.zone}">
+            <section class="title content" th:data-zone="${zone}" th:text="${zone}">남구</section>
+            <section class="food-type">
+                <ul class="food_list">
+                    <li class="active">전체</li>
+                    <li>한식</li>
+                    <li>중식</li>
+                    <li>일식</li>
+                    <li>양식</li>
+                    <li>아시안식</li>
+                    <li>분식</li>
+                    <li>도시락</li>
+                    <li>디저트</li>
+                </ul>
+            </section>
+            <div class="view_array">
+                <div class="view_array-total">총 <span></span> 건</div>
+                <div class="view_array-type">
+                    <ul>
+                        <li><a href="javascript: arrayType('recentList');" class="selected" >최신순</a></li>
+                        <li><a href="javascript: arrayType('discountListDesc');">높은 할인순</a></li>
+                        <li><a href="javascript: arrayType('priceList');" >낮은 가격순</a></li>
+                        <li><a href="javascript: arrayType('priceListDesc');">높은 가격순</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- main 리스트들 -->
+            <section class="items content"></section>
+            <!-- main 리스트들 -->
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+</body>
+</html>

@@ -207,7 +207,7 @@ public class HomeController {
             BindingResult bindingResult,
             HttpServletRequest request,
             @RequestParam(required = false, defaultValue = "/") String redirectUrl
-    ){
+    ) {
         //기본 검증
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -239,7 +239,7 @@ public class HomeController {
 
     //로그아웃
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request) {
         //세션 조회
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -252,7 +252,7 @@ public class HomeController {
     //상품 개별 조회
     @GetMapping("/product/{num}")
     public String findByProductNum(@PathVariable("num") Long num, Model model) {
-        //1) 상품조회
+        //1) 상품 조회
         Product findedProduct = productSVC.findByProductNum(num);
         DetailForm detailForm = new DetailForm();
 
@@ -260,7 +260,7 @@ public class HomeController {
 
         //2) 첨부파일 조회
 //        List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
-//        if(uploadFiles.size() > 0 ){
+//        if (uploadFiles.size() > 0) {
 //            List<UploadFile> imageFiles = new ArrayList<>();
 //            for (UploadFile file : uploadFiles) {
 //                imageFiles.add(file);
@@ -268,24 +268,24 @@ public class HomeController {
 //            detailForm.setImageFiles(imageFiles);
 //        }
 
+        //2) 첨부파일 조회
         List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
         if(uploadFiles.size() > 0 ){
             detailForm.setImageFiles(uploadFiles);
         }
-        log.info("detailForm={}",detailForm);
+        log.info("detailForm={}", detailForm);
         model.addAttribute("form", detailForm);
 
         return "product/detailForm";
     }
 
-
-    // 검색 목록
+    //검색 목록
     @GetMapping("/searchresult")
     public  String searchresult(Model model){
         List<Product> list = productSVC.findAll();
         model.addAttribute("list", list);
 
-        return "main/search_result";
+        return "main/searchResult";
     }
 
     //지역별 상품 목록
@@ -295,16 +295,16 @@ public class HomeController {
         List<Product> list = productSVC.findAll();
         model.addAttribute("list", list);
 
-        return "main/zonning_list_csr";
+        return "main/zonningListCSR";
     }
 
-    // 오늘 마감상품 전체보기
+    //오늘의 마감 할인 상품 전체보기
     @GetMapping("/todayDealine")
     @Nullable
     public String todayDealine(Model model) {
         List<Product> list = productSVC.today_deadline();
         model.addAttribute("list", list);
 
-        return "main/all_list";
+        return "main/allList";
     }
 }

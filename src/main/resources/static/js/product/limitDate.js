@@ -1,5 +1,10 @@
 const dateElement = document.getElementById('currentTime');
 const date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+console.log(date);
+const date1 = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 160000).toISOString().slice(0, -13);
+const date2 = '03:00';
+console.log(date1 + date2);
 //dateElement.value = date;
-//date=date.substr(0,20);
+//date = date.substr(0, 20);
 dateElement.setAttribute("min", date);
+dateElement.setAttribute("max", date1 + date2);

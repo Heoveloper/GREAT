@@ -9,7 +9,9 @@
 </head>
 <body>
     <div class="wrapper">
+        <!-- header -->
         <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
 
         <!-- main -->
         <main class="main container" th:object="${resetPw}">
@@ -72,8 +74,8 @@
     </div>
 
     <script type="text/javascript" th:inline="javascript">
-            //비밀번호를 재설정 하려는 회원아이디
-            const ids = [[${resetPw.memId}]];
+        //비밀번호를 재설정 하려는 회원아이디
+        const ids = [[${resetPw.memId}]];
     </script>
 </body>
 </html>

@@ -28,7 +28,7 @@ $confirmBtn.addEventListener('click', e => {
     if (pwVal == null) {alert('재설정할 비밀번호를 입력하세요.');}
     //재설정할 비밀번호 확인값
     const pwValChk = memPasswordCheck.value;
-    if (pwValChk == null) {alert('비밀번호를 재입력하세요.'); pwValChk.focus()}
+    if (pwValChk == null) {alert('비밀번호를 재입력하세요.'); pwValChk.focus();}
 
     //변경해줄 데이터
     const member = {
@@ -43,14 +43,14 @@ $confirmBtn.addEventListener('click', e => {
 
 //비밀번호 형식 검사 함수
 function pwFormat() {
-        //const password = /^[a-z0-9_-]{8,15}$/;
-        const pwFormat = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/;
+    //const password = /^[a-z0-9_-]{8,15}$/;
+    const pwFormat = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/;
 
 
-        if (!pwFormat.exec(memPassword.value)) {
-            return false;
-        }
-        return true;
+    if (!pwFormat.exec(memPassword.value)) {
+        return false;
+    }
+    return true;
 }
 
 //유효성 검사 함수

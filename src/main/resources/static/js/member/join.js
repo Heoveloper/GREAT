@@ -231,45 +231,45 @@ function noSpace() {
 
 //비밀번호 형식 검사 함수
 function pwFormat() {
-        //const password = /^[a-z0-9_-]{8,15}$/;
-        const pwFormat = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/;
+    //const password = /^[a-z0-9_-]{8,15}$/;
+    const pwFormat = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/;
 
 
-        if (!pwFormat.exec(memPassword.value)) {
-            return false;
-        }
-        return true;
+    if (!pwFormat.exec(memPassword.value)) {
+        return false;
+    }
+    return true;
 }
 
 //이메일 형식 검사 함수
 function emailFormat() {
-        //const emailFormat = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-        const emailFormat = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    //const emailFormat = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    const emailFormat = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
-        if (!emailFormat.exec(memEmail.value)) {
-            return false;
-        }
-        return true;
+    if (!emailFormat.exec(memEmail.value)) {
+        return false;
+    }
+    return true;
 }
 
 //사업자번호 형식 검사 함수
 function bnFormat() {
-        const bnFormat = /^[0-9]+/g;
+    const bnFormat = /^[0-9]+/g;
 
-        if (!bnFormat.exec(memBusinessnumber.value)) {
-            return false;
-        }
-        return true;
+    if (!bnFormat.exec(memBusinessnumber.value)) {
+        return false;
+    }
+    return true;
 }
 
 //가게 연락처 형식 검사 함수
 function phoneFormat() {
-        const phoneFormat = /^[0-9]+/g;
+    const phoneFormat = /^[0-9]+/g;
 
-        if (!phoneFormat.exec(memStorePhonenumber.value)) {
-            return false;
-        }
-        return true;
+    if (!phoneFormat.exec(memStorePhonenumber.value)) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -632,7 +632,7 @@ function bnConfirm(bNoVal) {
     fetch(url, {
         method: 'POST',
         headers: {
-          'Accept':'application/json',
+          'Accept': 'application/json',
           'Content-type': 'application/json'
         },
           body: JSON.stringify(data)
@@ -666,50 +666,49 @@ $addrSearchBtn = document.querySelector('.addr-search-btn');
 $addrSearchBtn.addEventListener('click', e => {
     new daum.Postcode({
         oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            //팝업에서 검색 결과 항목을 클릭했을때 실행할 코드를 작성하는 부분
 
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            //각 주소의 노출 규칙에 따라 주소를 조합한다.
+            //내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기한다.
             let addr = ''; // 주소 변수
             let extraAddr = ''; // 참고항목 변수
 
             //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+            if (data.userSelectedType === 'R') {    //사용자가 도로명 주소를 선택했을 경우
                 addr = data.roadAddress;
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+            } else {                                //사용자가 지번 주소를 선택했을 경우(J)
                 addr = data.jibunAddress;
             }
 
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-            if(data.userSelectedType === 'R'){
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+            //사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if (data.userSelectedType === 'R') {
+                //법정동명이 있을 경우 추가한다. (법정리는 제외)
+                //법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
                     extraAddr += data.bname;
                 }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
+                //건물명이 있고, 공동주택일 경우 추가한다.
+                if (data.buildingName !== '' && data.apartment === 'Y') {
                     extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                 }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraAddr !== ''){
+                //표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if (extraAddr !== '') {
                     extraAddr = ' (' + extraAddr + ')';
                 }
-                // 조합된 참고항목을 해당 필드에 넣는다.
+                //조합된 참고항목을 해당 필드에 넣는다.
                 document.querySelector(".extra-address").value = extraAddr;
-
             } else {
                 document.querySelector(".extra-address").value = '';
             }
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            //우편번호와 주소 정보를 해당 필드에 넣는다.
             document.querySelector('.postcode').value = data.zonecode;
             document.querySelector(".address").value = addr;
 
-            // 주소로 좌표 검색(위도, 경도 찾기 콜백함수 사용)
+            //주소로 좌표 검색(위도, 경도 찾기 콜백함수 사용)
             geocoder.addressSearch(addr, callback);
 
-            // 커서를 상세주소 필드로 이동한다.
+            //커서를 상세주소 필드로 이동한다.
             document.querySelector(".detailed-address").focus();
 
             //에러메세지 제거
@@ -717,6 +716,7 @@ $addrSearchBtn.addEventListener('click', e => {
         }
     }).open();
 });
+
 
 //위도, 경도 찾기 콜백함수
 const callback = function(result, status) {
@@ -731,7 +731,7 @@ const callback = function(result, status) {
 //'약관 전체선택' 체크박스
 const $termsAll = document.querySelector('#terms--all');
 
-// 약관 전체선택
+//약관 전체선택
 //1) 전체 동의 클릭시
 function checkAllTerms(checkAllTerms) {
     const $checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -745,11 +745,11 @@ function checkAllTerms(checkAllTerms) {
 
 //2) 약관 동의 클릭시
 function checkTerms() {
-    // 전체 동의 체크박스
+    //전체 동의 체크박스
     const $termsAll = document.querySelector('input[name="agreeAllTerms"]');
-    // 약관 체크박스
+    //약관 체크박스
     const $terms = document.querySelectorAll('input[name="agreeTerms"]');
-    // 선택된 약관 체크박스
+    //선택된 약관 체크박스
     const $checkedTerms = document.querySelectorAll('input[name="agreeTerms"]:checked');
 
     $termsAll.checked = ($terms.length === $checkedTerms.length);

@@ -158,7 +158,6 @@ function btnClick() {
 
 //유효성 검사 함수
 function isValidChk() {
-    //console.log(memNumber);
 //    if ($dupChkNn.classList[2] != 'good') {
 //        alert('닉네임 중복확인이 필요합니다.');
 //        return false;
@@ -221,7 +220,7 @@ function exit(memNumber, $exitPwc) {
   fetch(url, {
     method:'DELETE',
     headers: {
-      'Accept':'application/json',
+      'Accept': 'application/json',
       'Content-type': 'application/json'
     },
     body:JSON.stringify(data)

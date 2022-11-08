@@ -155,11 +155,11 @@ function isValidChk() {
 
 //이메일 형식 검사 함수
 function emailFormat() {
-        //const emailFormat = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-        const emailFormat = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    //const emailFormat = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    const emailFormat = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
-        if (!emailFormat.exec(memEmail.value)) {
-            return false;
-        }
-        return true;
+    if (!emailFormat.exec(memEmail.value)) {
+        return false;
+    }
+    return true;
 }

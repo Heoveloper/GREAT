@@ -31,19 +31,20 @@ function findId(name, email) {
     fetch(url, {
         method:'POST',
         headers:{
-          'Accept':'application/json',
+          'Accept': 'application/json',
           'Content-type': 'application/json'
         },
         body: JSON.stringify(data)
     }).then(res => res.json())
       .then(res => {
-        console.log(res);
-        if (res.header.rtcd == '00') {
-            res.data[1] = res.data[1].substr(0, 10);
-            $spanId.textContent = res.data[0];
-            $spanReg.textContent = res.data[1];
-        } else {
+          console.log(res);
+          if (res.header.rtcd == '00') {
+              res.data[1] = res.data[1].substr(0, 10);
+              $spanId.textContent = res.data[0];
+              $spanReg.textContent = res.data[1];
+          } else {
             console.log(res);
-        }
-      }).catch(err => console.log(err));
+          }
+      })
+      .catch(err => console.log(err));
 }

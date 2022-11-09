@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @Component
 public class FileUtils {
-
     @Value("${attach.root_dir}")    //application.properties 파일의 키, 값을 읽어옴
     private String attachRoot;      //첨부파일 루트
 

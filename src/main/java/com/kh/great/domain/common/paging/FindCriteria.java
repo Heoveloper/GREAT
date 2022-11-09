@@ -9,12 +9,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class FindCriteria extends PageCriteria {
-
     private String searchType;
     private String keyword;
 
     public FindCriteria(RecordCriteria rc, int pageCount) {
         super(rc, pageCount);
     }
-
 }

@@ -21,7 +21,7 @@ public class MemberDAOImpl implements MemberDAO {
      * @return 회원아이디
      */
     public Long generateMemberNumber(){
-        String sql = "select mem_num.nextval from dual ";
+        String sql = "select member_mem_num_seq.nextval from dual ";
         Long memNumber = jt.queryForObject(sql, Long.class);
         return memNumber;
     }

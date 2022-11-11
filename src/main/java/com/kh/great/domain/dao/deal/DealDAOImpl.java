@@ -34,7 +34,7 @@ public class DealDAOImpl implements DealDAO {
 
         sql.append("insert into deal (order_number, buyer_number, seller_number, p_number, ");
         sql.append("p_count, price, visittime, buy_type) ");
-        sql.append("          values (deal_order_number_seq.nextval, ?, ?, ?, ");
+        sql.append("          values (deal_order_num_seq.nextval, ?, ?, ?, ");
         sql.append("?, ?, TO_DATE(?, 'YYYY-MM-DD\"T\"HH24:MI:SS'), ?) ");
 
         KeyHolder keyHolder = new GeneratedKeyHolder();

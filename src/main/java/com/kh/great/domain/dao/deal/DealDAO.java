@@ -20,7 +20,7 @@ public interface DealDAO {
     int deleteByOrderNumber(Long orderNumber);
 
     //구매 취소 시 상품 개수 증가
-    int delUpdate(Long pNumber,Deal deal);
+    int delUpdate(Long pNumber, Deal deal);
 
     //남은 수량 0개일 시
     int updatePstatus(Long pNumber);

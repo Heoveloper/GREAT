@@ -67,15 +67,15 @@ alter table comments modify create_date date default sysdate;
 
 --create uploadfile table
 create table uploadfile(
-uploadfile_id   number(10),
-code            varchar2(11),
-rid             varchar2(10),
-store_filename  varchar2(100),
-upload_filename varchar2(100),
-fsize           varchar2(45),
-ftype           varchar2(100),
-cdate           timestamp default systimestamp,
-udate           timestamp default systimestamp
+uploadfile_id   number(10),                         --파일아이디
+code            varchar2(11),                       --분류코드
+rid             varchar2(10),                       --참조번호
+store_filename  varchar2(100),                      --저장파일명(서버에 보관되는 파일명)
+upload_filename varchar2(100),                      --업로드파일명(유저가 업로드한 파일명)
+fsize           varchar2(45),                       --파일크기
+ftype           varchar2(100),                      --파일유형
+cdate           timestamp default systimestamp,     --등록일자
+udate           timestamp default systimestamp      --수정일자
 );
 --primary key
 alter table uploadfile add constraint uploadfile_uploadfile_id_pk primary key (uploadfile_id);

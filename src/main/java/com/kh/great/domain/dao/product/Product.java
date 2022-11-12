@@ -17,27 +17,27 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-    private Long pNumber;           //상품번호    P_NUMBER	NUMBER(6,0)
-    private Long ownerNumber;       //점주고객번호    OWNER_NUMBER	NUMBER(6,0)
-    private String pTitle;          //상품 제목    P_TITLE	VARCHAR2(90 BYTE)
-    private String pName;           //상품명    P_NAME	VARCHAR2(60 BYTE)
+    private Long pNumber;           //p_number number(30) not null,         --상품번호
+    private Long ownerNumber;       //owner_number number(6) not null,      --판매자번호
+    private String pTitle;          //p_title varchar2(300) not null,       --제목
+    private String pName;           //p_name varchar2(30) not null,         --상품명
     @NotBlank
-    private String deadlineTime;    //마감일자    DEADLINE_TIME	DATE
-    private String category;        //업종카테고리    CATEGORY	VARCHAR2(17 BYTE)
-    private Integer totalCount;     //총수량    TOTAL_COUNT	NUMBER(5,0)
-    private Integer remainCount;    //남은 수량    REMAIN_COUNT	NUMBER(5,0)
-    private Integer normalPrice;    //정상가    NORMAL_PRICE	NUMBER(8,0)
-    private Integer salePrice;      //할인가    SALE_PRICE	NUMBER(8,0)
-    private Integer discountRate;   //할인율    DISCOUNT_RATE	NUMBER(2,0)
-    private String paymentOption;   //결제방식    PAYMENT_OPTION	VARCHAR2 (32 BYTE)
-    private String detailInfo;      //상품설명    DETAIL_INFO	VARCHAR2 (4000 BYTE)
+    private String deadlineTime;    //deadline_time date not null,          --마감일자
+    private String category;        //category varchar2(17) not null,       --업종카테고리
+    private Integer totalCount;     //total_count number(5) not null,       --총수량
+    private Integer remainCount;    //remain_count number(5) not null,      --잔여수량
+    private Integer normalPrice;    //normal_price number(8) not null,      --정상가
+    private Integer salePrice;      //sale_price number(8) not null,        --할인가
+    private Integer discountRate;   //discount_rate number(2) not null,     --할인율
+    private String paymentOption;   //payment_option varchar2(32) not null, --결제방식
+    private String detailInfo;      //detail_info clob,                     --상품설명
     @DateTimeFormat(pattern = "yy-MM-dd HH:mm:ss")
-    private LocalDateTime rDate;    //등록일    R_DATE DATE DEFAULT SYSDATE
-    private LocalDateTime uDate;    //수정일    U_DATE	DATE DEFAULT SYSDATE
-    private Integer pStatus;        //판매상태    P_STATUS	NUMBER(1,0)
+    private LocalDateTime rDate;    //r_date date default sysdate not null, --등록일자
+    private LocalDateTime uDate;    //u_date date default sysdate not null, --수정일자
+    private Integer pStatus;        //p_status number(1) default 0          --판매상태
 
     private Member member;
     private Deal deal;
-    private List<MultipartFile> files;  //상품 이미지 첨부(여러건)
+    private List<MultipartFile> files;
     private List<UploadFile> imageFiles;
 }

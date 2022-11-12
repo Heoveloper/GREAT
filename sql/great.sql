@@ -80,22 +80,22 @@ create sequence member_mem_num_seq
 ------------------------------ product ------------------------------
 --create table: product
 create table product_info (
-p_number number(30, 0) not null,
-owner_number number(6, 0) not null,
-p_title varchar2(300 byte) not null,
-p_name varchar2(30 byte) not null,
+p_number number(30) not null,
+owner_number number(6) not null,
+p_title varchar2(300) not null,
+p_name varchar2(30) not null,
 deadline_time date not null,
-category varchar2(17 byte) not null,
-total_count number(5, 0) not null,
-remain_count number(5, 0) not null,
-normal_price number(8, 0) not null,
-sale_price number(8, 0) not null,
-discount_rate number(2, 0) not null,
-payment_option varchar2(32 byte) not null,
+category varchar2(17) not null,
+total_count number(5) not null,
+remain_count number(5) not null,
+normal_price number(8) not null,
+sale_price number(8) not null,
+discount_rate number(2) not null,
+payment_option varchar2(32) not null,
 detail_info clob,
 r_date date default sysdate not null,
 u_date date default sysdate not null,
-p_status number(1, 0) default 0
+p_status number(1) default 0
 );
 --primary key
 alter table product_info add constraint product_info_p_id_pk primary key (p_number);

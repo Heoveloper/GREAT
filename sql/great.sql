@@ -111,17 +111,17 @@ create sequence product_p_num_seq;
 --create table: deal
 create table deal (
 order_number number(10),
-buyer_number number (6),
-seller_number number (6),
-p_number number (30),
-p_count number (3),
-price number (6),
+buyer_number number(6),
+seller_number number(6),
+p_number number(30),
+p_count number(3),
+price number(6),
 visittime date,
 buy_type number(1),
 r_status number(1) default 0,
 o_status number(1) default 0,
 orderdate date default sysdate,
-pickup_status number (1) default 0
+pickup_status number(1) default 0
 );
 --primary key
 alter table deal add constraint deal_order_number_pk primary key (order_number);
@@ -142,7 +142,7 @@ create sequence deal_order_num_seq;
 --create table: review
 create table review (
 review_number number(10),
-buyer_number number (6),
+buyer_number number(6),
 seller_number number(6),
 content varchar2(150),
 write_date date default sysdate,
@@ -161,7 +161,7 @@ create sequence  review_review_num_seq;
 --create table: bookmark
 create table bookmark (
 bookmark_number number(10),
-buyer_number number (10),
+buyer_number number(10),
 seller_number number(10)
 );
 --primary key
@@ -177,7 +177,7 @@ create sequence  bookmark_bookmark_num_seq;
 --create table: good
 create table good (
 good_number number(10),
-mem_number number (6),
+mem_number number(6),
 p_number number(5)
 );
 --primary key

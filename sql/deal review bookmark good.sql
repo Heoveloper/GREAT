@@ -20,17 +20,17 @@ create sequence good_good_num_seq;          --좋아요번호
 --create deal table
 create table deal (
 order_number    number(10),             --주문번호    
-buyer_number    number (6),             --구매자번호
-seller_number   number (6),             --판매자번호
-p_number        number (30),            --상품번호
-p_count         number (3),             --상품수량
-price           number (6),             --상품가격
+buyer_number    number(6),              --구매자번호
+seller_number   number(6),              --판매자번호
+p_number        number(30),             --상품번호
+p_count         number(3),              --상품수량
+price           number(6),              --상품가격
 visittime       date,                   --방문예정시각
 buy_type        number(1),              --결제유형
 r_status        number(1) default 0,    --리뷰상태
 o_status        number(1) default 0,    --주문상태
 orderdate       date default sysdate,   --주문일자
-pickup_status   number (1) default 0    --픽업상태
+pickup_status   number(1) default 0     --픽업상태
 );
 --primary key
 alter table deal add constraint deal_order_number_pk primary key (order_number);
@@ -47,7 +47,7 @@ alter table deal add constraint deal_pickup_status_ck check (pickup_status = '0'
 --create review table
 create table review (
 review_number   number(10),             --리뷰번호
-buyer_number    number (6),             --구매자번호(리뷰작성자번호)
+buyer_number    number(6),              --구매자번호(리뷰작성자번호)
 seller_number   number(6),              --판매자번호
 content         varchar2(150),          --내용
 write_date      date default sysdate,   --작성일
@@ -62,7 +62,7 @@ alter table review add constraint review_seller_number_fk foreign key (seller_nu
 --create bookmark table
 create table bookmark (
 bookmark_number number(10),     --즐겨찾기번호
-buyer_number    number (10),    --구매자번호
+buyer_number    number(10),     --구매자번호
 seller_number   number(10)      --판매자번호
 );
 --primary key
@@ -73,9 +73,9 @@ alter table bookmark add constraint bookmark_seller_number_fk foreign key (selle
 
 --create good table
 create table good (
-good_number number(10), --좋아요번호
-mem_number  number (6), --회원번호
-p_number    number(5)   --상품번호
+good_number number(10),     --좋아요번호
+mem_number  number(6),      --회원번호
+p_number    number(5)       --상품번호
 );
 --primary key
 alter table good add constraint good_good_id_pk primary key (good_number);

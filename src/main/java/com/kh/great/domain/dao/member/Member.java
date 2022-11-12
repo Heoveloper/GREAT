@@ -9,24 +9,24 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class Member {
-    private Long memNumber;                     //varchar2(9)
-    private String memType;                     //varchar2(15)
-    private String memId;                       //varchar2(30)
-    private String memPassword;                 //varchar2(18)
-    private String memName;                     //varchar2(18)
-    private String memNickname;                 //varchar2(18)
-    private String memEmail;                    //varchar2(30)
-    private String memBusinessnumber;           //varchar2(10)
-    private String memStoreName;                //varchar2(45)
-    private String memStorePhonenumber;         //varchar2(15)
-    private String memStoreLocation;            //varchar2(150)
-    private String memStoreLatitude;            //varchar2(15, 9)
-    private String memStoreLongitude;           //varchar2(15, 9)
-    private String memStoreIntroduce;           //varchar2(150)
-    private String memStoreSns;                 //varchar2(150)
-    private LocalDateTime memRegtime;           //date
-    private LocalDateTime memLockExpiration;    //date
-    private String memAdmin;                    //varchar2(3)
+    private Long memNumber;                     //mem_number number(9),                 --회원번호
+    private String memType;                     //mem_type varchar2(15),                --회원유형
+    private String memId;                       //mem_id varchar2(30),                  --아이디
+    private String memPassword;                 //mem_password varchar2(18),            --비밀번호
+    private String memName;                     //mem_name varchar2(18),                --이름
+    private String memNickname;                 //mem_nickname varchar2(18),            --닉네임
+    private String memEmail;                    //mem_email varchar2(30),               --이메일
+    private String memBusinessnumber;           //mem_businessnumber varchar2(10),      --사업자번호
+    private String memStoreName;                //mem_store_name varchar2(45),          --가게명
+    private String memStorePhonenumber;         //mem_store_phonenumber varchar2(15),   --가게연락처
+    private String memStoreLocation;            //mem_store_location varchar2(150),     --가게주소
+    private String memStoreLatitude;            //mem_store_latitude number(15, 9),     --가게위도
+    private String memStoreLongitude;           //mem_store_longitude number(15, 9),    --가게경도
+    private String memStoreIntroduce;           //mem_store_introduce varchar2(150),    --가게소개
+    private String memStoreSns;                 //mem_store_sns varchar2(150),          --가게SNS
+    private LocalDateTime memRegtime;           //mem_regtime date,                     --가입일자
+    private LocalDateTime memLockExpiration;    //mem_lock_expiration date,             --정지기간
+    private String memAdmin;                    //mem_admin varchar2(3)                 --관리자여부
 
     private Product product;
 

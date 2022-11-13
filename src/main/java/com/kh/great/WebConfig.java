@@ -11,7 +11,6 @@ import java.util.List;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-
     public void addInterceptors(InterceptorRegistry registry) {
         //모든 요청에 대한 log
         registry.addInterceptor(new LogInterceptor())
@@ -19,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/error");
 
-        //로그인 인증 (세션체크)
+        //화이트 리스트(로그인 인증 없이도 접근 가능)
         List<String> whiteList = new ArrayList<>();
         whiteList.add("/css/**");
         whiteList.add("/js/**");
@@ -48,10 +47,10 @@ public class WebConfig implements WebMvcConfigurer {
         whiteList.add("/community/list/**");
         whiteList.add("/community/article/**");
 
-
+        //로그인 인증 (세션 체크)
         registry.addInterceptor(new LoginInterceptor())
                 .order(2)
-                .addPathPatterns("/**")
-                .excludePathPatterns(whiteList);
+                .addPathPatterns("/**")             //모든 접근에 로그인 인증 요구
+                .excludePathPatterns(whiteList);    //화이트 리스트는 로그인 인증 요구 제외
     }
 }

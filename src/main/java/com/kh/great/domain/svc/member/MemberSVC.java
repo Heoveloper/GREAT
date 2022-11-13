@@ -8,7 +8,7 @@ public interface MemberSVC {
     /**
      * 회원가입
      * @param member 가입정보
-     * @return 회원아이디
+     * @return 회원번호
      */
     Member join(Member member);
 
@@ -32,7 +32,7 @@ public interface MemberSVC {
      * 비밀번호 재설정
      * @param memNumber 회원번호
      * @param newPassword 수정할 정보
-     * @return 재설정건수
+     * @return 재설정 건수
      */
     Long resetPw(Long memNumber, String newPassword);
 
@@ -52,7 +52,7 @@ public interface MemberSVC {
     Member findByMemNumber(Long memNumber);
 
     /**
-     * 조회 by 회원아이디
+     * 조회 by 아이디
      * @param memId 아이디
      * @return 회원정보
      */
@@ -61,15 +61,15 @@ public interface MemberSVC {
     /**
      * 수정
      * @param memNumber 회원번호
-     * @param member  수정할 정보
-     * @return 수정건수
+     * @param member 수정할 정보
+     * @return 수정 건수
      */
     Long update(Long memNumber, Member member);
 
     /**
      * 탈퇴
      * @param memNumber 회원번호
-     * @return 삭제건수
+     * @return 탈퇴 건수
      */
     Long exit(Long memNumber);
 

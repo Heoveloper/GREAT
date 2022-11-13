@@ -8,10 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PagingConfig {
-
     private static final int REC_COUNT_10_PER_PAGE = 10;
     private static final int PAGE_COUNT_10_PER_PAGE = 10;
-
     private static final int REC_COUNT_5_PER_PAGE = 5;
     private static final int PAGE_COUNT_5_PER_PAGE = 5;
 

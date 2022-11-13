@@ -65,7 +65,7 @@ public interface MemberDAO {
     /**
      * 수정
      * @param memNumber 회원번호
-     * @param member  수정할 정보
+     * @param member 수정할 정보
      * @return 수정 건수
      */
     Long update(Long memNumber, Member member);
@@ -73,7 +73,7 @@ public interface MemberDAO {
     /**
      * 탈퇴
      * @param memNumber 회원번호
-     * @return 삭제 건수
+     * @return 탈퇴 건수
      */
     Long exit(Long memNumber);
 

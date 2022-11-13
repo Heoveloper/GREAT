@@ -107,7 +107,7 @@ public class MemberDAOImpl implements MemberDAO {
      * 비밀번호 재설정
      * @param memNumber 회원번호
      * @param newPassword 수정할 비밀번호
-     * @return 재설정건수
+     * @return 재설정 건수
      */
     @Override
     public Long resetPw(Long memNumber, String newPassword) {
@@ -200,7 +200,7 @@ public class MemberDAOImpl implements MemberDAO {
      * 수정
      * @param memNumber 회원번호
      * @param member  수정할 정보
-     * @return 수정건수
+     * @return 수정 건수
      */
     @Override
     public Long update(Long memNumber, Member member) {
@@ -233,7 +233,7 @@ public class MemberDAOImpl implements MemberDAO {
     /**
      * 탈퇴
      * @param memNumber 회원번호
-     * @return 삭제건수
+     * @return 삭제 건수
      */
     @Override
     public Long exit(Long memNumber) {

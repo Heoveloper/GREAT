@@ -21,36 +21,42 @@ public class DealSVCImpl implements DealSVC {
     //구매 등록
     @Override
     public Deal add(Deal deal) {
+
         return dealDAO.add(deal);
     }
 
-    //구매 조회 (조회 by 회원번호)
+    //구매 조회 by 회원번호
     @Override
     public List<Deal> findByMemberNumber(Long memNumber) {
+
         return dealDAO.findByMemberNumber(memNumber);
     }
 
-    //구매 조회 (조회 by 주문번호)
+    //구매 조회 by 주문번호
     @Override
     public Optional<Deal> findByOrderNumber(Long orderNumber) {
+
         return dealDAO.findByOrderNumber(orderNumber);
     }
 
     //구매 시 상품 개수 감소
     @Override
     public int update(Long pNumber, Deal deal) {
-        return dealDAO.update(pNumber,deal);
+
+        return dealDAO.update(pNumber, deal);
     }
 
     //구매 취소
     @Override
     public int deleteByOrderNumber(Long orderNumber) {
+        //주문번호로 조회한 구매 정보
         Optional<Deal> foundOrder = dealDAO.findByOrderNumber(orderNumber);
-        log.info("foundOrder : {} ", foundOrder);
-        dealDAO.delUpdate(foundOrder.get().getPNumber(),foundOrder.get());
-
+        //조회한 구매 정보(취소할 구매 정보)의 상품 개수 증가
+        dealDAO.delUpdate(foundOrder.get().getPNumber(), foundOrder.get());
+        //구매 취소
         int affectedRow = dealDAO.deleteByOrderNumber(orderNumber);
-        return affectedRow;
+
+        return affectedRow; //구매 취소 건수 반환
     }
 
     //구매 취소 시 상품 개수 증가
@@ -62,6 +68,7 @@ public class DealSVCImpl implements DealSVC {
     //남은 수량 0개일 시
     @Override
     public int updatePstatus(Long pNumber) {
+
         return dealDAO.updatePstatus(pNumber);
     }
 }

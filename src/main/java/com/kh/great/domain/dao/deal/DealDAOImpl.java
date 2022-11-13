@@ -60,7 +60,7 @@ public class DealDAOImpl implements DealDAO {
         return deal;
     }
 
-    //구매 조회 (조회 by 회원번호)
+    //구매 조회 by 회원번호
     @Override
     public List<Deal> findByMemberNumber(Long memNumber) {
         StringBuffer sql = new StringBuffer();
@@ -95,7 +95,7 @@ public class DealDAOImpl implements DealDAO {
         return deals;
     }
 
-    //구매 조회 (조회 by 주문번호)
+    //구매 조회 by 주문번호
     @Override
     public Optional<Deal> findByOrderNumber(Long orderNumber) {
         StringBuffer sql = new StringBuffer();
@@ -130,12 +130,12 @@ public class DealDAOImpl implements DealDAO {
     @Override
     public int update(Long pNumber, Deal deal) {
         StringBuffer sql = new StringBuffer();
+
         sql.append("update product_info ");
         sql.append("   set remain_count = remain_count - ? ");
         sql.append(" where p_number = ? ");
 
         //Deal deal = jt.queryForObject(sql.toString(), new BeanPropertyRowMapper<>(Deal.class));
-        //log.info("deal = {}", deal);
         int affectedRow = jt.update(sql.toString(), deal.getPCount(), pNumber);
 
         return affectedRow;
@@ -155,6 +155,7 @@ public class DealDAOImpl implements DealDAO {
     @Override
     public int delUpdate(Long pNumber, Deal deal) {
         StringBuffer sql = new StringBuffer();
+
         sql.append("update product_info ");
         sql.append("   set remain_count = remain_count + ? ");
         sql.append(" where p_number = ? ");

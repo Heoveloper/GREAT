@@ -19,8 +19,7 @@ public class FileUtils {
     //MultipartFile -> UploadFile
     public UploadFile multipartFileToUploadFile(MultipartFile file, AttachCode code, Long rid) {
         UploadFile uploadFile = new UploadFile();
-
-        uploadFile.setCode(code.name());    //상품관리
+        uploadFile.setCode(code.name()); //상품관리
         uploadFile.setRid(rid);
         uploadFile.setUploadFilename(file.getOriginalFilename());
 
@@ -30,7 +29,7 @@ public class FileUtils {
         uploadFile.setFtype(file.getContentType());
 
         //스토리지에 파일 저장
-        storageFile(file,code,storeFileName);
+        storageFile(file, code, storeFileName);
 
         return uploadFile;
     }
@@ -42,6 +41,7 @@ public class FileUtils {
             UploadFile uploadFile = multipartFileToUploadFile(file, code, rid);
             uploadFiles.add(uploadFile);
         }
+
         return uploadFiles;
     }
 
@@ -58,6 +58,7 @@ public class FileUtils {
                           .append(".")
                           .append(ext)
                           .toString();
+
         return storeFileName;
     }
 
@@ -74,12 +75,12 @@ public class FileUtils {
 
     //첨부파일의 물리적인 경로 추출 ex) d:/tmp/P0101/xx-xxx-xx.jpg
     public String getAttachFilePath(AttachCode code, String storeFileName) {
+
         return this.attachRoot + code.name() + "/" + storeFileName;
     }
 
     //첨부파일 삭제
     public void deleteAttachFile(AttachCode code, String storeFileName) {
-
         File f = new File(getAttachFilePath(code, storeFileName));
         if (f.exists()) {
             f.delete();

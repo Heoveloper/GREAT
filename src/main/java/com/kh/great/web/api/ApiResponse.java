@@ -18,10 +18,10 @@ public class ApiResponse<T> {
 
     /**
      * Api 응답메세지 생성
-     * @param rtcd 응답코드
-     * @param rtmsg 응답메세지
+     * @param rtcd 응답 코드
+     * @param rtmsg 응답 메세지
      * @param data 데이터
-     * @return
+     * @return Api 응답메세지
      * @param <T> 데이터
      */
     public static <T> ApiResponse<T> createApiResMsg(String rtcd, String rtmsg, T data) {

@@ -33,18 +33,17 @@ import java.util.Optional;
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class HomeController {
-
     private final MemberSVC memberSVC;
     final ProductSVC productSVC;
     private final UploadFileSVC uploadFileSVC;
     private final EmailSVCImpl emailSVCImpl;
 
+    //메인 화면
     @GetMapping
     public String home(Model model) {
         List<Product> list = productSVC.today_deadline();
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setImageFiles(uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(),
-                    list.get(i).getPNumber()));
+            list.get(i).setImageFiles(uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), list.get(i).getPNumber()));
         }
         model.addAttribute("list", list);
 
@@ -56,7 +55,7 @@ public class HomeController {
     public String join(Model model) {
         model.addAttribute("join", new Join());
 
-        return "member/join";    //회원가입 화면
+        return "member/join";
     }
 
     //회원가입 처리
@@ -119,13 +118,12 @@ public class HomeController {
 
         Long id = joinedMember.getMemNumber();
         redirectAttributes.addAttribute("memNumber", id);
-        return "redirect:/joinComplete/{memNumber}";  //가입완료화면
+        return "redirect:/joinComplete/{memNumber}"; //회원가입 완료 화면
     }
 
     //회원가입 완료 화면
     @GetMapping("/joinComplete/{memNumber}")
     public String joinComplete(@PathVariable("memNumber") Long memNumber, Model model) {
-
         Member findedMember = memberSVC.findByMemNumber(memNumber);
 
         JoinComplete joinComplete = new JoinComplete();
@@ -182,7 +180,6 @@ public class HomeController {
     //비밀번호 재설정 화면
     @GetMapping("/resetPw/{memNumber}")
     public String resetPw(@PathVariable("memNumber") Long memNumber, Model model) {
-
         Member findedMember = memberSVC.findByMemNumber(memNumber);
 
         ResetPw resetPw = new ResetPw();
@@ -195,7 +192,7 @@ public class HomeController {
 
     //로그인 화면
     @GetMapping("/login")
-    public String login(@ModelAttribute("login") Login login){
+    public String login(@ModelAttribute("login") Login login) {
 
         return "member/login";
     }
@@ -214,7 +211,7 @@ public class HomeController {
             return "member/login";
         }
 
-        //회원유무
+        //회원 유무
         Optional<Member> member = memberSVC.login(login.getMemId(), login.getMemPassword());
         log.info("member = {}", member);
         if(member.isEmpty()){
@@ -234,7 +231,7 @@ public class HomeController {
         session.setAttribute("memNickname", member.get().getMemNickname());
         session.setAttribute("memAdmin", member.get().getMemAdmin());
 
-        return "redirect:" + redirectUrl;
+        return "redirect:" + redirectUrl; //접근 시도한 화면
     }
 
     //로그아웃
@@ -246,10 +243,10 @@ public class HomeController {
             session.invalidate();
         }
 
-        return "redirect:/"; //메인
+        return "redirect:/"; //메인 화면
     }
 
-    //상품 개별 조회
+    //상품 조회
     @GetMapping("/product/{num}")
     public String findByProductNum(@PathVariable("num") Long num, Model model) {
         //1) 상품 조회
@@ -270,22 +267,14 @@ public class HomeController {
 
         //2) 첨부파일 조회
         List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
-        if(uploadFiles.size() > 0 ){
+        if (uploadFiles.size() > 0 ) {
             detailForm.setImageFiles(uploadFiles);
         }
-        log.info("detailForm={}", detailForm);
+
+        log.info("detailForm = {}", detailForm);
         model.addAttribute("form", detailForm);
 
         return "product/detailForm";
-    }
-
-    //검색 목록
-    @GetMapping("/searchresult")
-    public  String searchresult(Model model){
-        List<Product> list = productSVC.findAll();
-        model.addAttribute("list", list);
-
-        return "main/searchResult";
     }
 
     //지역별 상품 목록
@@ -296,6 +285,15 @@ public class HomeController {
         model.addAttribute("list", list);
 
         return "main/zonningListCSR";
+    }
+
+    //상품 검색 결과 목록
+    @GetMapping("/searchresult")
+    public String searchresult(Model model) {
+        List<Product> list = productSVC.findAll();
+        model.addAttribute("list", list);
+
+        return "main/searchResult";
     }
 
     //오늘의 마감 할인 상품 전체보기

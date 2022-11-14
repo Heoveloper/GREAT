@@ -23,6 +23,15 @@ drop sequence product_p_num_seq;
 drop sequence bookmark_bookmark_num_seq;
 
 ------------------------------ member ------------------------------
+--create sequence: member number
+create sequence member_mem_num_seq
+    increment by 1
+    start with 1
+    minvalue 1
+    nomaxvalue
+    nocycle
+    nocache;
+
 --create table: member
 create table member (
 mem_number number(9),
@@ -67,17 +76,11 @@ alter table member modify mem_regtime constraint member_mem_regtime_nn not null;
 alter table member modify mem_number number(9) default member_mem_num_seq.nextval;
 alter table member modify mem_regtime date default sysdate;
 alter table member modify mem_admin varchar2(3) default 'n';
-
---create sequence: member number
-create sequence member_mem_num_seq
-    increment by 1
-    start with 1
-    minvalue 1
-    nomaxvalue
-    nocycle
-    nocache;
     
 ------------------------------ product ------------------------------
+--create sequence: product number
+create sequence product_p_num_seq;
+
 --create table: product
 create table product_info (
 p_number number(30) not null,
@@ -104,10 +107,10 @@ alter table product_info add constraint product_info_p_num_fk foreign key (owner
 --check
 alter table product_info add constraint porduct_info_p_status_ck check (p_status = 0 or p_status = 1);  --sales status(0 or 1)
 
---create sequence: product number
-create sequence product_p_num_seq;
-
 ------------------------------ deal ------------------------------
+--create sequence: order number
+create sequence deal_order_num_seq;
+
 --create table: deal
 create table deal (
 order_number number(10),
@@ -135,10 +138,10 @@ alter table deal add constraint deal_r_status_ck check (r_status = '0' or r_stat
 alter table deal add constraint deal_o_status_ck check (o_status = '0' or o_status = '1');                  --order status(0 or 1)
 alter table deal add constraint deal_pickup_status_ck check (pickup_status = '0' or pickup_status = '1');   --pickup status(0 or 1)
 
---create sequence: order number
-create sequence deal_order_num_seq;
-
 ------------------------------ review ------------------------------
+--create sequence: review number
+create sequence  review_review_num_seq;
+
 --create table: review
 create table review (
 review_number number(10),
@@ -153,9 +156,6 @@ alter table review add constraint review_review_number_pk primary key (review_nu
 --foreign key
 alter table review add constraint review_buyer_number_fk foreign key (buyer_number) references member(mem_number) on delete cascade;
 alter table review add constraint review_seller_number_fk foreign key (seller_number) references member(mem_number) on delete cascade;
-
---create sequence: review number
-create sequence  review_review_num_seq;
 
 ------------------------------ bookmark ------------------------------
 --create table: bookmark
@@ -174,6 +174,9 @@ alter table bookmark add constraint bookmark_seller_number_fk foreign key (selle
 create sequence  bookmark_bookmark_num_seq;
 
 ------------------------------ good ------------------------------
+--create sequence: good number
+create sequence  good_good_num_seq;
+
 --create table: good
 create table good (
 good_number number(10),
@@ -186,10 +189,17 @@ alter table good add constraint good_good_id_pk primary key (good_number);
 alter table good add constraint good_mem_number_fk foreign key (mem_number) references member(mem_number) on delete cascade;
 alter table good add constraint good_p_number_fk foreign key (p_number) references product_info(p_number) on delete cascade; 
 
---create sequence: good number
-create sequence  good_good_num_seq;
-
 ------------------------------ article ------------------------------
+--create sequence: article number
+create sequence article_article_num_seq
+    increment by 1
+    start with 1
+    minvalue 1
+    maxvalue 999999
+    nocycle
+    nocache
+    noorder;
+
 --create table: article
 create table article (
 article_num number(6),
@@ -215,9 +225,10 @@ alter table article modify attachment constraint article_attachment_nn not null;
 alter table article modify create_date date default sysdate;
 alter table article modify views number(5) default 0;
 alter table article modify comments number(5) default 0;
-
---create sequence: article number
-create sequence article_article_num_seq
+    
+------------------------------ comments ------------------------------
+--create sequence: comment number
+create sequence comments_comment_num_seq
     increment by 1
     start with 1
     minvalue 1
@@ -225,8 +236,7 @@ create sequence article_article_num_seq
     nocycle
     nocache
     noorder;
-    
------------------------------- comments ------------------------------    
+
 --create table: comments
 create table comments (
 article_num number(6),
@@ -251,18 +261,11 @@ alter table comments add constraint comments_p_comment_num_fk foreign key (p_com
 alter table comments modify comment_contents constraint comments_comment_contents_nn not null;
 --default
 alter table comments modify create_date date default sysdate;
-
---create sequence: comment number
-create sequence comments_comment_num_seq
-    increment by 1
-    start with 1
-    minvalue 1
-    maxvalue 999999
-    nocycle
-    nocache
-    noorder;
     
 ------------------------------ uploadfile ------------------------------
+--create sequence: uploadfile id
+create sequence uploadfile_uploadfile_id_seq;
+
 --create table: uploadfile
 create table uploadfile(
 uploadfile_id number(10),
@@ -283,12 +286,12 @@ alter table uploadfile modify rid constraint uploadfile_rid_nn not null;
 alter table uploadfile modify store_filename constraint uploadfile_store_filename_nn not null;
 alter table uploadfile modify upload_filename constraint uploadfile_upload_filename_nn not null;
 alter table uploadfile modify fsize constraint uploadfile_fsize_nn not null;
-alter table uploadfile modify ftype constraint uploadfile_ftype_nn not null;
-
---create sequence: uploadfile id
-create sequence uploadfile_uploadfile_id_seq;    
+alter table uploadfile modify ftype constraint uploadfile_ftype_nn not null;  
     
 ------------------------------ notice ------------------------------
+--create sequence: notice id
+create sequence notice_notice_id_seq;
+
 --create table: notice
 create table notice (
 notice_id number(8),
@@ -301,6 +304,3 @@ udate timestamp default systimestamp
 );
 --primary key
 alter table notice add constraint notice_notice_id_pk primary key (notice_id);
-
---create sequence: notice id
-create sequence notice_notice_id_seq;

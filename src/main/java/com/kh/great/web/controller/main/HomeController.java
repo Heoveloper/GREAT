@@ -8,7 +8,7 @@ import com.kh.great.domain.svc.member.EmailSVCImpl;
 import com.kh.great.domain.svc.member.MemberSVC;
 import com.kh.great.domain.svc.product.ProductSVC;
 import com.kh.great.domain.svc.uploadFile.UploadFileSVC;
-import com.kh.great.web.api.member.FindId;
+import com.kh.great.web.dto.member.FindId;
 import com.kh.great.web.dto.member.*;
 import com.kh.great.web.dto.product.DetailForm;
 import com.kh.great.web.session.LoginMember;

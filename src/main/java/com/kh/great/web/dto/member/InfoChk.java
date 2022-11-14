@@ -7,5 +7,5 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class InfoChk {
     @NotBlank
-    private String memPassword;                 //varchar2(18)
+    private String memPassword;
 }

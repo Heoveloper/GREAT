@@ -7,10 +7,10 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class ResetPw {
     @NotBlank
-    private String memId;                       //varchar2(30)
+    private String memId;
 
     @NotBlank
-    private String memPassword;                 //varchar2(18)
+    private String memPassword;
 
     @NotBlank
     private String memPasswordCheck;

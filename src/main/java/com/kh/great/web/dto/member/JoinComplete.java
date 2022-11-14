@@ -6,26 +6,41 @@ import java.time.LocalDateTime;
 
 @Data
 public class JoinComplete {
+    private Long memNumber;
 
-    private Long memNumber;                      //varchar2(9)
-    private String memType;                     //varchar2(15)
-    private String memId;                       //varchar2(30)
-    private String memPassword;                 //varchar2(18)
+    private String memType;
+
+    private String memId;
+
+    private String memPassword;
+
     private String memPasswordCheck;
-    private String memName;                     //varchar2(18)
-    private String memNickname;                 //varchar2(18)
-    private String memEmail;                    //varchar2(30)
 
-    private String memBusinessnumber;           //varchar2(10)
-    private String memStoreName;                //varchar2(45)
-    private String memStorePhonenumber;         //varchar2(15)
-    private String memStoreLocation;            //varchar2(150)
-    private String memStoreLatitude;            //varchar2(15, 9)
-    private String memStoreLongitude;           //varchar2(15, 9)
-    private String memStoreIntroduce;           //varchar2(150)
-    private String memStoreSns;                 //varchar2(150)
+    private String memName;
 
-    private LocalDateTime memRegtime;           //date
-    private LocalDateTime memLockExpiration;    //date
-    private String memAdmin;                    //varchar2(3)
+    private String memNickname;
+
+    private String memEmail;
+
+    private String memBusinessnumber;
+
+    private String memStoreName;
+
+    private String memStorePhonenumber;
+
+    private String memStoreLocation;
+
+    private String memStoreLatitude;
+
+    private String memStoreLongitude;
+
+    private String memStoreIntroduce;
+
+    private String memStoreSns;
+
+    private LocalDateTime memRegtime;
+
+    private LocalDateTime memLockExpiration;
+
+    private String memAdmin;
 }

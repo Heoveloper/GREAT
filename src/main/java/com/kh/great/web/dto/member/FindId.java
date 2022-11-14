@@ -5,9 +5,9 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class FindPw {
+public class FindId {
     @NotBlank
-    private String memId;
+    private String memName;
 
     @NotBlank
     private String memEmail;

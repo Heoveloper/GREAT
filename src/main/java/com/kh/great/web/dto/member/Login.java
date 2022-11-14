@@ -9,7 +9,7 @@ public class Login {
     @NotBlank
     private String memId;
 
+    //@Size(min = 8, max = 15)
     @NotBlank
-//    @Size(min = 8, max = 15)
     private String memPassword;
 }

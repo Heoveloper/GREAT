@@ -7,50 +7,50 @@ import java.time.LocalDateTime;
 
 @Data
 public class Info {
-    private Long memNumber;                      //varchar2(9)
+    private Long memNumber;
 
-    private String memType;                     //varchar2(15)
-
-    @NotBlank
-    private String memId;                       //varchar2(30)
+    private String memType;
 
     @NotBlank
-    private String memPassword;                 //varchar2(18)
+    private String memId;
+
+    @NotBlank
+    private String memPassword;
 
     @NotBlank
     private String memPasswordCheck;
 
     @NotBlank
-    private String memName;                     //varchar2(18)
+    private String memName;
 
     @NotBlank
-    private String memNickname;                 //varchar2(18)
+    private String memNickname;
 
     @NotBlank
-    private String memEmail;                    //varchar2(30)
+    private String memEmail;
 
-    private String memBusinessnumber;           //varchar2(10)
+    private String memBusinessnumber;
 
-    private String memStoreName;                //varchar2(45)
+    private String memStoreName;
 
-    private String memStorePhonenumber;         //varchar2(15)
+    private String memStorePhonenumber;
 
-    private String memStoreLocation;            //varchar2(150)
+    private String memStoreLocation;
 
-    private String memStoreLatitude;            //varchar2(15, 9)
+    private String memStoreLatitude;
 
-    private String memStoreLongitude;           //varchar2(15, 9)
+    private String memStoreLongitude;
 
-    private String memStoreIntroduce;           //varchar2(150)
+    private String memStoreIntroduce;
 
-    private String memStoreSns;                 //varchar2(150)
+    private String memStoreSns;
 
-    private LocalDateTime memRegtime;           //date
+    private LocalDateTime memRegtime;
 
-    private LocalDateTime memLockExpiration;    //date
+    private LocalDateTime memLockExpiration;
 
-    private String memAdmin;                    //varchar2(3)
+    private String memAdmin;
 
-    //입력한 탈퇴시 확인 비밀번호
+    //탈퇴 시 입력한 확인 비밀번호
     private String exitPwc;
 }

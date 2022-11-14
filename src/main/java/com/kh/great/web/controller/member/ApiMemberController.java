@@ -28,16 +28,13 @@ import java.util.ArrayList;
 @RequestMapping("/api/member")
 @RequiredArgsConstructor
 public class ApiMemberController {
-
     private final MemberSVC memberSVC;
     private final EmailSVCImpl emailSVCimpl;
-    private String authNum;
     private final EmailAuthStore emailAuthStore; //이메일 인증 저장소
-
 
     //아이디 중복확인
     @PostMapping("/dupChkId")
-    public  ApiResponse<Object> dupChkId(@RequestBody Join join) {
+    public ApiResponse<Object> dupChkId(@RequestBody Join join) {
         ApiResponse<Object> response = null;
 
         Boolean isDup = memberSVC.dupChkOfMemId(join.getMemId());
@@ -46,12 +43,13 @@ public class ApiMemberController {
         } else {
             response =  ApiResponse.createApiResMsg("99", "중복되는 아이디 존재", isDup);
         }
+
         return response;
     }
 
     //닉네임 중복확인
     @PostMapping("/dupChkNickname")
-    public  ApiResponse<Object> dupChkNn(@RequestBody Join join) {
+    public ApiResponse<Object> dupChkNn(@RequestBody Join join) {
         ApiResponse<Object> response = null;
 
         Boolean isDup = memberSVC.dupChkOfMemNickname(join.getMemNickname());
@@ -60,6 +58,7 @@ public class ApiMemberController {
         } else {
             response =  ApiResponse.createApiResMsg("99", "중복되는 닉네임 존재", isDup);
         }
+
         return response;
     }
 
@@ -75,14 +74,12 @@ public class ApiMemberController {
         IdAndRegtime.add(id);
         IdAndRegtime.add(regtime);
 
-        log.info("id={}", id);
-
-        //응답메세지
         if (!StringUtils.isEmpty(id)) {
             response =  ApiResponse.createApiResMsg("00", "성공", IdAndRegtime);
         } else {
-            response =  ApiResponse.createApiResMsg("99", "부합하는 아이디가 없습니다.", null);
+            response =  ApiResponse.createApiResMsg("99", "해당하는 아이디를 찾을 수 없습니다.", null);
         }
+
         return response;
     }
 
@@ -91,48 +88,57 @@ public class ApiMemberController {
     public ApiResponse<Object> resetPw(@RequestBody ResetPw resetPw, BindingResult bindingResult) {
         ApiResponse<Object> response = null;
 
-        //1)비밀번호 체크
-        //오브젝트 검증(object error)
+        //오브젝트 검증
         //비밀번호-비밀번호 확인 일치
         if (!(resetPw.getMemPassword().equals(resetPw.getMemPasswordCheck()))) {
             bindingResult.reject(null, "비밀번호가 일치하지 않습니다.");
             response = ApiResponse.createApiResMsg("01", "비밀번호가 일치하지 않습니다.", resetPw.getMemPasswordCheck());
+
             return response;
         }
-        //2)회원아이디가 존재하는지 체크
+
+        //아이디 존재 여부 확인
         Member findedMember = memberSVC.findByMemId(resetPw.getMemId());
-        log.info("findedMember={}", findedMember);
+        log.info("findedMember = {}", findedMember);
+        //존재하지 않으면
         if (findedMember == null) {
             response = ApiResponse.createApiResMsg("99", "아이디를 찾을 수 없습니다.", resetPw.getMemPasswordCheck());
+
             return response;
         }
-        //3)비밀번호 변경
+
+        //비밀번호 재설정
         Long updatedRow = memberSVC.resetPw(findedMember.getMemNumber(), resetPw.getMemPassword());
+
+        //재설정 성공시
         if (updatedRow == 1) {
             response = ApiResponse.createApiResMsg("00", "비밀번호 재설정 성공", resetPw.getMemPasswordCheck());
         }
+
         return response;
     }
 
     //회원탈퇴
     @DeleteMapping("/exit")
     public ApiResponse<Object> exit(@RequestBody Info info, BindingResult bindingResult, HttpServletRequest request) {
-
         Member findedMember = memberSVC.findByMemNumber(info.getMemNumber());
 
+        //세션 조회
         HttpSession session = request.getSession(false);
+        //세션이 존재하면
         if (session != null) {
-
-            //비밀번호 불일치시
+            //확인 비밀번호가 일치하지 않으면
             if (!(findedMember.getMemPassword().equals(info.getExitPwc()))) {
                 log.info("pwAndPwc = {} {}", findedMember.getMemPassword(), info.getExitPwc());
                 bindingResult.reject(null, "비밀번호가 일치하지 않습니다.");
-                return ApiResponse.createApiResMsg("01","비밀번호가 일치하지 않습니다.", info.getExitPwc());
+
+                return ApiResponse.createApiResMsg("01", "비밀번호가 일치하지 않습니다.", info.getExitPwc());
             }
 
             session.invalidate();
         }
 
+        //회원탈퇴
         Long deletedRow = memberSVC.exit(info.getMemNumber());
 
         return ApiResponse.createApiResMsg("00","탈퇴 성공", deletedRow);
@@ -147,16 +153,19 @@ public class ApiMemberController {
 
     //인증코드 확인
     @PostMapping("/codeConfirm")
-    public  ApiResponse<Object> codeConfirm(@RequestBody EmailDto emailDto) throws MessagingException, UnsupportedEncodingException {
+    public ApiResponse<Object> codeConfirm(@RequestBody EmailDto emailDto) throws MessagingException, UnsupportedEncodingException {
         ApiResponse<Object> response = null;
 
-
+        //이메일 존재 여부 확인
+        //이메일이 존재하고 인증코드가 같으면
         if (emailAuthStore.isExist(emailDto.getEmail(), emailDto.getCode())) {
             response =  ApiResponse.createApiResMsg("00", "코드 인증 성공", null);
+            //인증 후 같은 인증코드 재사용 불가하도록 인증코드 삭제
             emailAuthStore.remove(emailDto.email);
         } else {
             response =  ApiResponse.createApiResMsg("99", "코드 인증 실패", null);
         }
+
         return response;
     }
 }

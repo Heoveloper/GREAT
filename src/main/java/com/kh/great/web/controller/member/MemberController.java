@@ -23,7 +23,6 @@ import javax.validation.Valid;
 public class MemberController {
     private final MemberSVC memberSVC;
 
-
     //개인정보 조회 및 수정 본인확인 화면
     @GetMapping("/infoChk")
     public String infoChk(Model model) {
@@ -50,27 +49,26 @@ public class MemberController {
         //기본 검증
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
+
             return "member/infoChk";
         }
 
         Member findedMember = memberSVC.findByMemNumber((Long) memNum);
 
-        //필드 검증(field error)
-        //비밀번호 일치해야 개인정보 조회 가능
+        //필드 검증
+        //비밀번호로 본인확인 후 개인정보 조회 가능
         if (!(infoChk.getMemPassword().equals(findedMember.getMemPassword()))) {
             bindingResult.rejectValue("memPassword",null, "비밀번호가 일치하지 않습니다.");
+
             return "member/infoChk";
         }
 
-        return "redirect:/member/{memType}/{memNum}";
+        return "redirect:/member/{memType}/{memNum}"; //회원정보 조회 및 수정 화면
     }
 
     //고객회원정보 조회 및 수정 화면
     @GetMapping("/customer/{memNumber}")
-    public String infoCust(
-            @PathVariable("memNumber") Long memNumber,
-            Model model
-    ){
+    public String infoCust(@PathVariable("memNumber") Long memNumber, Model model) {
         Member findedMember = memberSVC.findByMemNumber(memNumber);
 
         Info info = new Info();
@@ -83,15 +81,13 @@ public class MemberController {
         info.setMemEmail(findedMember.getMemEmail());
 
         model.addAttribute("info", info);
-        return "member/infoCust"; //회원 수정화면
+
+        return "member/infoCust";
     }
 
     //점주회원정보 조회 및 수정 화면
     @GetMapping("/owner/{memNumber}")
-    public String infoOwn(
-            @PathVariable("memNumber") Long memNumber,
-            Model model
-    ){
+    public String infoOwn(@PathVariable("memNumber") Long memNumber, Model model) {
         Member findedMember = memberSVC.findByMemNumber(memNumber);
 
         Info info = new Info();
@@ -110,10 +106,10 @@ public class MemberController {
         info.setMemStoreLongitude(findedMember.getMemStoreLongitude());
         info.setMemStoreIntroduce(findedMember.getMemStoreIntroduce());
         info.setMemStoreSns(findedMember.getMemStoreSns());
-        log.info("확인 : {}",info);
 
         model.addAttribute("info", info);
-        return "member/infoOwn"; //회원 수정화면
+
+        return "member/infoOwn";
     }
 
     //고객회원정보 수정 처리
@@ -124,9 +120,10 @@ public class MemberController {
             HttpServletRequest request,
             RedirectAttributes redirectAttributes
     ) {
-        //검증
-        if (bindingResult.hasErrors()){
-            log.info("bindingResult={}", bindingResult);
+        //기본 검증
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult = {}", bindingResult);
+
             return "member/infoCust";
         }
 
@@ -147,12 +144,16 @@ public class MemberController {
         //수정시 세션의 닉네임 변경
         session.setAttribute("memNickname", info.getMemNickname());
 
+        //회원정보 수정
         Long updatedRow = memberSVC.update((Long) memNum, member);
+
+        //수정항목이 없으면
         if (updatedRow == 0) {
+
             return "member/infoCust";
         }
 
-        return "redirect:/member/customer/{memNum}";
+        return "redirect:/member/customer/{memNum}"; //회원정보 조회 및 수정 화면
     }
 
     //점주회원정보 수정 처리
@@ -163,9 +164,10 @@ public class MemberController {
             HttpServletRequest request,
             RedirectAttributes redirectAttributes
     ) {
-        //검증
-        if(bindingResult.hasErrors()){
-            log.info("bindingResult={}", bindingResult);
+        //기본 검증
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult = {}", bindingResult);
+
             return "member/infoOwn";
         }
 
@@ -194,11 +196,15 @@ public class MemberController {
         //수정시 세션의 닉네임 변경
         session.setAttribute("memNickname", info.getMemNickname());
 
+        //회원정보 수정
         Long updatedRow = memberSVC.update((Long) memNum, member);
+
+        //수정항목이 없으면
         if (updatedRow == 0) {
+
             return "member/infoOwn";
         }
 
-        return "redirect:/member/owner/{memNum}";
+        return "redirect:/member/owner/{memNum}"; //회원정보 조회 및 수정 화면
     }
 }

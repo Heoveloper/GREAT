@@ -30,44 +30,58 @@ public class ProductController {
     private final ProductSVC productSVC;
     private final UploadFileSVC uploadFileSVC;
 
-    //등록 양식
+    //상품 등록 화면
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("form", new SaveForm());
+
         return "product/addForm";
     }
 
-    //등록처리
+    //상품 등록 처리
     @PostMapping("/add")
-    public String add(@Valid @ModelAttribute("form") SaveForm saveForm, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        //기본검증
-        if(bindingResult.hasErrors()){
-            log.info("bindingResult={}", bindingResult);
+    public String add(@Valid @ModelAttribute("form") SaveForm saveForm,
+                      BindingResult bindingResult,
+                      HttpServletRequest request,
+                      RedirectAttributes redirectAttributes
+    ) {
+        //기본 검증
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult = {}", bindingResult);
+
             return "product/addForm";
         }
-        // 필드 검증
-        // 글제목 30자 초과 금지
+
+        //필드 검증
+        //제목 30자 이내
         if (saveForm.getPTitle().length() > 30) {
-            bindingResult.rejectValue("ptitle", "product.ptitle", new Integer[]{30}, "글제목 30자 초과");
-            log.info("bindingResult={}", bindingResult);
+            bindingResult.rejectValue("ptitle", "product.ptitle", new Integer[]{30}, "제목 30자 초과");
+            log.info("bindingResult = {}", bindingResult);
+
             return "product/addForm";
         }
-        // 상품명 10자 이내
+
+        //상품명 10자 이내
         if (saveForm.getPName().length() > 10) {
             bindingResult.rejectValue("pName", "product.pname", new Integer[]{10}, "상품명 10자 초과");
-            log.info("bindingResult={}", bindingResult);
+            log.info("bindingResult = {}", bindingResult);
+
             return "product/addForm";
         }
-        // 총수량 99999초과 금지
+
+        //총수량 99999 이내
         if (saveForm.getTotalCount() > 99999) {
-            bindingResult.rejectValue("totalCount", "product.totalcount", new Integer[]{99999}, "판매수량 초과");
-            log.info("bindingResult={}", bindingResult);
+            bindingResult.rejectValue("totalCount", "product.totalcount", new Integer[]{99999}, "판매 가능 총수량 초과");
+            log.info("bindingResult = {}", bindingResult);
+
             return "product/addForm";
         }
-        // 정상가 > 할인가
+
+        //정상가 > 할인가
         if (saveForm.getNormalPrice() < saveForm.getSalePrice()) {
-            bindingResult.reject("product.pricerange", "할인가보다 정상가가 커야합니다.");
-            log.info("bindingResult={}", bindingResult);
+            bindingResult.reject("product.pricerange", "할인가는 정상가 미만으로 책정 가능합니다.");
+            log.info("bindingResult = {}", bindingResult);
+
             return "product/addForm";
         }
 
@@ -87,35 +101,38 @@ public class ProductController {
         }
 
         redirectAttributes.addAttribute("num", pNum);
-        return "redirect:/product/{num}";
+        return "redirect:/product/{num}"; //상품 조회 화면
     }
 
-    //수정 화면
+    //상품 수정 화면
     @GetMapping("/{num}/edit")
     public String editFrom(@PathVariable("num") Long num, Model model) {
-        //1) 상품조회
+        //1) 상품 조회
         Product findedProduct = productSVC.findByProductNum(num);
         UpdateForm updateForm = new UpdateForm();
         BeanUtils.copyProperties(findedProduct, updateForm);
 
         //2) 상품 이미지 조회
         List<UploadFile> uploadFiles = uploadFileSVC.getFilesByCodeWithRid(AttachCode.P0102.name(), num);
-        if(uploadFiles.size() > 0 ){
+        if (uploadFiles.size() > 0 ) {
             List<UploadFile> imageFiles = new ArrayList<>();
             for (UploadFile file : uploadFiles) {
                 imageFiles.add(file);
             }
             updateForm.setImageFiles(imageFiles);
         }
-        System.out.println("num = " + num);
         model.addAttribute("form", updateForm);
 
         return "product/updateForm";
     }
 
-    //수정 처리
+    //상품 수정 처리
     @PostMapping("/{num}/edit")
-    public String edit(@PathVariable("num") Long num, @Valid @ModelAttribute("form") UpdateForm updateForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String edit(@PathVariable("num") Long num,
+                       @Valid @ModelAttribute("form") UpdateForm updateForm,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes
+    ) {
         Product product = new Product();
         BeanUtils.copyProperties(updateForm, product);
 
@@ -129,44 +146,31 @@ public class ProductController {
             productSVC.update(num, product, updateForm.getFiles());
         }
 
-//        int updatedRow = productSVC.update(num, product);
-//        if (updatedRow == 0) {
-//            return  "redirect:/products/{num}";
-//        }
-        System.out.println("in num = " + num);
-//        redirectAttributes.addAttribute("num", num);
-//        return "redirect:/product/{num}";
-        return "redirect:/product/" + num;
+        return "redirect:/product/" + num; //상품 조회 화면
     }
 
-    //삭제처리
+    //상품 삭제 처리
     @GetMapping("/{num}/del")
     public String delete(@PathVariable("num") Long num) {
         int deletedRow = productSVC.deleteByProductNum(num);
         if (deletedRow == 0) {
-            return "redirect:/product/" + num;
+            return "redirect:/product/" + num; //상품 조회 화면
         }
-        return "redirect:/";
+
+        return "redirect:/"; //메인 화면
     }
 
-    //상품관리
-//    @GetMapping("/{ownerNumber}/manage")
-//    public String manage(@PathVariable("ownerNumber") Long ownerNumber, Model model) {
-//        List<Product> list = productSVC.pManage(ownerNumber);
-//        model.addAttribute("list", list);
-//
-//        return "product/manage";
-//    }
+    //상품 관리
     @GetMapping("/{ownerNumber}/manage")
     public String manage(@PathVariable("ownerNumber") Long ownerNumber, Model model) {
-
+        //List<Product> list = productSVC.pManage(ownerNumber);
         List<Product> list = productSVC.manage(ownerNumber);
         model.addAttribute("list", list);
 
         return "product/manage";
     }
 
-    //판매 내역 목록
+    //판매 내역
     @GetMapping("/{ownerNumber}/saleList")
     public String saleList(@PathVariable("ownerNumber") Long ownerNumber, Model model) {
         List<Product> list = productSVC.saleList(ownerNumber);

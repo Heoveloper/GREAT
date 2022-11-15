@@ -158,6 +158,9 @@ alter table review add constraint review_buyer_number_fk foreign key (buyer_numb
 alter table review add constraint review_seller_number_fk foreign key (seller_number) references member(mem_number) on delete cascade;
 
 ------------------------------ bookmark ------------------------------
+--create sequence: bookmark number
+create sequence  bookmark_bookmark_num_seq;
+
 --create table: bookmark
 create table bookmark (
 bookmark_number number(10),
@@ -169,9 +172,6 @@ alter table bookmark add constraint bookmark_bookmark_number_pk primary key (boo
 --foreign key
 alter table bookmark add constraint bookmark_buyer_number_fk foreign key (buyer_number) references member(mem_number) on delete cascade;
 alter table bookmark add constraint bookmark_seller_number_fk foreign key (seller_number) references member(mem_number) on delete cascade;
-
---create sequence: bookmark number
-create sequence  bookmark_bookmark_num_seq;
 
 ------------------------------ good ------------------------------
 --create sequence: good number

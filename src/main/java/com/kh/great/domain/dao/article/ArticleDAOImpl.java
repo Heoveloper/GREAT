@@ -385,7 +385,6 @@ public class ArticleDAOImpl implements ArticleDAO {
         if (!StringUtils.isEmpty(filterCondition.getCategory()) &&
             !StringUtils.isEmpty(filterCondition.getSearchType()) &&
             !StringUtils.isEmpty(filterCondition.getKeyword())) {
-
             sql.append(" and ");
         }
 

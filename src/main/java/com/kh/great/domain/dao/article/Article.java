@@ -23,7 +23,7 @@ public class Article {
     private String articleContents;     //article_contents clob,            --내용
     private String attachment;          //attachment varchar2(1),           --첨부파일유무
     @DateTimeFormat(pattern = "yyyy.MM.dd.")
-    private LocalDateTime createDate;   //create_date date,                 --작성일
+    private LocalDateTime createDate;   //create_date date,                 --등록일자
     private Long views;                 //views number(5),                  --조회수
     private Long comments;              //comments number(5)                --댓글수
 

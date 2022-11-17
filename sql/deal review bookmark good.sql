@@ -50,7 +50,7 @@ review_number   number(10),             --리뷰번호
 buyer_number    number(6),              --구매자번호(리뷰작성자번호)
 seller_number   number(6),              --판매자번호
 content         varchar2(150),          --내용
-write_date      date default sysdate,   --작성일
+write_date      date default sysdate,   --등록일자
 grade           number(2)               --평점
 );
 --primary key

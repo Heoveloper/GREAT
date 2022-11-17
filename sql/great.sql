@@ -295,7 +295,7 @@ create sequence notice_notice_id_seq;
 --create table: notice
 create table notice (
 notice_id number(8),
-title varchar2(150),
+title varchar2(90),
 content clob,
 write varchar2(30),
 attachments varchar2(1),

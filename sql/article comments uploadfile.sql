@@ -22,7 +22,7 @@ article_category    varchar2(30),   --카테고리
 article_title       varchar2(90),   --제목
 article_contents    clob,           --내용
 attachment          varchar2(1),    --첨부파일유무
-create_date         date,           --작성일
+create_date         date,           --등록일자
 views               number(5),      --조회수
 comments            number(5)       --댓글수
 );
@@ -51,7 +51,7 @@ comment_order       number(3),      --순서
 p_comment_nickname  varchar2(18),   --부모댓글닉네임
 mem_number          number(6),      --작성자번호
 comment_contents    clob,           --내용
-create_date         date,           --작성일
+create_date         date,           --등록일자
 reply               varchar2(1)     --대댓글
 );
 --primary key

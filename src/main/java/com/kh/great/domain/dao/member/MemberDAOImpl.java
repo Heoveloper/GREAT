@@ -240,9 +240,9 @@ public class MemberDAOImpl implements MemberDAO {
         int result = 0;
         StringBuffer sql = new StringBuffer();
 
-        sql.append(" delete ");
-        sql.append("   from member ");
-        sql.append("  where mem_number = ? ");
+        sql.append("delete ");
+        sql.append("  from member ");
+        sql.append(" where mem_number = ? ");
 
         result = jt.update(sql.toString(), memNumber);
 

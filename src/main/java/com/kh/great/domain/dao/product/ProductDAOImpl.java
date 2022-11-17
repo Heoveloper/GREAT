@@ -36,14 +36,11 @@ public class ProductDAOImpl implements ProductDAO {
         sql.append("insert into product_info (p_number, owner_number, p_title, p_name, deadline_time, category, total_count, remain_count, normal_price, sale_price, discount_rate, payment_option, detail_info) ");
         sql.append("                  values (product_p_num_seq.nextval, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD\"T\"HH24:MI'), ?, ?, ?, ?, ?, ?, ?, ?) ");
 
-        log.info("sql = {}", sql);
-
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jt.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement pstmt = con.prepareStatement(sql.toString(), new String[]{"p_number"});
-                log.info("product.getOwnerNumber() = {}", product.getOwnerNumber());
                 pstmt.setLong(1, product.getOwnerNumber());
                 pstmt.setString(2, product.getPTitle());
                 pstmt.setString(3, product.getPName());

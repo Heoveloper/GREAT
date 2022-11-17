@@ -57,4 +57,4 @@ alter table member modify mem_regtime constraint member_mem_regtime_nn not null;
 --default
 alter table member modify mem_number number(9) default member_mem_num_seq.nextval;
 alter table member modify mem_regtime date default sysdate;
-alter table member modify mem_admin varchar2(3) default 'n';   
+alter table member modify mem_admin varchar2(3) default 'n';

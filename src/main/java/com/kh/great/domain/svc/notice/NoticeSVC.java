@@ -1,14 +1,18 @@
-package com.kh.great.domain.dao.notice;
+package com.kh.great.domain.svc.notice;
+
+import com.kh.great.domain.dao.notice.BbsFilterCondition;
+import com.kh.great.domain.dao.notice.Notice;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-public interface NoticeDAO {
+public interface NoticeSVC {
     /**
      * 공지사항 등록
      * @param notice 등록정보
      * @return 공지사항정보
      */
-    Notice save(Notice notice);
+    Notice write(Notice notice);
 
     /**
      * 조회 by 공지사항번호
@@ -23,14 +27,22 @@ public interface NoticeDAO {
      * @param notice 수정할 정보
      * @return 수정 건수
      */
-    int update(Long noticeId, Notice notice);
+    Notice update(Long noticeId, Notice notice);
+
+    /**
+     * 공지사항 수정 (업로드 파일 포함)
+     * @param noticeId 공지사항번호
+     * @param notice 수정할 정보
+     * @param files 업로드 파일
+     * @return 수정 건수
+     */
+    Notice update(Long noticeId, Notice notice, List<MultipartFile> files);
 
     /**
      * 공지사항 삭제
      * @param noticeId 공지사항번호
-     * @return 삭제 건수
      */
-    int delete(Long noticeId);
+    void delete(Long noticeId);
 
     /**
      * 공지사항 목록 - 전체
@@ -42,7 +54,7 @@ public interface NoticeDAO {
      * 공지사항 목록 - 전체 (작성자, 첨부파일 유무 포함)
      * @return 공지사항 목록
      */
-    List<Notice> selectAll();
+    List<Notice> findAll();
 
     /**
      * 공지사항 목록 - 레코드
@@ -58,13 +70,6 @@ public interface NoticeDAO {
      * @return 공지사항 목록
      */
     List<Notice> findAll(BbsFilterCondition filterCondition);
-
-    /**
-     * 조회수 증가
-     * @param noticeId 공지사항번호
-     * @return 조회수 증가된 공지사항 수
-     */
-    int increaseViewCount(Long noticeId);
 
     /**
      * 공지사항 수 - 전체

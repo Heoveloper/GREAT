@@ -119,14 +119,14 @@ public class NoticeDAOImpl implements NoticeDAO {
     }
 
     /**
-     * 공지사항 목록 - 전체 (작성자, 첨부파일 유무 포함)
+     * 공지사항 목록 - 전체
      * @return 공지사항 목록
      */
     @Override
-    public List<Notice> selectAll() {
+    public List<Notice> foundAll() {
         StringBuffer sql = new StringBuffer();
 
-        sql.append("  select notice_id, title, content, write, attachments, count, udate ");
+        sql.append("  select notice_id, title, content, count, udate ");
         sql.append("    from notice ");
         sql.append("order by notice_id desc ");
 
@@ -136,14 +136,14 @@ public class NoticeDAOImpl implements NoticeDAO {
     }
 
     /**
-     * 공지사항 목록 - 전체
+     * 공지사항 목록 - 전체 (작성자, 첨부파일 유무 포함)
      * @return 공지사항 목록
      */
     @Override
-    public List<Notice> foundAll() {
+    public List<Notice> selectAll() {
         StringBuffer sql = new StringBuffer();
 
-        sql.append("  select notice_id, title, content, count, udate ");
+        sql.append("  select notice_id, title, content, write, attachments, count, udate ");
         sql.append("    from notice ");
         sql.append("order by notice_id desc ");
 

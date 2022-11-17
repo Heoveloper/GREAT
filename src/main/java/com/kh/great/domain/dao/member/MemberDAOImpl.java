@@ -31,7 +31,7 @@ public class MemberDAOImpl implements MemberDAO {
     /**
      * 회원가입
      * @param member 가입정보
-     * @return 회원번호
+     * @return 가입 건수
      */
     @Override
     public Long join(Member member) {

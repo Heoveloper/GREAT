@@ -1,21 +1,28 @@
-package com.kh.great.domain.dao.article;
+package com.kh.great.domain.svc.article;
+
+
+import com.kh.great.domain.dao.article.Article;
+import com.kh.great.domain.dao.article.ArticleFilterCondition;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ArticleDAO {
-    /**
-     * 신규 게시글번호 생성
-     * @return 게시글번호
-     */
-    Long generatedArticleNum();
-
+public interface ArticleSVC {
     /**
      * 게시글 등록
      * @param article 등록정보
-     * @return 등록 건수
+     * @return 게시글정보
      */
-    int save(Article article);
+    Article save(Article article);
+
+    /**
+     * 게시글 등록 (업로드 파일 포함)
+     * @param article 등록정보
+     * @param files 업로드 파일
+     * @return 게시글정보
+     */
+    Article save(Article article, List<MultipartFile> files);
 
     /**
      * 게시글 조회
@@ -28,16 +35,24 @@ public interface ArticleDAO {
      * 게시글 수정
      * @param articleNum 게시글번호
      * @param article 수정할 정보
-     * @return 수정 건수
+     * @return 게시글정보
      */
-    int update(Long articleNum, Article article);
+    Article update(Long articleNum, Article article);
+
+    /**
+     * 게시글 수정 (업로드 파일 포함)
+     * @param articleNum 게시글번호
+     * @param article 수정할 정보
+     * @param files 업로드 파일
+     * @return 게시글정보
+     */
+    Article update(Long articleNum, Article article, List<MultipartFile> files);
 
     /**
      * 게시글 삭제
      * @param articleNum 게시글번호
-     * @return 삭제 건수
      */
-    int delete(Long articleNum);
+    void delete(Long articleNum);
 
     /**
      * 게시글 목록 - 전체
@@ -75,21 +90,6 @@ public interface ArticleDAO {
      * @return 게시글 목록
      */
     List<Article> findAll(ArticleFilterCondition filterCondition);
-
-    /**
-     * 조회수 증가
-     * @param articleNum 게시글번호
-     * @return 조회수 증가된 게시글 수
-     */
-    int increaseViewCount(Long articleNum);
-
-    /**
-     * 댓글수 변동
-     * @param totalCountOfArticle 댓글수
-     * @param articleNum 게시글번호
-     * @return 댓글수 변동된 게시글 수
-     */
-    int updateCommentsCnt(Long totalCountOfArticle, Long articleNum);
 
     /**
      * 게시글 수 - 전체

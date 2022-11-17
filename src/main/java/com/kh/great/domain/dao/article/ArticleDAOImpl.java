@@ -37,7 +37,7 @@ public class ArticleDAOImpl implements ArticleDAO {
     /**
      * 게시글 등록
      * @param article 등록정보
-     * @return 게시글번호
+     * @return 등록 건수
      */
     @Override
     public int save(Article article) {

@@ -52,7 +52,7 @@ p_comment_nickname  varchar2(18),   --부모댓글닉네임
 mem_number          number(6),      --작성자번호
 comment_contents    clob,           --내용
 create_date         date,           --등록일자
-reply               varchar2(1)     --대댓글
+reply               varchar2(1)     --답댓글여부
 );
 --primary key
 alter table comments add constraint comments_comment_num_pk primary key (comment_num);

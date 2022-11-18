@@ -18,7 +18,7 @@ public class Notice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notice_id")
     private Long noticeId;          //notice_id number(8),                  --공지사항번호
-    @Length(min=1, max=20)
+    @Length(min = 1, max = 20)
     private String title;           //title varchar2(90),                   --제목
     private String content;         //content clob,                         --내용
     private String write;           //write varchar2(30),                   --작성자(관리자)

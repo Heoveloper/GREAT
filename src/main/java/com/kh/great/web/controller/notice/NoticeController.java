@@ -127,10 +127,10 @@ public class NoticeController {
     ) {
         log.info("/list 요청 = {}, {}, {}, {}", reqPage, searchType, keyword);
 
-        //Criteria 값 설정
-        fc.getRc().setReqPage(reqPage.orElse(1)); //요청페이지, 요청 없으면 1
-        fc.setSearchType(searchType.orElse(""));  //검색 유형
-        fc.setKeyword(keyword.orElse(""));        //검색어
+        //FindCriteria 값 설정
+        fc.getRc().setReqPage(reqPage.orElse(1));   //요청페이지, 요청 없으면 1
+        fc.setSearchType(searchType.orElse(""));    //검색 유형
+        fc.setKeyword(keyword.orElse(""));          //검색어
 
         List<Notice> list = null;
         //검색 유형과 검색어 모두 존재하면
@@ -142,7 +142,7 @@ public class NoticeController {
             list = noticeSVC.findAll(filterCondition);
         //검색 유형과 검색어 중 하나라도 없으면
         } else {
-            //총레코드수
+            //총 레코드 수
             fc.setTotalRec(noticeSVC.totalCount());
             list = noticeSVC.findAll(fc.getRc().getStartRec(), fc.getRc().getEndRec());
         }
@@ -158,16 +158,5 @@ public class NoticeController {
         model.addAttribute("fc", fc);
 
         return "notice/noticeMainForm";
-    }
-
-    //검증 오류 메세지
-    private Map<String, String> getErrMsg(BindingResult bindingResult) {
-        Map<String, String> errmsg = new HashMap<>();
-
-        bindingResult.getAllErrors().stream().forEach(objectError -> {
-            errmsg.put(objectError.getCodes()[0], objectError.getDefaultMessage());
-        });
-
-        return errmsg;
     }
 }

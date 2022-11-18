@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/buy/buy.css">
+    <title>GREAT | 구매 결제</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container">
+            <h2>주문결제</h2>
+            <form id="buyForm" class="main__content" method="post" th:object="${form}">
+                <div class="order__item">
+                    <h3>주문 상품</h3>
+                    <div class="ordered">
+                        <div class="product-img">
+                            <th:block th:if="${form.imageFiles}">
+                                <th:block th:each="imageFile : ${form.imageFiles[0]}">
+                                    <img class="good_Img" th:src="@{/api/attach/img/{attachCode}/{storeFilename}(attachCode=${imageFile.code},storeFilename=${imageFile.storeFilename})}"
+                                         alt="이미지를 불러올 수 없습니다.">
+                                </th:block>
+                            </th:block>
+                            <th:block th:if="!(${form.imageFiles})">
+                                <img src="/img/product/등록된 사진이 없습니다.png" alt="">
+                            </th:block>
+                        </div>
+                        <div class="ordered-text">
+                            <span th:text="*{pName}">상품명 카스테라</span>
+                            <div><span>가격 </span><span th:text="*{salePrice}">가격 3,000원 / 개당</span><span> 원 / 개당</span></div>
+                        </div>
+                    </div>
+                    <div class="item-text">
+                        <p><label for="">상품명 </label><input type="text" value="카스테라" th:field="*{pName}" readonly /></p>
+                        <p><label for="">가격 </label><input type="text" value="3000" id="onePrice" th:field="*{salePrice}" readonly /></p>
+                        <p><label for="">수량 </label><input th:field="*{pCount}" type="number" min="1" th:max="*{remainCount}" /></p>
+                        <p><label for="">픽업시간 </label><input th:field="*{visittime}" type="datetime-local" onchange="setMinvalue()" /></p>
+                        <p><label for="">총 결제금액 </label><input th:field="*{price}" type="text" readonly /></p>
+                    </div>
+                </div>
+                <div class="buy-choice">
+                    <h3>결제 방식</h3>
+                    <div class="buy-content">
+                        <th:block th:if="*{paymentOption}=='온라인 결제'">
+                            <input type="radio" name="buyType" id="online" value="0 "checked /><label for="online">온라인 결제</label>
+                        </th:block>
+                        <th:block th:if="*{paymentOption}=='현장 결제'">
+                            <input type="radio" name="buyType" id="offline" value="1" checked /><label for="offline">현장 결제</label>
+                        </th:block>
+                        <th:block th:if="*{paymentOption}=='온라인 결제 & 현장 결제'">
+                            <input type="radio" name="buyType" id="online" value="0 "checked /><label for="online">온라인 결제</label>
+                            <input type="radio" name="buyType" id="offline" value="1" /><label for="offline">현장 결제</label>
+                        </th:block>
+                        <div class="buy-online">
+                            <label for="">카드사</label>
+                            <select name="" id="" class="sel-card">
+                                <option value="" hidden>==선택==</option>
+                                <option value="">BC카드</option>
+                                <option value="">현대카드</option>
+                                <option value="">삼성카드</option>
+                                <option value="">신한카드</option>
+                            </select>
+                            <p><label for="">카드 번호</label><input type="text"/></p>
+                            <p><label for="">예금주명</label><input type="text"/></p>
+                            <button class="btnbuy">결제하기</button>
+                        </div>
+                        <div class="buy-offline">
+                            <h3>주의사항</h3>
+                            <div>구매 후 가게를 방문하지 않을 시 </div>
+                            <div>서비스 이용이 영구히 제한됩니다.</div>
+                            <button class="btnbuy">구매하기</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script>
+    pCount.addEventListener('click', e => {
+        price.value = onePrice.value * pCount.value;
+    });
+
+    let $datetime = document.getElementById('visittime');
+    let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+    $datetime.value = date;
+    $datetime.setAttribute("min", date);
+
+    function setMinvalue() {
+        if($datetime.value < date) {
+            alert('현재 시각보다 이전 시각으로는 설정할 수 없습니다.');
+            $datetime.value = date;
+        }
+    }
+
+    const $btn = document.querySelectorAll('.btnbuy');
+
+    $btn.forEach((ele, idx) => {
+        $btn[idx].addEventListener('click', e => {
+            e.preventDefault();
+            if (!confirm('구매하시겠습니까?')) return;
+            buyForm.submit();
+        })
+    });
+    </script>
+</body>
+</html>

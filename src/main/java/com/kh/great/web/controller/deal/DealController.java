@@ -103,6 +103,6 @@ public class DealController {
 
         model.addAttribute("form", infoForm);
 
-        return "buy/buy-complete";
+        return "buy/buyComplete";
     }
 }

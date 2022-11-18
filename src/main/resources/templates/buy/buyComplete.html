@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/buy/buyComplete.css">
+    <title>GREAT | 주문완료</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <div class="buy-complete--container" th:object="${form}">
+            <h1>주문 완료!</h1>
+            <div>
+                <div class="buy-complete--content" >
+                    <h2>주문내역</h2>
+                    <div class="buy--text">
+                        <p><span>주문번호</span><label for="" th:text="*{orderNumber}">15715</label></p>
+                        <p><span>가게주소</span><label for="" th:text="*{member.memStoreLocation}">울산 동구</label></p>
+                        <p><span>주문상품</span><label for="" th:text="*{product.pName}">카스테라</label></p>
+                        <p><span>주문수량</span><label for="" th:text="*{pCount}">2</label></p>
+                        <p><span>총금액</span><label for="" th:text="*{price}">6000</label></p>
+                        <p>
+                            <span>픽업 예정시간</span>
+                            <label for="" th:text="*{#strings.substring(visittime, 5, 7)}+월+
+                                                   *{#strings.substring(visittime, 8, 10)}+일+
+                                                   *{#strings.substring(visittime, 10, 13)}+시+
+                                                   *{#strings.substring(visittime, 13, 16)}+분">17:20</label>
+                        </p>
+                        <p><span>주문시간</span><label for="" th:text="*{#dates.format(orderdate, 'MM월dd일 HH시:mm분')}">14:30</label></p>
+                        <p><span>판매자정보</span><label for="" th:text="*{member.memNickname}">어피치</label></p>
+                    </div>
+                </div>
+            </div>
+            <div class="btn">
+                <a href="/member/order-history.html" th:href="@{/mypage/{id}(id=*{buyerNumber})}" class="btn--move">주문 내역</a>
+                <a th:href="@{/}" class="btn--move">메인 화면</a>
+                <th:block th:with="loc=*{#strings.substring(member.memStoreLocation, 3, 6)}">
+                    <a th:href="|@{/zonning(zone=${loc},category='전체')}|" class="btn--move">판매글 목록</a>
+                </th:block>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+</body>
+</html>

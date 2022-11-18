@@ -60,7 +60,7 @@ public interface CommentSVC {
     int updateToDeletedComment(Long commentNum);
 
     /**
-     * 댓글 조회 by 게시글번호
+     * 댓글 목록 by 게시글번호
      * @param articleNum 게시글번호
      * @return 댓글정보
      */

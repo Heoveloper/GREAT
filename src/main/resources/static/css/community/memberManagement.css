@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+/* * {outline: 1px solid green;} */
+
+.width--800px {
+    width: 800px;
+}
+
+h3 {
+    margin: 0;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.bar {
+    margin-right: 5px;
+    width: 4px;
+    height: 24px;
+    background-color: var(--main-color-yel);
+}
+
+/* main */
+.main {
+    display: flex;
+    padding: 0px;
+    height: 900px;
+}
+
+/* management-menu */
+.management-menu {
+    flex: 1;
+    border-right: 2px solid var(--main-color-gre);
+    padding-top: 50px;
+}
+
+.management-menu li {
+    margin: 10px 0px 0px 20px;
+    padding: 5px 0px 5px 10px;
+    width: 125px;
+    font-size: 18px;
+}
+
+.management-menu li:hover {
+    border-radius: 10px;
+    background-color: var(--main-color-gre);
+    transition: all 0.5s;
+}
+
+.management-menu li a {
+    display: block;
+}
+
+.management-menu li a i {
+    margin-right: 7px;
+}
+
+/* member-management */
+.member-management {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.member-management .management-title h3 {
+    display: flex;
+}
+
+/* member-search */
+.member-search {
+    margin-top: 20px;
+}
+
+.member-search .member__search-keyword {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 1px;
+    border: 1px solid var(--mainBtn-color-gre);
+    border-radius: 8px;
+}
+
+.member-search .member__search-keyword input {
+    border: none;
+}
+
+.member-search .member__search-keyword i {
+    color: gray;
+}
+
+/* member__info-table */
+.member__info-table {
+    width: 100%;
+}
+
+.member__info-table thead tr {
+    background-color: var(--mainBtn-color-gre);
+}
+
+.member__info-table thead tr th {
+    font-size: 13px;
+    text-align: center;
+}
+
+.member__info-table tbody tr .left {
+    text-align: left;
+}
+
+.member__info-table tbody tr td {
+    padding: 5px 0;
+    font-size: 13px;
+    text-align: center;
+    border-bottom: 1px solid var(--mainBtn-color-gre);
+}
+
+.member__info-table tbody tr td .penalty_btn {
+    margin: 0px;
+    width: 50px;
+    height: 25px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--main-color-yel);
+}
+
+.member__info-table tbody tr td .ban_btn {
+    margin: 0px;
+    width: 50px;
+    height: 25px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--mainBtn-color-gre);
+}
+
+/* memeber-log */
+.memeber-log {
+    margin-top: 60px;
+}
+
+.log-tab {
+    margin-bottom: 25px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid var(--main-color-gre);
+}
+
+.log-tab li {
+    margin-right: 12px;
+}
+
+.log-tab li:hover {
+    border-radius: 8px;
+    background-color: var(--main-color-gre);
+    transition: all 0.5s;
+}
+
+.board-log {
+    width: 100%;
+}
+
+.board-log thead tr {
+    background-color: var(--mainBtn-color-gre);
+}
+
+.board-log thead tr th {
+    font-size: 13px;
+    text-align: center;
+}
+
+.board-log tbody tr td {
+    padding: 5px 0;
+    font-size: 13px;
+    text-align: center;
+    border-bottom: 1px solid var(--mainBtn-color-gre);
+}
+
+.board-log tbody tr td a:hover {
+    text-decoration: underline;
+}
+
+.log-tab {
+    display: flex;
+}
+
+.log-delete-tap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3px;
+}
+
+.log-delete-tap .log-select-all {
+    margin-left: 4px;
+    font-size: 13px;
+}
+
+.log-delete-tap .log-select-all label {
+    margin-left: 10px;
+}
+
+.log-delete-tap .log-delete-btn {
+    margin: 5px 0 10px 5px;
+    width: 60px;
+    height: 25px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--main-color-yel);
+}
+
+/* board__page */
+.board__page {
+    display: flex;
+    justify-content: center;
+}
+
+.board__page--select a {
+    margin: 0px 3px;
+    font-size: 13px;
+}
+
+.board__page--select a:hover {
+    border-radius: 5px;
+    background-color: var(--mainBtn-color-gre);
+}
+
+/* board__search */
+.board__search {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0px;
+}
+
+.board__search .board__search-box {
+    display: flex;
+}
+
+.board__search .board__search-box div {
+    margin: 0px 3px;
+}
+
+.board__search-box select {
+    padding: 5px;
+    border: 1px solid var(--mainBtn-color-gre);
+    border-radius: 8px;
+}
+
+.board__search-box .board__search-keyword {
+    padding: 1px;
+    border: 1px solid var(--mainBtn-color-gre);
+    border-radius: 8px;
+}
+
+.board__search-box .board__search-keyword input {
+    border: none;
+}
+
+.board__search .board__search-box .board__search-keyword i {
+    color: gray;
+}

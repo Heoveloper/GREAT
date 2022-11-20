@@ -1,0 +1,209 @@
+@charset "UTF-8";
+
+/* * {outline: 1px solid green;} */
+
+.width--900px {
+    width: 900px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.bar {
+    display: flex;
+    margin-right: 10px;
+    width: 4px;
+    height: 36px;
+    background-color: var(--main-color-yel);
+}
+
+td a {
+    text-align: center;
+}
+
+/* board */
+.board-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px 0px 200px 0px;
+}
+
+/* board__title */
+.board__title {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid black;
+}
+
+.board__title h2 {
+    display: flex;
+    padding: 0px;
+    margin: 0px 0px 5px 0px;
+}
+
+/* board__category */
+.board__category {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.board__category-select {
+    margin: 5px 0px 0px 0px;
+}
+
+.board__category-select select {
+    margin-bottom: 5px;
+    border: 1px solid var(--mainBtn-color-gre);
+    border-radius: 8px;
+}
+
+/* board__table */
+.board__table {
+    display: flex;
+    justify-content: center;
+}
+
+.board__table-content {
+    border-spacing: 0px;
+}
+
+.board__table-content thead tr th {
+    height: 40px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 40px;
+    border-top: 1px solid var(--mainBtn-color-gre);
+    border-bottom: 1px solid var(--mainBtn-color-gre);
+}
+
+.board__table-content tbody tr td {
+    padding: 5px 0;
+    height: 40px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 40px;
+    border-bottom: 1px solid var(--mainBtn-color-gre);
+}
+
+.board__table-content tbody tr td .commentsCnt {
+    color: var(--main-color-yel);
+    font-size: 12px;
+}
+
+.board__table-content tbody tr .left {
+    text-align: left;
+}
+
+.board__table-content tbody tr .articleNum {
+    font-size: 11px;
+}
+
+.board__table-content tbody tr .articleCategory {
+    font-size: 12px;
+}
+
+.board__table-content tbody tr .articleTitle {
+    text-align: left;
+}
+
+.board__table-content tbody tr .createDate {
+    font-size: 12px;
+}
+
+.board__table-content tbody tr .views {
+    font-size: 12px;
+}
+
+.board__table-content tbody tr td a {
+    display: inline-block;
+}
+
+.board__table-content tbody tr td a:hover {
+    text-decoration: underline;
+}
+
+/* board__write*/
+.board__write {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#board__post-btn {
+    margin: 10px 0 10px 5px;
+    width: 60px;
+    height: 25px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--main-color-yel);
+}
+
+/* board__page */
+.board__page {
+    display: flex;
+    justify-content: center;
+}
+
+/*
+.board__page--select a {
+    margin: 0 3px;
+    font-size: 13px;
+}
+
+.board__page--select a:hover {
+    border-radius: 5px;
+    background-color: var(--mainBtn-color-gre);
+}
+*/
+
+.community-page-item {
+    margin: 0 3px;
+    font-size: 13px;
+}
+
+.community-page-item:hover {
+    border-radius: 5px;
+    background-color: var(--mainBtn-color-gre);
+}
+
+/* board__search */
+.board__search {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.board__search .board__search-box {
+    display: flex;
+}
+
+.board__search .board__search-box div {
+    margin: 0px 3px;
+}
+
+.board__search-box select {
+    padding: 5px;
+    border: 1px solid var(--mainBtn-color-gre);
+    border-radius: 8px;
+}
+
+.board__search-box .board__search-keyword {
+    padding: 1px;
+    border: 1px solid var(--mainBtn-color-gre);
+    border-radius: 8px;
+}
+
+.board__search-box .board__search-keyword input {
+    border: none;
+}
+
+.board__search-box .board__search-keyword .search__search-icon {
+    border: none;
+    background-color: transparent;
+}
+
+.board__search .board__search-box .board__search-keyword i {
+    color: gray;
+}

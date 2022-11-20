@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/notice/noticeView.css">
+    <script th:src="@{/js/common/ckEditor.js}"></script>
+    <script th:src="@{/js/common/common.js}"></script>
+    <title>GREAT | 공지사항 조회</title>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="container">
+            <form class="notice" method="post" th:object="${detailForm}">
+                <div class="notice__title ">
+                    <h2>
+                        제목 :
+                        <text th:text="*{title}">[공지사항] 개인정보 처리방침 변경안내</text>
+                    </h2>
+                    <div class="notice__information">
+                        <div class="notice__write-information">
+                        </div>
+                    </div>
+                </div>
+                <div class="notice__content ">
+                    <textarea th:text="*{content}" id="noticeContent" cols="140" rows="100" name="content" readonly>[공지사항] 개인정보 처리방침 변경안내
+                    </textarea>
+                    <div class="notice__btn-box">
+                        <div id="notice__ss">
+                            <button type="button" id="modify_btn" th:href="@{/notice/edit/{id}(id=${detailForm.noticeId})}" >수정</button>
+                            <button type="button" id="notice__delBtn" class="delete">삭제</button>
+                        </div>
+                        <button type="button" id="submit_btn">목록</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script async th:inline="javascript">
+        //세션
+        document.getElementById("notice__ss").style.display = (
+            [[${session.memAdmin}]] == 'y' ? "block" : "none"
+        );
+
+        //수정 버튼
+        const $modifyBtn = document.getElementById('modify_btn');
+
+        //수정 버튼 클릭 시
+        $modifyBtn.addEventListener('click', e => {
+            location.href = '/notice/edit/[[${detailForm.noticeId}]]';
+        });
+
+        //목록 버튼
+        const $submitBtn = document.getElementById('submit_btn');
+
+        //목록 버튼 클릭 시
+        $submitBtn.addEventListener('click', e => {
+            location.href = '/notice/list';
+        });
+
+        //삭제 버튼
+        const $delBtn = document.getElementById('notice__delBtn');
+
+        //삭제 버튼 클릭 시
+        $delBtn.addEventListener('click', e => {
+            if (!confirm('삭제하시겠습니까?')) return;
+
+            location.href = '/notice/[[${detailForm.noticeId}]]/del';
+        });
+    </script>
+</body>
+</html>

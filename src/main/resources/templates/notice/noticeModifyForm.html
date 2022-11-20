@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/notice/noticeModify.css">
+    <script th:src="@{/js/common/ckEditor.js}"></script>
+    <script th:src="@{/js/common/common.js}"></script>
+    <title>GREAT | 공지사항 수정</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="container">
+            <form class="board-write__content" method="post" th:object="${editForm}">
+                <div class="board-write__title width--1000px">
+                    <h2><i class="bar"></i>공지사항 수정</h2>
+                </div>
+                <div class="board-write__notice-main width--900px">
+                    <input type="text" name="title" id="noticeTitle" placeholder="제목을 입력하세요." autofocus th:field="*{title}">
+                    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </div>
+                <div class="board-write__notice-main width--900px">
+                    <textarea class="board-write__notice-content" name="content" id="noticeContent" cols="30" rows="10" placeholder="내용을 작성하세요." autofocus th:field="*{content}">
+                    </textarea>
+                </div>
+                <div class="board-write__complete width--1000px"
+                     th:action="@{/notice/{id}(id=${editForm.noticeId})}">
+                    <button id="cancelBtn">취소</button>
+                    <button id="modifyBtn">수정</button>
+                </div>
+            </form>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script th:inline="javascript">
+        //ckeditor
+        newCkeditor(document.querySelector('#noticeContent'), false);
+
+        //취소 버튼
+        const $cancelBtn = document.getElementById('cancelBtn');
+
+        //취소 버튼 클릭 시
+        $cancelBtn.addEventListener('click', e => {
+            if (!confirm('게시글 수정을 취소하시겠습니까?')) return;
+            location.href = '/notice/[[${editForm.noticeId}]]';
+        });
+
+        //수정 버튼
+        const $completeBtn = document.getElementById('modifyBtn');
+
+        //수정 버튼 클릭 시
+        $completeBtn.addEventListener('click', e => {
+            const frm = document.getElementById('editForm')
+            const noticeId = frm.noticeId.value;
+            const url = '/notice/[[${editForm.noticeId}]]';
+
+            frm.action = url;
+            frm.submit();
+        });
+    </script>
+</body>
+</html>

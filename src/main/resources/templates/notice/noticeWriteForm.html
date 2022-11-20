@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/notice/noticeWrite.css">
+    <script th:src="@{/js/common/ckEditor.js}"></script>
+    <script th:src="@{/js/common/common.js}"></script>
+    <title>GREAT | 공지사항 작성</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="container">
+            <form class="notice-board content" method="post" th:object="${writeForm}">
+                <div class="notice-board__title width--1000px">
+                    <h2><i class="bar"></i>공지사항 작성</h2>
+                </div>
+                <div class="notice-board__headtitle width--900px">
+                    <input type="text" name="title" id="noticeTitle" placeholder="제목을 입력하세요." autofocus th:field="*{title}">
+                </div>
+                <div class="notice__errors">
+                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+                </div>
+                <div class="notice-board__main width--1000px">
+                    <textarea  class="notice-board__content" name="content" id="noticeContent" cols="30" rows="100" placeholder="내용을 작성하세요. (500자 제한)" autofocus>
+                    </textarea>
+                </div>
+                <div class="notice-board__complete width--1000px" th:action="@{/notice}">
+                    <button type="button" id="notice__cancel-btn">취소</button>
+                    <button id="notice__complete-btn">등록</button>
+                </div>
+            </form>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script>
+        //ckeditor
+        newCkeditor(document.querySelector('#noticeContent'), false);
+
+        const $summitBtn = document.getElementById('notice__complete-btn');
+
+        $summitBtn.addEventListener('click', e => {
+            document.getElementById('writeForm').submit();
+        });
+
+        const $cancelBtn = document.getElementById('notice__cancel-btn');
+
+        $cancelBtn.addEventListener('click', e => {
+            location.href = '/notice/list';
+        });
+    </script>
+</body>
+</html>

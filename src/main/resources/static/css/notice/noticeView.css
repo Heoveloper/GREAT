@@ -33,6 +33,16 @@
     cursor: pointer;
 }
 
+#notice__delBtn,
+#submit_btn {
+    margin: 5px 0px 10px 5px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--main-color-yel);
+    cursor: pointer;
+}
+
 .notice__title h2 {
     margin: 10px 0px 10px 0px;
     border-bottom: 1px solid black;

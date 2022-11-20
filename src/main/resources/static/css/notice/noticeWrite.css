@@ -153,6 +153,19 @@ button:hover {
     cursor: pointer;
 }
 
+.notice__errors, .notice__error {
+    color: red;
+}
+
+#notice__cancel-btn, #notice__complete-btn {
+    margin: 5px 0px 10px 5px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--main-color-yel);
+    cursor: pointer;
+}
+
 .ck-editor {
     min-height: 300px;
 }

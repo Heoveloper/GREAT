@@ -1,0 +1,175 @@
+@charset "UTF-8";
+
+/*
+.main {
+    display: inline;
+}
+*/
+
+.main-profile i, .review-box i {
+    color: var(--main-color-yel);
+}
+
+.main-profile {
+    margin: 20px 0px 0px 0px;
+    width: 50%;
+    border-radius: 8px;
+    background-color: var(--main-color-gre);
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.main-profile > div {
+    margin: 30px 0px 60px 0px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.profile {
+    display: flex;
+    width: 80%;
+}
+
+.profile .user__profile {
+    margin: 0px 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.profile .user__profile .profile__image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.profile .user__profile .profile__name {
+    font-size: 1.3em;
+    font-weight: bold;
+    /* text-align: center; */
+}
+
+.main-profile form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main-profile form label {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 100px;
+}
+
+/* 상단 메뉴 버튼 */
+.tabs {
+    /* border-bottom: 1px solid black; */
+    border-radius: 8px;
+}
+
+/* 리뷰 박스 */
+.review-box {
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+.review-box input[type='radio'] {
+    display: none;
+}
+
+.tabs .tab-menu input:checked + label {
+	background: rgba(249, 216, 174, 0.85);
+}
+
+.review-box .tabs .tab-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.review-box .tabs .tab-menu > label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    width: 100px;
+    height: 44px;
+    color: #222;
+    text-align: center;
+    outline: 1px solid grey;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 4px;
+    cursor: pointer;
+}
+
+.review-content, .tab-content--sell {
+	display: none;
+	padding: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: rgb(255, 247, 247);
+}
+
+.tab-content--sell .sell a {
+    display: flex;
+}
+
+.tab-content--sell .sell a .sell-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.tab-content--sell .sell a img {
+    margin-right: 20px;
+    width: 120px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.review-content > li,
+.tab-content--sell .sell {
+    margin: 10px;
+    padding: 10px;
+    width: 90%;
+    outline: 1px solid grey;
+    border-bottom-right-radius: 18px;
+}
+
+#tab-1:checked ~ .review-content,
+#tab-2:checked ~ .tab-content--sell {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+/* 신고 */
+.review {
+    position: relative;
+}
+
+.sell {
+    position: relative;
+}
+
+.review--report {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#imgBtn {
+    visibility: hidden;
+}
+
+.star {
+    color: var(--main-color-yel);
+    font-size: 25px;
+}
+
+#starIcon {
+    margin-left: 5px;
+    font-size: 23px;
+}

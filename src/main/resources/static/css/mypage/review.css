@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+/* 타이틀 */
+.title {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* 리뷰 */
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.review fieldset {
+    display: inline-block;
+    direction: rtl;
+    border: 0;
+}
+
+.review fieldset legend {
+    text-align: right;
+}
+
+.review input[type='radio'] {
+    display: none;
+}
+
+.review label {
+    color: transparent;
+    font-size: 3em;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+
+.review label:hover {
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+.review label:hover ~ label {
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+.review input[type='radio']:checked ~ label {
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+/* 리뷰 내용 */
+.reviewContents {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 400px;
+    height: 350px;
+    font-size: 16px;
+    border: solid 1.5px #d3d3d3;
+    border-radius: 5px;
+    resize: none;
+}
+
+/* 리뷰 버튼 */
+.btn.btnReview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0px 30px 0px;
+    padding: 10px;
+    width: 300px;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--mainBtn-color-gre);
+}
+
+#edit {
+    display: flex;
+    padding: 16px 24px;
+    width: 400px;
+    height: 500px;
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+    /* grid-template-rows: 1fr 1fr 1fr; */
+}
+
+/*
+#input-image {
+    display: none;
+}
+
+#preview-image {
+    width: 100px;
+    height: 100px;
+}
+*/
+
+.column {
+    /* display: block; */
+    width: 70px;
+    height: 70px;
+}
+
+#edit {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image {
+    display: block;
+    width: 70px;
+    height: 70px;
+}

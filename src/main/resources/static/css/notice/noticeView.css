@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+.page-title {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.notice__write-information {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+}
+
+.notice input {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.notice__btn-box {
+    display: flex;
+    justify-content: end;
+    /* padding: 2px; */
+}
+
+.notice__btn-box button {
+    margin: 5px 0px 10px 5px;
+    width: 60px;
+    height: 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    background-color: var(--main-color-yel);
+    cursor: pointer;
+}
+
+.notice__title h2 {
+    margin: 10px 0px 10px 0px;
+    border-bottom: 1px solid black;
+}
+
+.notice__file {
+    width: 10px;
+    height: 4px;
+}
+
+.bt_se {
+    display: flex;
+    justify-content: end;
+}
+
+.container {
+    padding: 10px;
+}
+
+#uncontent {
+    width: 40vw;
+    height: 20px;
+}
+
+#ucontent {
+    width: 80vw;
+    height: 500px;
+}
+
+.ck-editor__top {
+    display: none;
+}
+
+.ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-read-only {
+    width: 1000px;
+    height: 600px;
+    border: none;
+}
+
+.ck-editor {
+    min-height: 300px;
+}
+
+.ck-editor > .ck-editor__main {
+    min-height: 300px;
+}
+
+.ck-editor > .ck-editor__main > .ck-blurred {
+    min-height: 300px;
+}
+
+.ck-editor > .ck-editor__main > .ck-focused {
+    min-height: 300px;
+}

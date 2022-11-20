@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/community/editForm.css">
+    <script th:src="@{/js/common/common.js}"></script>
+    <script th:src="@{/js/common/ckeditor.js}"></script>
+    <title>GREAT | 게시글 수정</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container">
+            <div class="board-write content">
+                <div class="board-write__title width--900px">
+                    <h2><i class="bar"></i>글수정</h2>
+                </div>
+                <div class="board-write__article-head width--900px">
+                    <div class="board-write__article-bullet">
+                        <select name="" id="articleCategory">
+                            <option id="남구" value="남구">남구</option>
+                            <option id ="중구" value="중구">중구</option>
+                            <option id="동구" value="동구">동구</option>
+                            <option id="북구" value="북구">북구</option>
+                            <option id="울주군" value="울주군">울주군</option>
+                            <option id="문의" value="문의">문의</option>
+                        </select>
+                    </div>
+                    <div class="board-write__article-title">
+                        <input type="text" id="articleTitle" placeholder="제목을 입력하세요." autofocus>
+                    </div>
+                </div>
+                <div class="board-write__article-main width--900px">
+                    <textarea class="board-write__article-content" id="articleContents" cols="30" rows="10" placeholder="내용을 작성하세요." autofocus>
+                    </textarea>
+                </div>
+                <form class="board-write__modify width--900px"
+                      th:action="@{/community/article/{id}(id=${articleEditForm.articleNum})}">
+                    <button id="cancelBtn" type="button">취소</button>
+                    <button id="modifyBtn" type="button">수정</button>
+                </form>
+            </div>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script th:inline="javascript">
+        //ckeditor
+        newCkeditor(document.querySelector('#articleContents'), false);
+
+        //articleEditForm에서 제목, 내용 추출
+        const titleValue = [[${ articleEditForm.articleTitle }]];
+        const contentsValue = [[${ articleEditForm.articleContents }]];
+        const categoryValue = [[${ articleEditForm.articleCategory }]];
+
+        //추출한 제목, 내용을 다시 삽입
+        const $title = document.getElementById('articleTitle');
+        const $contents = document.getElementById('articleContents');
+        const $option = document.getElementById(categoryValue);
+
+        $option.setAttribute('selected', '');
+        articleTitle.value = titleValue;
+        $contents.textContent = contentsValue;
+
+        //수정 버튼 클릭 시
+        modifyBtn.addEventListener('click', e => {
+            //1) 유효성 체크
+            if (!validChk()) return;
+
+            //2) 입력 데이터 가져오기
+            const attachmentValue = document.getElementsByTagName('img').length > 0 ? 'Y' : 'N';
+
+            const article = {
+                memNumber: [[${session.memNumber}]],
+                articleCategory: articleCategory.options[articleCategory.selectedIndex].value,
+                articleTitle: articleTitle.value,
+                articleContents: window.editor.getData(),
+                attachment: attachmentValue
+            };
+
+            //3) 게시글 번호
+            const id = [[${ articleEditForm.articleNum }]];
+
+            //4) 게시글 수정 처리
+            modify(article, id);
+        });
+
+        //게시글 수정 함수
+        function modify(article, id) {
+            const url = `http://localhost:9080/community/edit/${id}`;
+            fetch(url, {
+                method: 'PATCH',
+                headers:{
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify(article)
+            }).then(res => res.json())
+              .then(data => {
+                location.href = `/community/article/${data.data.articleNum}`;
+              })
+              .catch(err => console.log(err));
+        }
+
+        //취소 버튼 클릭 시
+        cancelBtn.addEventListener('click', e => {
+            if (!confirm('게시글 수정을 취소하시겠습니까?')) return;
+
+            location.href = [[@{/community/article/{id}(id=${articleEditForm.articleNum})}]];
+        });
+
+        //유효성 체크 함수
+        function validChk() {
+            const regex = / /gi;
+
+            //제목 입력 필수
+            if (articleTitle.value.replace(regex, '').length == 0) {
+                alert('제목을 입력해주세요.');
+                return;
+                articleTitle.focus();
+            }
+
+            //제목 50자 이하
+            if (articleTitle.value.length > 50) {
+                alert('제목은 50자를 초과할 수 없습니다.');
+                return;
+                articleTitle.focus();
+            }
+
+            //내용 입력 필수
+            if (window.editor.getData().length == 0) {
+                alert('내용을 입력해주세요.');
+                return;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

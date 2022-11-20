@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      id="root"
+      th:with="s_memNumber=${session?.loginMember?.memNumber}, s_memNickname=${session?.loginMember?.memNickname}"
+      th:data-s-mem-number="${s_memNumber}"
+      th:data-s-mem-nickname="${s_memNickname}">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/community/article.css">
+    <script th:src="@{/js/common/common.js}"></script>
+    <script th:src="@{/js/common/ckeditor.js}"></script>
+    <title>GREAT | 게시글 조회</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container">
+            <div class="article" th:action th:object="${articleForm}">
+                <div class="article__header width--900px">
+                    <a href="/community/list" class="article__bullet"><i class="bar"></i><span th:text="*{articleCategory}">울산</span></a>
+                    <h2 class="article__title" th:text="*{articleTitle}">글 제목</h2>
+                    <div class="article__information">
+                        <div class="article__profile">
+                            <a href="#"><img class="profileImage" src="/img/community/profile.jpg" alt=""></i></a>
+                            <a href="#" th:text="*{member.memNickname}">user</a>
+                        </div>
+                        <div class="article__write-information">
+                            <span class="font-size--12px" th:text="*{{createDate}}">2022.08.01 13:48</span>
+                            <span class="font-size--12px" th:text="|조회  *{views}|">조회 98</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="article__content width--900px">
+                    <textarea class="board-write__article-content" name="" id="articleContents" cols="30" rows="10" placeholder="내용을 작성하세요." autofocus th:text="*{articleContents}" style="visibility:hidden">
+                    </textarea>
+                    <th:block th:if="${session.memNumber == articleForm.memNumber}">
+                        <form th:action="@{/community/edit/{id}(id=${articleForm.articleNum})}">
+                            <div class="article__btn-box">
+                                <button id="article__modify-btn">수정</button>
+                                <button id="article__delete-btn" type="button">삭제</button>
+                            </div>
+                        </form>
+                    </th:block>
+                </div>
+                <div class="comment width--900px">
+                    <div class="comment__title">
+                        <span><i class="fa-regular fa-comments"></i></span>
+                        <span>댓글</span>
+                        <span class="font-size--13px" id="commentsCnt" th:text="*{comments}">5</span>
+                    </div>
+                    <div class="comment__list">
+                        <ul id="commentList"></ul>
+                    </div>
+                    <th:block th:if="${session.memNumber != null}">
+                        <div class="comment__write">
+                            <div class="reply-box">
+                                <div class="reply-box__top">
+                                    <span class="reply-box__nickname font-size--13px" th:text="${session.memNickname}">닉네임</span>
+                                </div>
+                                <div class="reply-box__middle">
+                                    <textarea class="reply-box__text" name="" id="commentInputBox" cols="30" rows="10" placeholder="댓글을 입력하세요."autofocus>
+                                    </textarea>
+                                </div>
+                                <div class="reply-box__bottom">
+                                    <div class="filebox">
+                                        <label for="imageFile"><i class="fa-regular fa-image"></i></label>
+                                        <input type="text" id="fileName" value=""  readonly>
+                                        <input type="file" accept="image/*" id="imageFile">
+                                    </div>
+                                    <button id="commentSaveBtn" class = "font-size--12px">등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+            <div class="article__bottom">
+                <button id="prev-page-btn"><i class="fa-solid fa-angles-left"></i></button>
+            </div>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script>
+        //ckeditor
+        newCkeditor(document.querySelector('#articleContents'), true);
+
+        //게시글
+        //게시글 번호
+        const id = [[${articleForm.articleNum}]];
+
+        //게시글 삭제 버튼
+        const $delBtn = document.getElementById('article__delete-btn');
+
+        //게시글 삭제 버튼 클릭 시
+        $delBtn?.addEventListener('click', e => {
+            if (!confirm('게시글을 삭제하시겠습니까?')) return;
+
+            deleteById(id);
+        });
+
+        //게시글 삭제 함수
+        function deleteById(id) {
+            const url = `http://localhost:9080/community/article/${id}/del`;
+            fetch(url, {
+                method: 'DELETE'
+            }).then(res => {
+                location.href = '/community/list';
+            }).catch(err => console.log(err));
+        }
+
+        //이전 페이지 버튼 클릭 시
+        const $prevPageBtn = document.getElementById('prev-page-btn');
+        $prevPageBtn.addEventListener('click', e => {
+            location.href = '/community/list';
+        });
+
+        //댓글
+        //댓글 목록 조회
+        findAll(id);
+
+        //댓글 수 실시간 카운팅 함수
+        function commentCountFnc() {
+            document.querySelector('#commentsCnt').textContent = document.getElementsByClassName('comment-box').length;
+        }
+
+        //댓글 목록 조회 함수
+        function findAll(id) {
+            const url = `http://localhost:9080/comment/list/${id}`;
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(res => res.json())
+              .then(res => {
+                if (res.header.rtcd == '00') {
+                    const result = res.data.map(comment => {
+                        return `${comment.commentContents != '삭제된 댓글입니다.' ?
+                        `<li id="${comment.commentNum}" data-comment-group="${comment.commentGroup}" data-member-nickname="${comment.member.memNickname}">
+                        <div class="comment-box ${comment.reply}">
+                            <div class="comment-box__profile" >
+                                <a href="#"><img src="/img/community/profile.jpg" class="profileImage" alt=""></a>
+                            </div>
+                            <div class="comment-box__contents">
+                                <div class="comment-box__top">
+                                    <div class="nicknameBox">
+                                        <span href="#" class="font-size--13px" id="comment-box__nickname">${comment.member.memNickname}</span>
+                                        ${comment.memNumber == [[${articleForm.memNumber}]] ? `<span class="writer">작성자</span>` : ``}
+                                    </div>
+                                    ${root.dataset.sMemNumber == comment.memNumber ?
+                                    `<div class="comment-box__info">
+                                        <a class="comment-box__modify font-size--12px" href="#" name="commentEditBtn">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a class="comment-box__delete font-size--12px" href="#" name="commentDeleteBtn">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </a>
+                                    </div>`
+                                    :
+                                    `<div class="comment-box__info"></div>`}
+                                </div>
+                                <div class="comment-box__middle">
+                                    <img class="comment-box__image" width="250px" src="/api/attach/img/${comment.attachFile?.code}/${comment.attachFile?.storeFilename}" onerror="this.style.display='none'">
+                                    <div class="comment-box__middle-left">
+                                        ${comment.pcommentNickname != null ?
+                                        `<span class="pNickname">${comment.pcommentNickname}</span>` : ``}
+                                        <p class="comment-box__text font-size--13px ">${comment.commentContents.replaceAll("<br>", "\r\n")}</p>
+                                    </div>
+                                </div>
+                                <div class="comment-box__bottom">
+                                    <span class="comment-box__date font-size--12px">${comment.createDate.replaceAll('-', '.').replace('T', '. ').substr(0, 17)}</span>
+                                    ${root.dataset.sMemNumber != null ?
+                                    `<a class="comment-box__reply font-size--12px" href="#" name="commentReplyBtn"><i class="fa-solid fa-reply"></i></a>` : ``}
+                                </div>
+                            </div>
+                        </div>
+                        </li>`:
+                        `<li>
+                            <div class="deletedComment">삭제된 댓글입니다.</div>
+                        </li>`}
+                    `;
+                });
+
+            document.querySelector('#commentList').innerHTML = result.join('');
+
+            commentCountFnc();
+            } else {
+                console.log('목록을 불러올 수 없습니다.');
+            }
+            }).catch(err => console.log(err));
+        }
+
+        //댓글 작성 폼 데이터 객체 생성
+        const commentAddForm = new FormData();
+
+        //댓글 수정 폼 데이터 객체 생성
+        const commentEditForm = new FormData();
+
+        //댓글 작성 폼 데이터 초기화 함수
+        function resetCommentAddForm() {
+            commentAddForm.delete('articleNum');
+            commentAddForm.delete('commentGroup');
+            commentAddForm.delete('pCommentNum');
+            commentAddForm.delete('step');
+            commentAddForm.delete('commentOrder');
+            commentAddForm.delete('pCommentNickname');
+            commentAddForm.delete('memNumber');
+            commentAddForm.delete('commentContents');
+            commentAddForm.delete('file');
+            commentAddForm.delete('reply');
+        }
+
+        //댓글 수정 폼 데이터 초기화 함수
+        function resetCommentEidtForm() {
+            commentEditForm.delete('commentNum');
+            commentEditForm.delete('commentContents');
+            commentAddForm.delete('file');
+        }
+
+        //댓글 등록 버튼 클릭 시
+        commentSaveBtn.addEventListener('click', e => {
+            //1) 유효성 체크
+
+            //2) 입력 데이터 가져오기
+            commentAddForm.append('articleNum', id);
+            commentAddForm.append('commentGroup', '');
+            commentAddForm.append('pCommentNum', '');
+            commentAddForm.append('step', '0');
+            commentAddForm.append('commentOrder', '0');
+            commentAddForm.append('pCommentNickname', '');
+            commentAddForm.append('memNumber', [[${session.memNumber}]]);
+            commentAddForm.append('commentContents', commentInputBox.value.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+            commentAddForm.append('reply', 'N');
+            if (imageFile.files.length == 1) {
+                commentAddForm.append('file', imageFile.files[0]);
+            };
+
+            //3) 댓글 등록 처리
+            addComment(commentAddForm);
+
+            //4) 폼 데이터 초기화
+            resetCommentAddForm();
+
+            //5) 댓글 입력 필드 초기화
+            commentInputBox.value = '';
+
+            //6) 첨부파일 초기화
+            fileName.value = '';
+            imageFile.type = '';
+            imageFile.type = 'file';
+        });
+
+        //댓글 등록 함수
+        function addComment(commentAddForm) {
+            const url = `http://localhost:9080/comment/write/${id}`;
+            fetch(url, {
+                method: 'POST',
+                body: commentAddForm
+            }).then(res => res.json())
+              .then(data => {
+                findAll(id);
+            })
+              .catch(err => console.log(err));
+        }
+
+        //답댓글 작성 버튼 클릭
+        commentList.addEventListener('click', e => {
+            if (e.target.parentElement.name == 'commentReplyBtn') {
+                e.preventDefault();
+
+                if (document.getElementsByClassName('comment__write reply').length == 1) {
+                    document.getElementsByClassName('comment__write reply')[0].remove();
+                }
+
+                const replyBox = `<li class="comment__write reply" id="commentReplyBox">
+                                    <div class="reply-box reply-write">
+                                        <div class="reply-box__top">
+                                            <span class="reply-box__nickname font-size--13px">${root.dataset.sMemNickname}</span>
+                                        </div>
+                                        <div class="reply-box__middle">
+                                            <textarea class="reply-box__text" name="" id="commentReplyTextarea" cols="30" rows="10" placeholder="댓글을 입력하세요." autofocus>
+                                            </textarea>
+                                        </div>
+                                        <div class="reply-box__bottom">
+                                            <div class="filebox">
+                                                <label for="imageFile2"><i class="fa-regular fa-image"></i></label>
+                                                <input type="text" id="fileName2" value="" readonly>
+                                                <input type="file" accept="image/*" id="imageFile2">
+                                            </div>
+                                            <div>
+                                                <button class="font-size--12px" id="replyCancelBtn">취소</button>
+                                                <button class="font-size--12px" id="replySaveBtn">등록</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </li>`;
+
+                e.target.closest('li').insertAdjacentHTML('afterend', replyBox);
+
+                //파일 첨부 시 파일명만 표시
+                imageFile2.addEventListener('change', () => {
+                    fileName2.value = imageFile2.files[0].name;
+                });
+
+                //답댓글 작성 취소 버튼 클릭 시
+                replyCancelBtn?.addEventListener('click', e => {
+                    e.preventDefault();
+
+                    e.target.closest('li').remove();
+                });
+
+                //답댓글 작성 완료 버튼 클릭
+                replySaveBtn?.addEventListener('click', e => {
+                    e.preventDefault();
+
+                    //1) 유효성 체크
+
+                    //2) 입력 데이터 가져오기
+                    commentAddForm.append('articleNum',id);
+                    commentAddForm.append('commentGroup',e.target.closest('li').previousSibling.dataset.commentGroup);
+                    commentAddForm.append('pCommentNum',e.target.closest('li').previousSibling.id);
+                    commentAddForm.append('step','0');
+                    commentAddForm.append('commentOrder','0');
+                    commentAddForm.append('pCommentNickname',e.target.closest('li').previousSibling.dataset.memberNickname);
+                    commentAddForm.append('memNumber',[[${session.memNumber}]]);
+                    commentAddForm.append('commentContents',commentReplyTextarea.value.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+                    commentAddForm.append('reply','Y');
+                    if (imageFile2.files.length == 1) {
+                        commentAddForm.append('file', imageFile2.files[0]);
+                    }
+
+                    //3) 댓글 등록 처리
+                    addComment(commentAddForm);
+
+                    //4) 폼 데이터 초기화
+                    resetCommentAddForm();
+
+                    //5) 답댓글 입력 필드 삭제
+                    e.target.closest('li').remove();
+                });
+            }
+        });
+
+        //댓글 수정 버튼 클릭 시
+        commentList.addEventListener('click', e => {
+            if (e.target.parentElement.name == 'commentEditBtn') {
+                e.preventDefault();
+                if (document.getElementsByClassName('comment__write edit').length == 1) {
+                    document.getElementsByClassName('comment__write edit')[0].remove();
+                    document.getElementsByClassName('editting')[0].style.display = 'block';
+                    document.getElementsByClassName('editting')[0].classList.remove('editting');
+                }
+
+                const commentNum = e.target.closest('li').id;
+
+                commentEditWindow(commentNum);
+            }
+        });
+
+        //댓글 수정창 출력 함수
+        function commentEditWindow(commentNum) {
+            const url = `http://localhost:9080/comment/edit/${commentNum}`;
+            fetch(url, {
+                method: 'GET'
+            }).then(res => res.json())
+              .then(data => {
+                const editBox =
+                    `<li class="comment__write edit">
+                        <div class="reply-box">
+                            <div class="reply-box__top">
+                                <span class="reply-box__nickname font-size--13px">${data.data.member.memNickname}</span>
+                            </div>
+                            <div class="reply-box__middle">
+                                <textarea class="reply-box__text" name="" id="commentEditTextarea" cols="30" rows="10" placeholder="댓글을 입력하세요."autofocus>${data.data.commentContents.replaceAll("<br>", "\r\n")}
+                                </textarea>
+                            </div>
+                            <div class="reply-box__bottom">
+                                <div class="filebox">
+                                    <label for="imageFile3"><i class="fa-regular fa-image"></i></label>
+                                    <input type="text" id="fileName3" ${data.data.attachFile?.uploadFilename == null? `value=""`: `value="${data.data.attachFile.uploadFilename}" `} readonly>
+                                    <input type="file" accept="image/*" id="imageFile3" data-uploadfile-id="${data.data.attachFile?.uploadfileId}">
+                                </div>
+                                <div>
+                                    <button class="font-size--12px" id="editCancelBtn">취소</button>
+                                    <button class = "font-size--12px" id="editSaveBtn">등록</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>`;
+
+                document.getElementById(commentNum).insertAdjacentHTML('afterend', editBox);
+                document.getElementById(commentNum).classList.add('editting');
+                document.getElementById(commentNum).style.display = 'none';
+
+                let fid = document.getElementById('imageFile3').dataset.uploadfileId;
+
+                //파일 첨부 시 파일명만 표시
+                imageFile3.addEventListener('change', () => {
+                    fileName3.value = imageFile3.files[0].name;
+                });
+
+                //댓글 수정 취소 버튼 클릭 시
+                editCancelBtn?.addEventListener('click', e => {
+                    e.preventDefault();
+
+                    document.getElementById(commentNum).classList.remove('editting');
+                    document.getElementById(commentNum).style.display ='block';
+                    document.getElementsByClassName('comment__write edit')[0].remove();
+                });
+
+                //댓글 수정 완료 버튼 클릭 시
+                editSaveBtn?.addEventListener('click', e => {
+                    e.preventDefault();
+
+                    //1) 유효성 체크
+
+                    //2) 입력 데이터 가져오기 (댓글 번호, 댓글 내용)
+                    commentEditForm.append('commentNum',commentNum);
+                    commentEditForm.append('commentContents', commentEditTextarea.value.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+                    if (imageFile3.files.length == 1) {
+                        commentEditForm.append('file', imageFile3.files[0]);
+                    }
+
+                    //3) 댓글 수정
+                    editComment(commentEditForm);
+
+                    //4) 폼 데이터 리셋
+                    resetCommentEidtForm();
+                });
+            }).catch(err => console.log(err));
+        }
+
+        //댓글 수정 함수
+        function editComment(commentEditForm) {
+            const url = `http://localhost:9080/comment/edit/${commentEditForm.get('commentNum')}`;
+            fetch(url, {
+                method: 'PATCH',
+                body: commentEditForm
+            }).then(res => res.json())
+              .then(data => {
+                findAll(id);
+            }).catch(err => console.log(err));
+        }
+
+        //댓글 삭제 버튼 클릭 시
+        commentList.addEventListener('click', e => {
+            if (e.target.parentElement.name == 'commentDeleteBtn') {
+                e.preventDefault();
+
+                if (!confirm('댓글을 삭제하시겠습니까?')) return;
+
+                const commentNumToDelete = e.target.closest('li').id;
+
+                deleteComment(commentNumToDelete);
+            }
+        });
+
+        //댓글 삭제 함수
+        function deleteComment(commentNum) {
+            const url = `http://localhost:9080/comment/delete/${commentNum}`;
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(res => res.json())
+              .then(data => {
+                findAll(id);
+            }).catch(err => console.log(err));
+        }
+
+        //파일 첨부 시 파일명만 표시
+        imageFile.addEventListener('change', () => {
+            fileName.value = imageFile.files[0].name;
+        });
+
+        //첨부파일 삭제 함수
+        function deleteAttachFile(fid) {
+            const url = `/api/attach/${fid}`;
+            fetch(url, {
+                method: 'DELETE'
+            }).then(res => {
+                console.log('첨부파일 삭제 완료!');
+            }).catch(err => console.log(err));
+        }
+    </script>
+</body>
+</html>

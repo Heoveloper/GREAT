@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/community/board.css">
+    <title>GREAT | 커뮤니티</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main container">
+            <div class="board-main content">
+                <div class="board__title width--900px">
+                    <a href="/community/list">
+                        <h2><i class="bar"></i>커뮤니티</h2>
+                    </a>
+                </div>
+                <div class="board__category width--900px">
+                    <div class="board__category-select">
+                        <select name="" id="category" th:field="${category}" >
+                            <option value="">전체</option>
+                            <option th:value="문의">문의</option>
+                            <option th:value="남구">남구</option>
+                            <option th:value="중구">중구</option>
+                            <option th:value="동구">동구</option>
+                            <option th:value="북구">북구</option>
+                            <option th:value="울주군">울주군</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="board__table width--900px">
+                    <table class="board__table-content width--900px">
+                        <colgroup>
+                            <col width="5%" />
+                            <col width="5%" />
+                            <col width="5%" />
+                            <col width="60%" />
+                            <col width="10%" />
+                            <col width="10%" />
+                            <col width="5%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                                <th>조회</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="article:${list}">
+                                <td th:class="articleNum" th:text="${article.articleNum}">1</td>
+                                <td th:class="articleCategory" th:text="${article.articleCategory}">문의</td>
+                                <td th:class="attachment">
+                                    <th:block th:if="${article.attachment == 'Y'}">
+                                        <!--                    <span><i class="fa-regular fa-image"></i></span>-->
+                                        <span><i class="fa-solid fa-image"></i></span>
+                                    </th:block>
+                                    <th:block th:if="${article.attachment == 'N'}">
+                                        <span><i class="fa-regular fa-file-lines"></i></span>
+                                    </th:block>
+                                </td>
+                                <td class="articleTitle">
+                                    <a th:href="@{/community/article/{id}(id=${article.articleNum})}"
+                                       th:text="${article.articleTitle}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
+                                        architecto!</a><span th:class="commentsCnt" th:text="${article.comments} == 0 ? _ : |[${article.comments}]|"></span>
+                                </td>
+                                <td><a href="" th:text="${article.member.memNickname}">Lorem.</a></td>
+                                <td th:class="createDate" th:text="${{article.createDate}}">2022.08.01</td>
+                                <td th:class="views" th:text="${article.views}">11</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="board__write width--900px">
+                    <button id="board__post-btn">글쓰기</button>
+                </div>
+                <div class="community-page">
+                    <!-- 이전 페이지 정보 -->
+                    <th:block th:if="${fc.prev}">
+                        <a class="community-page-item" href=""
+                           th:href="@{/community/list/1/{searchType}/{keyword}(searchType=${fc.searchType},keyword=${fc.keyword},category=${category})}">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                        <a class="community-page-item" href=""
+                           th:href="@{/community/list/{reqPage}/{searchType}/{keyword}(reqPage=${fc.startPage-1},searchType=${fc.searchType},keyword=${fc.keyword},category=${category})}">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                    </th:block>
+                    <!-- //이전 페이지 정보 -->
+
+                    <!-- 페이지 표시 -->
+                    <th:block th:each="pnum : ${#numbers.sequence(fc.startPage,fc.endPage)}">
+                        <th:block th:if="${pnum != 0}">
+                            <!--                  <a class="community-page-item" th:classappend="${fc.rc.reqPage == pnum} ? 'active'" href="" th:href="@{|/community/list/${pnum}|}" th:text="${pnum}">1</a>-->
+                            <a class="community-page-item" th:classappend="${fc.rc.reqPage == pnum} ? 'active'" href=""
+                               th:href="@{/community/list/{reqPage}/{searchType}/{keyword}(reqPage=${pnum},searchType=${fc.searchType},keyword=${fc.keyword},category=${category})}"
+                               th:text="${pnum}">1</a>
+                        </th:block>
+                    </th:block>
+                    <!-- //페이지 표시 -->
+
+                    <!-- 다음 페이지 정보 -->
+                    <th:block th:if="${fc.next}">
+                        <a class="community-page-item" href=""
+                           th:href="@{/community/list/{reqPage}/{searchType}/{keyword}(reqPage=${fc.endPage+1},searchType=${fc.searchType},keyword=${fc.keyword},category=${category})}">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                        <a class="community-page-item" href=""
+                           th:href="@{/community/list/{reqPage}/{searchType}/{keyword}(reqPage=${fc.finalEndPage},searchType=${fc.searchType},keyword=${fc.keyword},category=${category})}">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </th:block>
+                    <!-- //다음 페이지 정보 -->
+                </div>
+                <div class="board__search width--900px">
+                    <div class="board__search-box">
+                        <div class="board__search-date">
+                        </div>
+                        <div class="board__search-setting">
+                            <select id="searchType" name="searchType" th:field="${fc.searchType}">
+                                <option th:value="title">제목</option>
+                                <option th:value="contents">내용</option>
+                                <option th:value="titleOrContents">제목+내용</option>
+                                <option th:value="nickname">닉네임</option>
+                            </select>
+                        </div>
+                        <div class="board__search-keyword">
+                            <input type="text" id="keyword" name="keyword" th:field="${fc.keyword}"><a href="" class="search__search-icon"><i class="fa-solid fa-magnifying-glass" id="searchBtn"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script asyn th:inline="javascript">
+        const $postBtn = document.getElementById('board__post-btn');
+
+        $postBtn.addEventListener('click', e => {
+            location.href = '/community/write';
+        });
+
+        //검색
+        const $searchType = document.getElementById('searchType');
+        const $keyword = document.getElementById('keyword');
+        const $searchBtn = document.getElementById('searchBtn');
+        const $articleCategory = document.getElementById('category');
+
+        //검색 버튼 클릭 시
+        $searchBtn?.addEventListener('click', e => {
+            e.preventDefault();
+
+            search_f(e);
+        });
+
+        //키워드 입력 필드에 엔터 눌렀을 때 검색
+        $keyword?.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                search_f(e);
+            }
+        });
+
+        function search_f(e) {
+            //검색어 입력 유무
+            if ($keyword.value.trim().length === 0) {
+                alert('검색어를 입력하세요!');
+                $keyword.focus();
+                $keyword.select();
+                return false;
+            }
+
+            const url = `/community/list/1/${$searchType.value}/${$keyword.value}?category=${$articleCategory.value}`;
+
+            location.href = url;
+        }
+    </script>
+</body>
+</html>

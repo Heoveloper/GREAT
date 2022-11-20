@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/mypage/profile.css">
+    <title>GREAT | 프로필</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="main main-profile" th:object="${form}">
+            <div th:text="*{memNickname}+'님의 프로필'">어피치님의 프로필</div>
+            <section class="profile">
+                <section class="user__profile">
+                    <img class="profile__image" src="/img/mypage/img__profile.png" alt="어피치">
+                    <div>
+                        <span class="profile__name" th:text="*{memNickname}">어피치</span>
+                        <th:block>
+                            <i id="starIcon" class="starIcon far fa-star"></i>
+                        </th:block>
+                    </div>
+                </section>
+                <form action="" id="profileForm">
+                    <th:block th:switch="*{memType}">
+                        <p><label>회원 유형</label><span th:case="owner" th:text="점주">점주</span></p>
+                    </th:block>
+                    <p><label>업종</label><span>한식</span></p>
+                    <p><label>가게명</label><span id="memStoreName" name="memStoreName"  th:text="*{memStoreName}">파스타키친</span></p>
+                    <p><input type="hidden" id="memNumber" name="memNumber"  th:field="*{memNumber}"></input></p>
+                    <p><label>위치</label><span th:text="*{memStoreLocation}">울산 동구</span></p>
+                    <p><label>연락처</label><span th:text="*{memStorePhonenumber}">052-1234-5678</span></p>
+                    <p><label>e-mail</label><span th:text="*{memEmail}"></span></p>
+                    <p><label>SNS</label><a th:href="@{${form.memStoreSns}}" th:text="*{memStoreSns}"></a></p>
+                    <p><label>가게 소개</label><span id="memStoreIntroduce" name="memStoreIntroduce" th:text="*{memStoreIntroduce}" >파스타 맛있는 가게</span></p>
+                    <p><label>평점</label>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </p>
+                </form>
+            </section>
+        </main>
+        <!-- //main -->
+
+        <div class="review-box">
+            <div class="tabs">
+                <div class="tab-menu">
+                    <input type="radio" name="tabs" id="tab-1" checked><label for="tab-1">리뷰 및 평점</label>
+                    <input type="radio" name="tabs" id="tab-2" ><label for="tab-2">판매글</label>
+                    <ul class="review-content">
+                        <li class="review" th:each="review:${list}">
+                            <div th:text="${review.member.memName}">라이언 | 2022.08.06</div>
+                            <th:block th:switch="${review.grade}">
+                                <div>
+                                    <span>평점 : </span>
+                                    <span th:case="1" class="star" th:text="|★|"></span>
+                                    <span th:case="2" class="star" th:text="|★★|"></span>
+                                    <span th:case="3" class="star" th:text="|★★★|"></span>
+                                    <span th:case="4" class="star" th:text="|★★★★|"></span>
+                                    <span th:case="5" class="star" th:text="|★★★★★|"></span>
+                                </div>
+                            </th:block>
+                            <div th:text="${review.content}">너무 맛있어요!</div>
+                            <!-- <a href="#"><label for="" class="review&#45;&#45;report">리뷰 신고하기</label></a> -->
+                        </li>
+                    </ul>
+                    <ul class="tab-content--sell">
+                        <li class="sell" th:each="product:${list2}">
+                            <a th:href="@{/product/{pNumber}(pNumber=${product.pNumber})}">
+                                <div class="product-img">
+                                    <th:block th:if="${product.imageFiles}">
+                                        <th:block th:each="imageFile : ${product.imageFiles[0]}">
+                                            <img class="good_Img" th:src="@{/api/attach/img/{attachCode}/{storeFilename}(attachCode=${imageFile.code},storeFilename=${imageFile.storeFilename})}"
+                                                 alt="이미지를 불러올 수 없습니다.">
+                                        </th:block>
+                                    </th:block>
+                                    <th:block th:if="!(${product.imageFiles})">
+                                        <img src="/img/product/등록된 사진이 없습니다.png" alt="">
+                                    </th:block>
+                                </div>
+                                <div class="sell-text">
+                                    <div th:text="${product.deadlineTime}"> 2022.07.30</div>
+                                    <div th:text="${product.pTitle}">파스타 팔아요~</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+    <script async th:inline="javascript">
+        //전역 변수
+        const form = {
+            memStoreName: document.getElementById('memStoreName'),
+            memStoreIntroduce: document.getElementById('memStoreIntroduce'),
+            memNumber: document.getElementById('memNumber')
+        }
+
+        //데이터 가져오기
+        function getInputData() {
+            const memStoreName = form.memStoreName.textContent;
+            const memStoreIntroduce = form.memStoreIntroduce.textContent;
+
+            return {memStoreName, memStoreIntroduce};
+        }
+
+        const icons = document.querySelector('.starIcon');
+
+        //좋아요 클릭 시
+        icons.addEventListener('click', e => {
+            e.preventDefault;
+
+            if ([[${session.isEmpty()}]]) {
+                alert("로그인이 필요합니다.");
+            }
+            if ([[${session.memType}]] == 'owner') {
+                alert("고객회원만 좋아요 가능합니다.");
+            }
+
+            if ([[${session.memType}]] == 'customer') {
+                if (icons.className == 'starIcon far fa-star') {
+                    icons.classList.add('fas');
+
+                    const bookmark = getInputData();
+
+                    bookmarkAdd(form.memNumber.value, bookmark);
+                } else {
+                    icons.classList.remove('fas');
+                    bookmarkDel(form.memNumber.value);
+                }
+            }
+        });
+
+        //즐겨찾기 추가
+        function bookmarkAdd(memNumber, bookmark) {
+            const url = `http://localhost:9080/mypage/profile/${memNumber}`;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(bookmark)
+            }).then(res => res.json())
+              .then(data => console.log(data))
+              .catch(err => console.log(err));
+        }
+
+        //즐겨찾기 삭제
+        function bookmarkDel(memNumber) {
+            const url = `http://localhost:9080/mypage/profile/del/${memNumber}`;
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json'
+                },
+            }).then(res => res.json())
+              .then(data => console.log(data))
+              .catch(err => console.log(err));
+        }
+    </script>
+</body>
+</html>

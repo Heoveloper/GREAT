@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/mypage/bookmark.css">
+    <title>GREAT | 즐겨찾기</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="bookmark" th:object="${form}">
+            <aside class="aside-content" >
+                <ul>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="myReview.html" th:href="@{/mypage/review/{id}(id=${form.memNumber})}" >내 리뷰</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="order-history.html" th:href="@{/mypage/{id}(id=${form.memNumber})}">주문내역</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="bookmark.html" th:href="@{/mypage/bookmark/{memNumber}(memNumber=${form.memNumber})}">즐겨찾기</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="good.html" th:href="@{/mypage/good/{memNumber}(memNumber=${form.memNumber})}">좋아요</a>
+                        </h3>
+                    </li>
+                </ul>
+            </aside>
+            <article class="main-content">
+                <div class="main-head">
+                    <div class="main-title">
+                        <i class="bar"></i>
+                        <h2>즐겨찾기</h2>
+                    </div>
+                </div>
+                <div class="bookmark-content" >
+                    <div class="bookmark-on" th:each="bookmark: ${list}" th:data-bookmark-id="${bookmark.bookmarkNumber}">
+                        <a th:href="@{/mypage/profile/{memNumber}(memNumber=${bookmark.sellerNumber})}">
+                            <div class="item front">
+                                <img class="profile__image" src="/img/mypage/img__profile.png" alt="어피치">
+                                <div class="shopNm" th:text="${bookmark.member.memStoreName}">파스타 키친</div>
+                            </div>
+                            <div class="item back">
+                                <div th:text="${bookmark.member.memStoreIntroduce}">정말 맛있는 파스타 맛집!</div>
+                            </div>
+                        </a>
+                        <i class="starIcon far fa-star fas"></i>
+                    </div>
+                </div>
+            </article>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script>
+        const icons = document.querySelectorAll('.starIcon');
+
+        icons.forEach((item, idx) => {
+            icons[idx].addEventListener('click', e => {
+                icons[idx].classList.toggle('fas');
+
+                let id = e.target.parentElement.dataset.bookmarkId;
+                let bookmarkNumber = parseInt(id);
+
+                bookmarkDelInMyPage(bookmarkNumber);
+
+                window.location.reload();
+            })
+        });
+
+        function bookmarkDelInMyPage(bookmarkNumber) {
+            const url = `http://localhost:9080/mypage/del/${bookmarkNumber}`;
+            fetch(url, {
+                method:'DELETE',
+                headers: {
+                    'Accept': 'application/json'
+                },
+            }).then(res => res.json())
+              .then(data => console.log(data))
+              .catch(err => console.log(err));
+        }
+    </script>
+</body>
+</html>

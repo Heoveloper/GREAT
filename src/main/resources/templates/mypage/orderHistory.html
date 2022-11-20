@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/mypage/orderHistory.css"/>
+    <title>GREAT | 주문내역</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="order-history container" th:object="${form}">
+            <aside class="aside-content">
+                <ul>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="myReview.html" th:href="@{/mypage/review/{id}(id=${form.memNumber})}">내 리뷰</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="order-history.html" th:href="@{/mypage/{id}(id=${form.memNumber})}">주문내역</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="bookmark.html" th:href="@{/mypage/bookmark/{memNumber}(memNumber=${form.memNumber})}">즐겨찾기</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="good.html" th:href="@{/mypage/good/{memNumber}(memNumber=${form.memNumber})}">좋아요</a>
+                        </h3>
+                    </li>
+                </ul>
+            </aside>
+            <article class="main-content" id="orderForm">
+                <div class="main-head">
+                    <div class="main-title">
+                        <i class="bar"></i>
+                        <h2>주문 내역</h2>
+                    </div>
+                </div>
+                <table class="order-history--table" >
+                    <thead>
+                        <tr>
+                            <th>주문번호</th>
+                            <th>주문일시</th>
+                            <th>가게명</th>
+                            <th>상품명</th>
+                            <th>수량</th>
+                            <th>주문액</th>
+                            <th>방문 예정 시각</th>
+                            <th>결제 유형</th>
+                            <th>리뷰</th>
+                            <th>주문상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${list}" th:data-member-id="${order.product.ownerNumber}">
+                            <td th:text="${order.orderNumber}">c15715</td>
+                            <td th:text="${#dates.format(order.orderdate, 'yyyy-MM-dd HH:mm')}">2022.07.07</td>
+                            <td th:text="${order.member.memStoreName}">가게1</td>
+                            <td th:text="${order.product.pName}">참치김밥</td>
+                            <td th:text="${order.pCount}" class="count">3</td>
+                            <td th:text="${order.price}">6,000원</td>
+                            <td th:text="${#strings.substring(order.visittime,0,16)}">17:20</td>
+                            <th:block th:switch="${order.buyType}">
+                                <td th:case="0" th:text="온라인결제"></td>
+                                <td th:case="1" th:text="오프라인결제"></td>
+                            </th:block>
+                            <td>
+                                <a href="#" th:href="@{/mypage/review/add/{orderNumber}(orderNumber=${order.orderNumber})}" class="write">작성하기</a>
+                            </td>
+                            <td>
+                                <a href="#" class="order-status" th:onclick="|delBuy(event,${order.orderNumber})|">취소하기</a></td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script>
+        function delBuy(event, orderNumber) {
+            event.preventDefault();
+
+            if (!confirm("취소하시겠습니까?")) return;
+
+            const url = `http://localhost:9080/buy/del/${orderNumber}`;
+
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json'
+                },
+            }).then(res => res.json())
+              .then(data => {
+                  console.log(data);
+                  window.location.reload();
+              })
+              .catch(err => console.log(err));
+        }
+
+        const $tbody = document.querySelector("table tbody");
+
+        $tbody.addEventListener('click', e => {
+            if (e.target.tagName == 'TD') {
+                const memberId = e.target.parentElement.dataset.memberId;
+                location.href = `/mypage/profile/${memberId}`;
+            }
+        });
+    </script>
+</body>
+</html>

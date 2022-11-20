@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/mypage/good.css">
+    <title>GREAT | 좋아요</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="good-container" th:object="${form}">
+            <aside class="aside-content">
+                <ul>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="myReview.html" th:href="@{/mypage/review/{id}(id=${form.memNumber})}">내 리뷰</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="order-history.html" th:href="@{/mypage/{id}(id=${form.memNumber})}">주문내역</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="bookmark.html" th:href="@{/mypage/bookmark/{memNumber}(memNumber=${form.memNumber})}">즐겨찾기</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="good.html" th:href="@{/mypage/good/{memNumber}(memNumber=${form.memNumber})}">좋아요</a>
+                        </h3>
+                    </li>
+                </ul>
+            </aside>
+            <article class="main-content">
+                <div class="main-head">
+                    <div class="main-title">
+                        <i class="bar"></i>
+                        <h2>좋아요</h2>
+                    </div>
+                </div>
+                <section class="items content" th:object="${goods}">
+                    <div class="item" th:each="good:${list}" th:data-good-id="${good.goodNumber}">
+                        <a th:href="@{/product/{pNumber}(pNumber=${good.product.pNumber})}" class = "item__image">
+                            <div class="product-img">
+                                <th:block th:if="${good.imageFiles}">
+                                    <th:block th:each="imageFile : ${good.imageFiles[0]}">
+                                        <img class="good_Img" th:src="@{/api/attach/img/{attachCode}/{storeFilename}(attachCode=${imageFile.code},storeFilename=${imageFile.storeFilename})}"
+                                             alt="이미지를 불러올 수 없습니다.">
+                                    </th:block>
+                                </th:block>
+                                <th:block th:if="!(${good.imageFiles})">
+                                    <img src="/img/product/등록된 사진이 없습니다.png" alt="">
+                                </th:block>
+                            </div>
+                        </a>
+                        <div class = "item__title" th:text="${good.product.pName}">딸기 케이크</div>
+                        <div class="item__price-box">
+                            <div class = "item__discount-rate" th:text="${good.product.discountRate}+'%'">33%</div>
+                            <div class = "item__price" th:text="${good.product.salePrice}+'원'">15,000원</div>
+                        </div>
+                        <div class="item__time-box">
+                            <div class = "item__magam">마감시간</div>
+                            <div class = "item__time" th:text="${#strings.substring(good.product.deadlineTime,0,16)}">06:00 P.M.</div>
+                        </div>
+                        <i class="heartIcon far fa-heart fas"></i>
+                    </div>
+                </section>
+            </article>
+        </main>
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script>
+    const icons = document.querySelectorAll('.heartIcon');
+    const $heart = document.querySelectorAll('.item');
+
+    icons.forEach((item, idx) => {
+        icons[idx].addEventListener('click', e => {
+            icons[idx].classList.toggle('fas');
+
+            let id = e.target.parentElement.dataset.goodId;
+            let goodNumber = parseInt(id);
+
+            goodDelInMyPage(goodNumber);
+
+            window.location.reload();
+        })
+    });
+
+    window.addEventListener('load', () => {
+    icons.forEach((item, idx) => {
+            if (icons[idx].className !== 'heartIcon far fa-heart fas') {
+                $heart[idx].remove();
+            }
+        })
+    });
+
+    function goodDelInMyPage(goodNumber) {
+        const url = `http://localhost:9080/mypage/mygood/del/${goodNumber}`;
+        fetch(url, {
+            method:'DELETE',
+            headers: {
+                'Accept': 'application/json'
+            },
+        }).then(res => res.json())
+          .then(data => console.log(data))
+          .catch(err => console.log(err));
+    }
+    </script>
+</body>
+</html>

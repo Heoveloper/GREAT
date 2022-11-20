@@ -56,7 +56,7 @@ public class MyPageController {
         model.addAttribute("list", list);
         model.addAttribute("form", memberForm);
 
-        return "mypage/order-history";
+        return "mypage/orderHistory";
     }
 
     //리뷰 등록 화면

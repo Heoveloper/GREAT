@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{layout/common_ui::common_Head}"></th:block>
+    <link rel="stylesheet" href="/css/mypage/myReview.css">
+    <title>GREAT | 내 리뷰</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- header -->
+        <header th:replace="~{layout/common_ui::choose_header}"></header>
+        <!-- //header -->
+
+        <!-- main -->
+        <main class="review-container" th:object="${form}">
+            <aside class="aside-content">
+                <ul>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="myReview.html" th:href="@{/mypage/review/{id}(id=${form.memNumber})}">내 리뷰</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="order-history.html" th:href="@{/mypage/{id}(id=${form.memNumber})}">주문내역</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="bookmark.html" th:href="@{/mypage/bookmark/{memNumber}(memNumber=${form.memNumber})}">즐겨찾기</a>
+                        </h3>
+                    </li>
+                    <li class="aside-content-menu">
+                        <h3>
+                            <a href="good.html" th:href="@{/mypage/good/{memNumber}(memNumber=${form.memNumber})}">좋아요</a>
+                        </h3>
+                    </li>
+                </ul>
+            </aside>
+            <form class="main-content" >
+                <div class="main-head">
+                    <div class="main-title">
+                        <i class="bar"></i>
+                        <h2>내 리뷰</h2>
+                    </div>
+                </div>
+                <ul class="review-content">
+                    <li class="review"th:each="review:${list}" >
+                        <div>
+                            <a th:href="@{/mypage/profile/{memNumber}(memNumber=${review.member.memNumber})}"><div><span>가게명: </span><span th:text="${review.member.memStoreName}"></span></div></a>
+                            <span>리뷰 내용: </span><span th:text="${review.content}"></span>
+                            <th:block th:switch="${review.grade}">
+                                <div>
+                                    <span>평점: </span>
+                                    <span th:case="1" th:text="|★|"></span>
+                                    <span th:case="2" th:text="|★★|"></span>
+                                    <span th:case="3" th:text="|★★★|"></span>
+                                    <span th:case="4" th:text="|★★★★|"></span>
+                                    <span th:case="5" th:text="|★★★★★|"></span>
+                                </div>
+                            </th:block>
+                            <div>
+                                <span>작성일: </span>
+                                <span th:text="${#strings.substring(review.writeDate, 0, 4)}+년+
+                                                ${#strings.substring(review.writeDate, 5, 7)}+월+
+                                                ${#strings.substring(review.writeDate, 8, 10)}+일+
+                                                ${#strings.substring(review.writeDate, 11, 13)}+시+
+                                                ${#strings.substring(review.writeDate, 13, 16)}+분">
+                                </span>
+                            </div>
+                            <a href="#" class="updateReview" th:href="@{/mypage/review/edit/{id}(id=${review.reviewNumber})}" >리뷰 수정하기</a>
+                            <a href="#" class="delReview" th:onclick="|delReview(event,${review.reviewNumber})|">리뷰 삭제하기</a>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </main >
+        <!-- //main -->
+
+        <!-- footer -->
+        <footer th:replace="~{layout/common_ui::footer}"></footer>
+        <!-- //footer -->
+    </div>
+
+    <script>
+        function delReview(event, reviewNumber) {
+            event.preventDefault();
+
+            if (!confirm("삭제하시겠습니까?")) return;
+
+            const url = `http://localhost:9080/mypage/review/del/${reviewNumber}`;
+            fetch (url, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json'
+                },
+            }).then(res => res.json())
+              .then(data => {
+                  console.log(data);
+                  window.location.reload();
+              })
+              .catch(err=>console.log(err));
+        }
+    </script>
+</body>
+</html>
